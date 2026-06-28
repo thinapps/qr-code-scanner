@@ -1,6 +1,7 @@
 package top.thinapps.qrcodescanner
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -12,6 +13,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.HapticFeedbackConstants
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
@@ -124,10 +127,35 @@ class MainActivity : ComponentActivity() {
 
     private fun setupControls() {
         binding.btnPermission.setOnClickListener { requestCameraPermission() }
-        binding.btnTorch.setOnClickListener { toggleTorch() }
+        setupTorchControl()
         binding.btnCopy.setOnClickListener { copyResult() }
         binding.btnOpen.setOnClickListener { openResult() }
         binding.btnShare.setOnClickListener { shareResult() }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupTorchControl() {
+        binding.btnTorch.setOnClickListener { toggleTorchWithFeedback() }
+        binding.btnTorch.setOnTouchListener { view, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    if (view.visibility != View.VISIBLE || !view.isEnabled) {
+                        return@setOnTouchListener false
+                    }
+                    view.isPressed = true
+                    toggleTorchWithFeedback()
+                    true
+                }
+
+                MotionEvent.ACTION_UP,
+                MotionEvent.ACTION_CANCEL -> {
+                    view.isPressed = false
+                    true
+                }
+
+                else -> true
+            }
+        }
     }
 
     private fun requestCameraPermission() {
@@ -239,6 +267,7 @@ class MainActivity : ComponentActivity() {
         binding.btnTorch.visibility = if (hasTorch) View.VISIBLE else View.GONE
 
         if (!hasTorch) {
+            binding.btnTorch.isPressed = false
             return
         }
 
@@ -259,16 +288,23 @@ class MainActivity : ComponentActivity() {
         binding.btnTorch.iconTint = ColorStateList.valueOf(iconColor)
     }
 
-    private fun toggleTorch() {
-        val currentCamera = camera ?: return
+    private fun toggleTorchWithFeedback() {
+        if (toggleTorch()) {
+            binding.btnTorch.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+    }
+
+    private fun toggleTorch(): Boolean {
+        val currentCamera = camera ?: return false
         if (!currentCamera.cameraInfo.hasFlashUnit()) {
             syncTorchButton()
-            return
+            return false
         }
 
         torchEnabled = !torchEnabled
-        currentCamera.cameraControl.enableTorch(torchEnabled)
         syncTorchButton()
+        currentCamera.cameraControl.enableTorch(torchEnabled)
+        return true
     }
 
     private fun copyResult() {
