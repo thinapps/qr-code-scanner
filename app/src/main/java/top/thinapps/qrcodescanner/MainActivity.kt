@@ -12,6 +12,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
@@ -57,6 +58,10 @@ class MainActivity : ComponentActivity() {
     private var processingFrame = false
     private var torchEnabled = false
     private var lastScannedValue: String? = null
+    private var candidateScanValue: String? = null
+    private var candidateScanHits = 0
+    private var lastAcceptedScanValue: String? = null
+    private var lastAcceptedScanAtMs = 0L
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -219,8 +224,8 @@ class MainActivity : ComponentActivity() {
         scanner.process(image)
             .addOnSuccessListener { barcodes ->
                 val value = barcodes.firstNotNullOfOrNull { it.rawValue }?.trim().orEmpty()
-                if (value.isNotEmpty() && value != lastScannedValue) {
-                    runOnUiThread { showResult(value) }
+                if (value.isNotEmpty()) {
+                    runOnUiThread { maybeAcceptScanResult(value) }
                 }
             }
             .addOnFailureListener { error ->
@@ -230,6 +235,28 @@ class MainActivity : ComponentActivity() {
                 processingFrame = false
                 imageProxy.close()
             }
+    }
+
+    private fun maybeAcceptScanResult(value: String) {
+        val now = SystemClock.elapsedRealtime()
+
+        if (value == candidateScanValue) {
+            candidateScanHits += 1
+        } else {
+            candidateScanValue = value
+            candidateScanHits = 1
+        }
+
+        if (candidateScanHits < REQUIRED_SCAN_HITS) return
+        if (now - lastAcceptedScanAtMs < RESULT_COOLDOWN_MS) return
+        if (value == lastAcceptedScanValue && now - lastAcceptedScanAtMs < SAME_RESULT_IGNORE_MS) {
+            lastAcceptedScanAtMs = now
+            return
+        }
+
+        lastAcceptedScanValue = value
+        lastAcceptedScanAtMs = now
+        showResult(value)
     }
 
     private fun showResult(value: String) {
@@ -339,6 +366,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private companion object {
+        const val REQUIRED_SCAN_HITS = 2
+        const val RESULT_COOLDOWN_MS = 1000L
+        const val SAME_RESULT_IGNORE_MS = 6000L
         const val TAG = "QrCodeScanner"
     }
 }
