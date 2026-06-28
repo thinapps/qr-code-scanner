@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">QR Scanner</string>
     <string name="home_title">QR Code Scanner</string>
+    <string name="home_footer_message">All scanning effects happen locally on your device, with no internet connection required. This app is entirely open source, and the code is available for inspection on GitHub.</string>
     <string name="camera_permission_message">Camera permission is required to scan QR codes. Scanning happens locally on your device.</string>
     <string name="camera_permission_button">Allow Camera Permission</string>
     <string name="scan_status_ready">Point your camera at a QR code.</string>
