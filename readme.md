@@ -31,6 +31,7 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 - centered the local-only footer message below the scanner result card
 - added haptic feedback when a QR code is captured
 - added haptic feedback to result action buttons
+- lightened the scanner result card and stroke for better result contrast
 
 ### 0.3.0
 - added a scanner result gate that requires repeated detections before accepting a QR value
