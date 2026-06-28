@@ -25,6 +25,11 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 
 ## Changelog
 
+### 0.2.2
+- made the flashlight toggle respond on touch-down instead of waiting for click release
+- added haptic feedback for flashlight toggles
+- added an explicit ripple color for the flashlight icon button
+
 ### 0.2.1
 - moved the flashlight toggle to a top-right scanner overlay
 - replaced the wide flashlight button with a white flash icon on a circular dark background
