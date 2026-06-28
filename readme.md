@@ -25,6 +25,10 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 
 ## Changelog
 
+### 0.2.3
+- removed the status bar top inset from the bottom scanner panel
+- kept the bottom navigation inset so the panel stays clear of system controls
+
 ### 0.2.2
 - made the flashlight toggle respond on touch-down instead of waiting for click release
 - added haptic feedback for flashlight toggles
