@@ -17,12 +17,17 @@ This repo currently contains the starter app framework only:
 - Camera permission flow
 - CameraX preview and frame analysis
 - ML Kit QR code detection
+- scanner flashlight toggle when the active camera supports flash
 - local result preview with copy, open, and share actions
 - manual GitHub Actions release workflow for signed AAB builds
 
 No history, ads, accounts, analytics, networking, or database layer has been added.
 
 ## Changelog
+
+### 0.1.1
+- added a scanner flashlight toggle
+- shows the flashlight control only when the active camera supports flash
 
 ### 0.1.0
 - initialized the Android project framework
