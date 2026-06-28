@@ -129,9 +129,18 @@ class MainActivity : ComponentActivity() {
     private fun setupControls() {
         binding.btnPermission.setOnClickListener { requestCameraPermission() }
         setupTorchControl()
-        binding.btnCopy.setOnClickListener { copyResult() }
-        binding.btnOpen.setOnClickListener { openResult() }
-        binding.btnShare.setOnClickListener { shareResult() }
+        binding.btnCopy.setOnClickListener { view ->
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            copyResult()
+        }
+        binding.btnOpen.setOnClickListener { view ->
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            openResult()
+        }
+        binding.btnShare.setOnClickListener { view ->
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            shareResult()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
