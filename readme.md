@@ -2,6 +2,12 @@
 
 Lightweight Android QR code scanner built with the same basic classic Android/XML approach used by other ThinApps utilities.
 
+## Documentation
+
+| Document | Description |
+| --- | --- |
+| [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
+
 ## Status
 
 This repo currently contains the starter app framework only:
@@ -12,6 +18,7 @@ This repo currently contains the starter app framework only:
 - CameraX preview and frame analysis
 - ML Kit QR code detection
 - local result preview with copy, open, and share actions
+- manual GitHub Actions release workflow for signed AAB builds
 
 No history, ads, accounts, analytics, networking, or database layer has been added.
 
@@ -21,3 +28,5 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 - initialized the Android project framework
 - added a basic single-screen QR scanning flow
 - added local-only result preview actions
+- added release signing config and manual GitHub Actions AAB workflow
+- documented the intentionally small build setup
