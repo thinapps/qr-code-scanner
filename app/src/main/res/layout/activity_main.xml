@@ -164,6 +164,16 @@
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/txtFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/footer_top_margin"
+            android:lineSpacingExtra="@dimen/footer_line_spacing_extra"
+            android:text="@string/home_footer_message"
+            android:textColor="@color/md_text_dim"
+            android:textSize="@dimen/footer_text_size" />
     </LinearLayout>
 
 </FrameLayout>
