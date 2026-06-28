@@ -41,6 +41,16 @@
             android:textColor="@color/md_text_dim"
             android:textSize="@dimen/status_text_size" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTorch"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/button_top_margin"
+            android:text="@string/action_flashlight_off"
+            android:visibility="gone"
+            app:cornerRadius="@dimen/button_corner_radius" />
+
         <LinearLayout
             android:id="@+id/layoutPermission"
             android:layout_width="match_parent"
