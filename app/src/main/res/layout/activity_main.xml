@@ -48,6 +48,7 @@
             android:layout_height="@dimen/button_height"
             android:layout_marginTop="@dimen/button_top_margin"
             android:text="@string/action_flashlight_off"
+            android:textAllCaps="false"
             android:textColor="@color/md_text"
             android:visibility="gone"
             app:cornerRadius="@dimen/button_corner_radius"
