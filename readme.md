@@ -7,6 +7,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 | Document | Description |
 | --- | --- |
 | [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
+| [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
 
 ## Status
 
@@ -29,6 +30,7 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 - removed the status bar top inset from the bottom scanner panel
 - kept the bottom navigation inset so the panel stays clear of system controls
 - added a local-only open-source footer message below the scanner result card
+- documented why scanner flashlight control stays inside CameraX
 
 ### 0.2.2
 - made the flashlight toggle respond on touch-down instead of waiting for click release
