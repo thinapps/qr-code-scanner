@@ -17,6 +17,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
@@ -46,7 +47,9 @@ class MainActivity : ComponentActivity() {
         BarcodeScanning.getClient(options)
     }
 
+    private var camera: Camera? = null
     private var processingFrame = false
+    private var torchEnabled = false
     private var lastScannedValue: String? = null
 
     private val permissionLauncher = registerForActivityResult(
@@ -75,6 +78,7 @@ class MainActivity : ComponentActivity() {
         applyWindowInsets()
         setupControls()
         syncActionButtons()
+        syncTorchButton()
 
         if (hasCameraPermission()) {
             startCamera()
@@ -85,6 +89,7 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        camera?.cameraControl?.enableTorch(false)
         scanner.close()
         cameraExecutor.shutdown()
         super.onDestroy()
@@ -109,6 +114,7 @@ class MainActivity : ComponentActivity() {
 
     private fun setupControls() {
         binding.btnPermission.setOnClickListener { requestCameraPermission() }
+        binding.btnTorch.setOnClickListener { toggleTorch() }
         binding.btnCopy.setOnClickListener { copyResult() }
         binding.btnOpen.setOnClickListener { openResult() }
         binding.btnShare.setOnClickListener { shareResult() }
@@ -143,13 +149,18 @@ class MainActivity : ComponentActivity() {
 
             try {
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(
+                camera = cameraProvider.bindToLifecycle(
                     this,
                     CameraSelector.DEFAULT_BACK_CAMERA,
                     preview,
                     analysis
                 )
+                torchEnabled = false
+                syncTorchButton()
             } catch (error: RuntimeException) {
+                camera = null
+                torchEnabled = false
+                syncTorchButton()
                 Log.w(TAG, "Unable to start camera", error)
                 binding.txtStatus.setText(R.string.scan_status_camera_error)
             }
@@ -195,10 +206,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun showPermissionState() {
+        camera = null
+        torchEnabled = false
         binding.previewView.visibility = View.INVISIBLE
         binding.layoutPermission.visibility = View.VISIBLE
         binding.txtStatus.setText(R.string.scan_status_permission_needed)
         syncActionButtons()
+        syncTorchButton()
     }
 
     private fun syncActionButtons() {
@@ -207,6 +221,29 @@ class MainActivity : ComponentActivity() {
         binding.btnCopy.isEnabled = hasResult
         binding.btnShare.isEnabled = hasResult
         binding.btnOpen.isEnabled = hasResult && value?.toHttpUri() != null
+    }
+
+    private fun syncTorchButton() {
+        val currentCamera = camera
+        val hasTorch = currentCamera?.cameraInfo?.hasFlashUnit() == true
+        binding.btnTorch.visibility = if (hasTorch) View.VISIBLE else View.GONE
+        binding.btnTorch.text = if (torchEnabled) {
+            getString(R.string.action_flashlight_on)
+        } else {
+            getString(R.string.action_flashlight_off)
+        }
+    }
+
+    private fun toggleTorch() {
+        val currentCamera = camera ?: return
+        if (!currentCamera.cameraInfo.hasFlashUnit()) {
+            syncTorchButton()
+            return
+        }
+
+        torchEnabled = !torchEnabled
+        currentCamera.cameraControl.enableTorch(torchEnabled)
+        syncTorchButton()
     }
 
     private fun copyResult() {
