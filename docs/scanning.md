@@ -14,6 +14,14 @@ To avoid duplicate result spam, detected QR values pass through a small result g
 
 This keeps scanning live while avoiding noisy repeated updates from the same QR code or quick flicker between detections.
 
+## Why there is no Scan Again flow yet
+
+A stricter result flow would pause or lock scanning after the first accepted QR code, show the result, and require the user to tap a Scan Again button before another QR value could be accepted.
+
+That flow can make sense later if the app should feel more like a deliberate capture tool. For now, the app stays closer to a lightweight live scanner: it keeps the camera active, filters duplicate noise, and still lets a different QR code replace the current result after a short cooldown.
+
+This avoids adding another button and another scanner state before testing proves the extra step is useful. The current result gate solves the immediate spam problem without making normal scanning slower or more complicated.
+
 ## Current constants
 
 The current gate uses these values in `MainActivity.kt`:
