@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">QR Scanner</string>
+    <string name="home_title">QR Code Scanner</string>
+    <string name="camera_permission_message">Camera permission is required to scan QR codes. Scanning happens locally on your device.</string>
+    <string name="camera_permission_button">Allow Camera Permission</string>
+    <string name="scan_status_ready">Point your camera at a QR code.</string>
+    <string name="scan_status_found">QR code found. Preview the result before opening it.</string>
+    <string name="scan_status_permission_needed">Camera permission is needed before scanning can start.</string>
+    <string name="scan_status_camera_error">Camera could not start on this device.</string>
+    <string name="scan_result_label">Scanned Result</string>
+    <string name="scan_result_empty">No QR code scanned yet.</string>
+    <string name="scan_result_copied">Copied</string>
+    <string name="scan_result_open_failed">No app found to open this link.</string>
+    <string name="scan_result_share_title">Share QR result</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_open">Open</string>
+    <string name="action_share">Share</string>
+</resources>

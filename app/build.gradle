@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    namespace "top.thinapps.qrcodescanner"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "top.thinapps.qrcodescanner"
+
+        // supported and target api levels
+        minSdk 24
+        targetSdk 35
+
+        // bump before each release
+        versionCode 1
+        versionName "0.1.0"
+    }
+
+    buildTypes {
+        release {
+            // keep r8 off until shrinking is necessary
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    buildFeatures {
+        // generate binding classes for xml layouts
+        viewBinding true
+    }
+
+    compileOptions {
+        // keep java and kotlin bytecode targets aligned
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    // kotlin runtime
+    implementation platform("org.jetbrains.kotlin:kotlin-bom:1.9.24")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    // androidx app support
+    implementation "androidx.core:core-ktx:1.15.0"
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "androidx.activity:activity-ktx:1.9.3"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.6"
+
+    // material ui controls
+    implementation "com.google.android.material:material:1.13.0"
+
+    // camera preview and frame analysis
+    implementation "androidx.camera:camera-core:1.4.1"
+    implementation "androidx.camera:camera-camera2:1.4.1"
+    implementation "androidx.camera:camera-lifecycle:1.4.1"
+    implementation "androidx.camera:camera-view:1.4.1"
+
+    // on-device qr code scanning
+    implementation "com.google.mlkit:barcode-scanning:17.3.0"
+}
