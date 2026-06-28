@@ -7,6 +7,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 | Document | Description |
 | --- | --- |
 | [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
+| [Scanning](docs/scanning.md) | Explains how live scanning stays active while duplicate result spam is filtered. |
 | [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
 
 ## Status
@@ -25,6 +26,12 @@ This repo currently contains the starter app framework only:
 No history, ads, accounts, analytics, networking, or database layer has been added.
 
 ## Changelog
+
+### 0.3.0
+- added a scanner result gate that requires repeated detections before accepting a QR value
+- added a short cooldown before one accepted result can replace another
+- suppresses repeated updates for the same QR code while it remains in view
+- documented scanner result handling
 
 ### 0.2.3
 - removed the status bar top inset from the bottom scanner panel
