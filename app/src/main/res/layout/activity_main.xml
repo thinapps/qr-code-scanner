@@ -48,8 +48,11 @@
             android:layout_height="@dimen/button_height"
             android:layout_marginTop="@dimen/button_top_margin"
             android:text="@string/action_flashlight_off"
+            android:textColor="@color/md_text"
             android:visibility="gone"
-            app:cornerRadius="@dimen/button_corner_radius" />
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:strokeColor="@color/md_accent"
+            app:strokeWidth="1dp" />
 
         <LinearLayout
             android:id="@+id/layoutPermission"
@@ -71,6 +74,8 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginTop="@dimen/button_top_margin"
                 android:text="@string/camera_permission_button"
+                android:textColor="@color/md_bg"
+                app:backgroundTint="@color/md_accent"
                 app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
 
@@ -124,6 +129,8 @@
                         android:layout_height="@dimen/button_height"
                         android:layout_weight="1"
                         android:text="@string/action_copy"
+                        android:textColor="@color/md_bg"
+                        app:backgroundTint="@color/md_accent"
                         app:cornerRadius="@dimen/button_corner_radius" />
 
                     <com.google.android.material.button.MaterialButton
@@ -133,6 +140,8 @@
                         android:layout_marginStart="@dimen/action_button_gap"
                         android:layout_weight="1"
                         android:text="@string/action_open"
+                        android:textColor="@color/md_bg"
+                        app:backgroundTint="@color/md_accent"
                         app:cornerRadius="@dimen/button_corner_radius" />
 
                     <com.google.android.material.button.MaterialButton
@@ -142,6 +151,8 @@
                         android:layout_marginStart="@dimen/action_button_gap"
                         android:layout_weight="1"
                         android:text="@string/action_share"
+                        android:textColor="@color/md_bg"
+                        app:backgroundTint="@color/md_accent"
                         app:cornerRadius="@dimen/button_corner_radius" />
                 </LinearLayout>
             </LinearLayout>
