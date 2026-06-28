@@ -6,6 +6,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -227,10 +228,25 @@ class MainActivity : ComponentActivity() {
         val currentCamera = camera
         val hasTorch = currentCamera?.cameraInfo?.hasFlashUnit() == true
         binding.btnTorch.visibility = if (hasTorch) View.VISIBLE else View.GONE
-        binding.btnTorch.text = if (torchEnabled) {
-            getString(R.string.action_flashlight_on)
+
+        if (!hasTorch) {
+            return
+        }
+
+        val accent = ContextCompat.getColor(this, R.color.md_accent)
+        val background = ContextCompat.getColor(this, R.color.md_bg)
+        val text = ContextCompat.getColor(this, R.color.md_text)
+
+        binding.btnTorch.strokeColor = ColorStateList.valueOf(accent)
+
+        if (torchEnabled) {
+            binding.btnTorch.text = getString(R.string.action_flashlight_on)
+            binding.btnTorch.backgroundTintList = ColorStateList.valueOf(accent)
+            binding.btnTorch.setTextColor(background)
         } else {
-            getString(R.string.action_flashlight_off)
+            binding.btnTorch.text = getString(R.string.action_flashlight_off)
+            binding.btnTorch.backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
+            binding.btnTorch.setTextColor(text)
         }
     }
 
