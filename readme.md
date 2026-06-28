@@ -29,6 +29,8 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 - made the flashlight toggle respond on touch-down instead of waiting for click release
 - added haptic feedback for flashlight toggles
 - added an explicit ripple color for the flashlight icon button
+- matched the flashlight overlay alpha to the Screen Light back button pattern
+- tightened scanner horizontal gutters to 20dp
 
 ### 0.2.1
 - moved the flashlight toggle to a top-right scanner overlay
