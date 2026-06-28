@@ -27,6 +27,9 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 
 ## Changelog
 
+### 0.3.1
+- centered the local-only footer message below the scanner result card
+
 ### 0.3.0
 - added a scanner result gate that requires repeated detections before accepting a QR value
 - added a short cooldown before one accepted result can replace another
