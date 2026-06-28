@@ -263,6 +263,7 @@ class MainActivity : ComponentActivity() {
         lastScannedValue = value
         binding.txtStatus.setText(R.string.scan_status_found)
         binding.txtResult.text = value
+        binding.previewView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         syncActionButtons()
     }
 
