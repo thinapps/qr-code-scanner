@@ -25,7 +25,7 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 
 ## Changelog
 
-### 0.1.1
+### 0.2.0
 - added a scanner flashlight toggle
 - shows the flashlight control only when the active camera supports flash
 - tightened basic XML styling for the scanner screen and buttons
