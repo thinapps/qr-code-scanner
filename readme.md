@@ -28,6 +28,7 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 ### 0.1.1
 - added a scanner flashlight toggle
 - shows the flashlight control only when the active camera supports flash
+- tightened basic XML styling for the scanner screen and buttons
 
 ### 0.1.0
 - initialized the Android project framework
