@@ -36,7 +36,8 @@
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="24dp"
-        app:iconTint="@color/md_text" />
+        app:iconTint="@color/md_text"
+        app:rippleColor="@color/torch_button_ripple" />
 
     <LinearLayout
         android:id="@+id/layoutContent"
