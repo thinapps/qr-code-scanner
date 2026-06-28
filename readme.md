@@ -32,6 +32,7 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 - added a short cooldown before one accepted result can replace another
 - suppresses repeated updates for the same QR code while it remains in view
 - documented scanner result handling
+- documented why a Scan Again flow is deferred for now
 
 ### 0.2.3
 - removed the status bar top inset from the bottom scanner panel
