@@ -102,7 +102,6 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun applyWindowInsets() {
-        val baseTop = binding.layoutContent.paddingTop
         val baseBottom = binding.layoutContent.paddingBottom
         val torchLayoutParams = binding.btnTorch.layoutParams as FrameLayout.LayoutParams
         val baseTorchTopMargin = torchLayoutParams.topMargin
@@ -112,10 +111,7 @@ class MainActivity : ComponentActivity() {
             val bars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
             )
-            binding.layoutContent.updatePadding(
-                top = baseTop + bars.top,
-                bottom = baseBottom + bars.bottom
-            )
+            binding.layoutContent.updatePadding(bottom = baseBottom + bars.bottom)
             binding.btnTorch.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = baseTorchTopMargin + bars.top
                 marginEnd = baseTorchEndMargin + bars.right
