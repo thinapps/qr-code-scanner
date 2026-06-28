@@ -170,6 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/footer_top_margin"
+            android:gravity="center"
             android:lineSpacingExtra="@dimen/footer_line_spacing_extra"
             android:text="@string/home_footer_message"
             android:textColor="@color/md_text_dim"
