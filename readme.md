@@ -31,6 +31,7 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 - added an explicit ripple color for the flashlight icon button
 - matched the flashlight overlay alpha to the Screen Light back button pattern
 - tightened scanner horizontal gutters to 20dp
+- made the bottom scanner panel flush with the screen edges while keeping 20dp inner padding
 
 ### 0.2.1
 - moved the flashlight toggle to a top-right scanner overlay
