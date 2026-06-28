@@ -19,7 +19,7 @@
         android:layout_height="@dimen/torch_button_size"
         android:layout_gravity="top|end"
         android:layout_marginTop="@dimen/torch_button_margin"
-        android:layout_marginEnd="@dimen/torch_button_margin"
+        android:layout_marginEnd="@dimen/torch_button_margin_end"
         android:backgroundTint="@color/torch_button_bg"
         android:contentDescription="@string/action_flashlight_on"
         android:insetLeft="0dp"
