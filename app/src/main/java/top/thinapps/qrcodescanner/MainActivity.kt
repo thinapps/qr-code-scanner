@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -28,6 +29,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -99,6 +101,9 @@ class MainActivity : ComponentActivity() {
     private fun applyWindowInsets() {
         val baseTop = binding.layoutContent.paddingTop
         val baseBottom = binding.layoutContent.paddingBottom
+        val torchLayoutParams = binding.btnTorch.layoutParams as FrameLayout.LayoutParams
+        val baseTorchTopMargin = torchLayoutParams.topMargin
+        val baseTorchEndMargin = torchLayoutParams.marginEnd
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val bars = insets.getInsets(
@@ -108,6 +113,10 @@ class MainActivity : ComponentActivity() {
                 top = baseTop + bars.top,
                 bottom = baseBottom + bars.bottom
             )
+            binding.btnTorch.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = baseTorchTopMargin + bars.top
+                marginEnd = baseTorchEndMargin + bars.right
+            }
             insets
         }
         ViewCompat.requestApplyInsets(binding.root)
@@ -233,21 +242,21 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        val accent = ContextCompat.getColor(this, R.color.md_accent)
-        val background = ContextCompat.getColor(this, R.color.md_bg)
-        val text = ContextCompat.getColor(this, R.color.md_text)
-
-        binding.btnTorch.strokeColor = ColorStateList.valueOf(accent)
-
-        if (torchEnabled) {
-            binding.btnTorch.text = getString(R.string.action_flashlight_on)
-            binding.btnTorch.backgroundTintList = ColorStateList.valueOf(accent)
-            binding.btnTorch.setTextColor(background)
+        val iconColor = ContextCompat.getColor(this, R.color.md_text)
+        val buttonColor = ContextCompat.getColor(
+            this,
+            if (torchEnabled) R.color.torch_button_bg_on else R.color.torch_button_bg
+        )
+        val description = if (torchEnabled) {
+            getString(R.string.action_flashlight_off)
         } else {
-            binding.btnTorch.text = getString(R.string.action_flashlight_off)
-            binding.btnTorch.backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
-            binding.btnTorch.setTextColor(text)
+            getString(R.string.action_flashlight_on)
         }
+
+        binding.btnTorch.isSelected = torchEnabled
+        binding.btnTorch.contentDescription = description
+        binding.btnTorch.backgroundTintList = ColorStateList.valueOf(buttonColor)
+        binding.btnTorch.iconTint = ColorStateList.valueOf(iconColor)
     }
 
     private fun toggleTorch() {
