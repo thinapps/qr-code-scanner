@@ -11,21 +11,6 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 | [Scanning](docs/scanning.md) | Explains how live scanning stays active while duplicate result spam is filtered. |
 | [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
 
-## Status
-
-This repo currently contains the starter app framework only:
-
-- single Kotlin activity
-- XML layout with view binding
-- Camera permission flow
-- CameraX preview and frame analysis
-- ML Kit QR code detection
-- top-right scanner flashlight toggle when the active camera supports flash
-- local result preview with copy, open, and share actions
-- manual GitHub Actions release workflow for signed AAB builds
-
-No history, ads, accounts, analytics, networking, or database layer has been added.
-
 ## Changelog
 
 ### 0.3.2
