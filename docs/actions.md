@@ -29,3 +29,11 @@ Current host checks include:
 - final label has at least two letters or uses a punycode-style `xn--` prefix
 
 Values with spaces, email-style `@` characters, or unsupported schemes are not treated as openable web links.
+
+## Result labels
+
+The app does not currently label scanned results as Website, Text, Email, Phone, or other content types.
+
+For now, labels would mostly repeat the existing action state: values accepted by `Open` would be web links, and everything else would behave like plain text. Adding labels at this stage would add visual clutter without making the app much safer or clearer.
+
+Result labels can be reconsidered later if the app adds dedicated actions for more content types, such as email, phone, SMS, Wi-Fi, contacts, calendar events, or locations.
