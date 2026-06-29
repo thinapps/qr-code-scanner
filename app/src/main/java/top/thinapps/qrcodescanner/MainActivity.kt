@@ -338,9 +338,9 @@ class MainActivity : ComponentActivity() {
 
         binding.btnTorch.isSelected = torchEnabled
         binding.btnTorch.contentDescription = description
-        binding.btnTorch.setIconResource(iconResource)
+        binding.btnTorch.setImageResource(iconResource)
         binding.btnTorch.backgroundTintList = ColorStateList.valueOf(buttonColor)
-        binding.btnTorch.iconTint = ColorStateList.valueOf(iconColor)
+        binding.btnTorch.imageTintList = ColorStateList.valueOf(iconColor)
     }
 
     private fun syncTorchState(currentCamera: Camera?) {
