@@ -12,6 +12,8 @@ Android documents `CameraManager.setTorchMode(...)` as a way to control torch mo
 - The flashlight button is shown only when the active CameraX camera reports a flash unit.
 - Tapping the flashlight button calls CameraX `enableTorch(...)` on that active camera.
 - The button updates immediately so the interface feels responsive while CameraX applies the torch request.
+- The app observes CameraX torch state and syncs the button back to the real camera state.
+- If CameraX rejects a torch request, the app logs the failure and syncs the button back to the current torch state.
 
 ## Why not copy Bright Flashlight exactly?
 
@@ -21,7 +23,7 @@ QR Code Scanner is different: the camera is already bound for scanning. Mixing a
 
 ## Future improvements
 
-The next safe improvement is to observe CameraX torch state and handle the result of `enableTorch(...)` instead of relying only on the local optimistic state. That would not guarantee the physical LED turns on faster, but it would keep the UI synchronized with the real camera state and make failures easier to handle.
+If users report that scanner flashlight behavior still feels slow or inconsistent on specific devices, revisit the interaction after testing. The default should remain CameraX-first unless there is a clear reason to risk a lower-level torch path.
 
 Relevant Android docs:
 
