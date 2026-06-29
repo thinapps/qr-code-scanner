@@ -374,7 +374,11 @@ class MainActivity : ComponentActivity() {
         ) {
             val uri = Uri.parse(normalized)
             val scheme = uri.scheme?.lowercase(Locale.ROOT)
-            return if ((scheme == "https" || scheme == "http") && !uri.host.isNullOrBlank()) {
+            return if (
+                (scheme == "https" || scheme == "http") &&
+                uri.userInfo.isNullOrBlank() &&
+                !uri.host.isNullOrBlank()
+            ) {
                 uri
             } else {
                 null
