@@ -91,6 +91,7 @@ class MainActivity : ComponentActivity() {
         setupControls()
         syncActionButtons()
         syncTorchButton()
+        hideStatus()
 
         if (hasCameraPermission()) {
             startCamera()
@@ -184,7 +185,10 @@ class MainActivity : ComponentActivity() {
     private fun startCamera() {
         binding.previewView.visibility = View.VISIBLE
         binding.layoutPermission.visibility = View.GONE
-        binding.txtStatus.setText(R.string.scan_status_ready)
+        hideStatus()
+        if (lastScannedValue.isNullOrBlank()) {
+            binding.txtResult.setText(R.string.scan_result_empty)
+        }
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
@@ -217,7 +221,7 @@ class MainActivity : ComponentActivity() {
                 torchEnabled = false
                 syncTorchButton()
                 Log.w(TAG, "Unable to start camera", error)
-                binding.txtStatus.setText(R.string.scan_status_camera_error)
+                showStatus(R.string.scan_status_camera_error)
             }
         }, ContextCompat.getMainExecutor(this))
     }
@@ -277,7 +281,7 @@ class MainActivity : ComponentActivity() {
 
     private fun showResult(value: String) {
         lastScannedValue = value
-        binding.txtStatus.setText(R.string.scan_status_found)
+        hideStatus()
         binding.txtResult.text = value
         binding.previewView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         syncActionButtons()
@@ -289,9 +293,18 @@ class MainActivity : ComponentActivity() {
         torchEnabled = false
         binding.previewView.visibility = View.INVISIBLE
         binding.layoutPermission.visibility = View.VISIBLE
-        binding.txtStatus.setText(R.string.scan_status_permission_needed)
+        showStatus(R.string.scan_status_permission_needed)
         syncActionButtons()
         syncTorchButton()
+    }
+
+    private fun showStatus(messageResId: Int) {
+        binding.txtStatus.setText(messageResId)
+        binding.txtStatus.visibility = View.VISIBLE
+    }
+
+    private fun hideStatus() {
+        binding.txtStatus.visibility = View.GONE
     }
 
     private fun syncActionButtons() {
