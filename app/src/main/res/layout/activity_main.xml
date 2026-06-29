@@ -12,32 +12,23 @@
         android:visibility="invisible"
         app:scaleType="fillCenter" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnTorch"
-        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="@dimen/torch_button_size"
         android:layout_height="@dimen/torch_button_size"
         android:layout_gravity="top|end"
         android:layout_marginTop="@dimen/torch_button_margin"
         android:layout_marginEnd="@dimen/torch_button_margin_end"
+        android:background="@drawable/torch_button_circle"
         android:backgroundTint="@color/torch_button_bg"
         android:contentDescription="@string/action_flashlight_on"
-        android:insetLeft="0dp"
-        android:insetTop="0dp"
-        android:insetRight="0dp"
-        android:insetBottom="0dp"
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:padding="12dp"
-        android:text=""
-        android:visibility="gone"
-        app:cornerRadius="@dimen/torch_button_radius"
-        app:icon="@drawable/ic_flash"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="24dp"
-        app:iconTint="@color/md_text"
-        app:rippleColor="@color/torch_button_ripple" />
+        android:scaleType="center"
+        android:src="@drawable/ic_flash"
+        android:tint="@color/md_text"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/layoutContent"
