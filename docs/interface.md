@@ -7,7 +7,7 @@ QR Code Scanner uses one main scanner screen with a live camera preview, a botto
 The current text scale is intentionally simple:
 
 - title: `28sp`
-- subtitle/status: `15sp`
+- subtitle/status: `14sp`
 - result label: `12sp`
 - result text: `16sp`
 - footer: `12sp`
