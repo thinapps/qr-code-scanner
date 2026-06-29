@@ -13,6 +13,10 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ## Changelog
 
+### 0.3.3
+- syncs the flashlight button with the real CameraX torch state
+- handles failed torch requests by restoring the button to the current torch state
+
 ### 0.3.2
 - enabled opening web domains without an explicit http or https scheme
 - normalizes schemeless web domains to https links before opening
