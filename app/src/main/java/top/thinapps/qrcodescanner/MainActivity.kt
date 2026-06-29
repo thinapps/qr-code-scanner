@@ -29,6 +29,7 @@ import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
+import androidx.camera.core.TorchState
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -100,6 +101,7 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        camera?.cameraInfo?.torchState?.removeObservers(this)
         camera?.cameraControl?.enableTorch(false)
         scanner.close()
         cameraExecutor.shutdown()
@@ -196,15 +198,20 @@ class MainActivity : ComponentActivity() {
                 .also { it.setAnalyzer(cameraExecutor, ::analyzeImage) }
 
             try {
+                camera?.cameraInfo?.torchState?.removeObservers(this)
                 cameraProvider.unbindAll()
-                camera = cameraProvider.bindToLifecycle(
+                val boundCamera = cameraProvider.bindToLifecycle(
                     this,
                     CameraSelector.DEFAULT_BACK_CAMERA,
                     preview,
                     analysis
                 )
-                torchEnabled = false
-                syncTorchButton()
+                camera = boundCamera
+                boundCamera.cameraInfo.torchState.observe(this) { state ->
+                    torchEnabled = state == TorchState.ON
+                    syncTorchButton()
+                }
+                syncTorchState(boundCamera)
             } catch (error: RuntimeException) {
                 camera = null
                 torchEnabled = false
@@ -277,6 +284,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun showPermissionState() {
+        camera?.cameraInfo?.torchState?.removeObservers(this)
         camera = null
         torchEnabled = false
         binding.previewView.visibility = View.INVISIBLE
@@ -321,6 +329,11 @@ class MainActivity : ComponentActivity() {
         binding.btnTorch.iconTint = ColorStateList.valueOf(iconColor)
     }
 
+    private fun syncTorchState(currentCamera: Camera?) {
+        torchEnabled = currentCamera?.cameraInfo?.torchState?.value == TorchState.ON
+        syncTorchButton()
+    }
+
     private fun toggleTorchWithFeedback() {
         if (toggleTorch()) {
             binding.btnTorch.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -334,9 +347,25 @@ class MainActivity : ComponentActivity() {
             return false
         }
 
-        torchEnabled = !torchEnabled
+        val requestedTorchEnabled = !torchEnabled
+        torchEnabled = requestedTorchEnabled
         syncTorchButton()
-        currentCamera.cameraControl.enableTorch(torchEnabled)
+
+        val torchRequest = currentCamera.cameraControl.enableTorch(requestedTorchEnabled)
+        torchRequest.addListener(
+            {
+                try {
+                    torchRequest.get()
+                } catch (error: Exception) {
+                    if (error is InterruptedException) {
+                        Thread.currentThread().interrupt()
+                    }
+                    Log.w(TAG, "Unable to toggle torch", error)
+                    syncTorchState(currentCamera)
+                }
+            },
+            ContextCompat.getMainExecutor(this)
+        )
         return true
     }
 
