@@ -28,7 +28,9 @@ Current host checks include:
 - only letters, digits, and dashes in host labels
 - final label has at least two letters or uses a punycode-style `xn--` prefix
 
-Values with spaces, email-style `@` characters, or unsupported schemes are not treated as openable web links.
+The app also rejects web links that include URI user-info, such as `https://example.com@other.example`, because those links can visually hide the real destination host.
+
+Values with spaces, schemeless `@` characters, URI user-info, or unsupported schemes are not treated as openable web links.
 
 ## Result labels
 
