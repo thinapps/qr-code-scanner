@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
         setupControls()
         syncActionButtons()
         syncTorchButton()
-        hideStatus()
+        showStatus(R.string.scan_status_ready)
 
         if (hasCameraPermission()) {
             startCamera()
@@ -185,7 +185,7 @@ class MainActivity : ComponentActivity() {
     private fun startCamera() {
         binding.previewView.visibility = View.VISIBLE
         binding.layoutPermission.visibility = View.GONE
-        hideStatus()
+        showStatus(R.string.scan_status_ready)
         if (lastScannedValue.isNullOrBlank()) {
             binding.txtResult.setText(R.string.scan_result_empty)
         }
@@ -281,7 +281,7 @@ class MainActivity : ComponentActivity() {
 
     private fun showResult(value: String) {
         lastScannedValue = value
-        hideStatus()
+        showStatus(R.string.scan_status_found)
         binding.txtResult.text = value
         binding.previewView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         syncActionButtons()
@@ -301,10 +301,6 @@ class MainActivity : ComponentActivity() {
     private fun showStatus(messageResId: Int) {
         binding.txtStatus.setText(messageResId)
         binding.txtStatus.visibility = View.VISIBLE
-    }
-
-    private fun hideStatus() {
-        binding.txtStatus.visibility = View.GONE
     }
 
     private fun syncActionButtons() {
