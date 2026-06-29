@@ -15,6 +15,9 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ## Changelog
 
+### 0.4.2
+- changes the scanner subtitle/status text size from 15sp to 14sp
+
 ### 0.4.1
 - keeps the scanner subtitle visible for normal, permission, and camera states
 - tightens the empty result card so it no longer repeats the scan prompt
