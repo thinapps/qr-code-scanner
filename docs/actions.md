@@ -14,11 +14,11 @@ QR Code Scanner keeps result actions simple and local. The app does not store sc
 
 `Open` is only enabled when the scanned value looks like a web link.
 
-The app accepts normal `http://` and `https://` links. It also accepts likely web domains without a scheme, such as `example.com` or `www.example.com`, and opens them as `https://` links.
+The app accepts normal `http://` and `https://` links when they have a real host and do not include URI user-info. It also accepts likely web domains without a scheme, such as `example.com` or `www.example.com`, and opens them as `https://` links.
 
-The app does not maintain a hardcoded list of valid top-level domains. Instead, it checks the host shape so new or uncommon TLDs can still work without an app update.
+The app does not maintain a hardcoded list of valid top-level domains. That would be brittle because valid public suffixes change and there are many possible TLDs.
 
-Current host checks include:
+For schemeless domains, the app checks the host shape so new or uncommon TLDs can still work without an app update:
 
 - at least one dot in the host
 - valid dot-separated host labels
