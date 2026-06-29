@@ -16,13 +16,13 @@ The action buttons use the default Material button text sizing.
 
 ## Corner radiuses
 
-The scanner screen uses a mostly squarish radius style:
+The scanner screen uses a moderately rounded radius style:
 
-- result card: `8dp`
+- result card: `12dp`
 - action buttons: `16dp`
 - flashlight overlay button: `24dp`
 
-The result card was kept tighter to match the broader ThinApps preference for less bubbly surfaces. The action buttons remain more rounded so they still read clearly as tappable Material controls. The flashlight overlay stays circular because it is a 48dp icon button.
+The result card stays tighter than the earlier 24dp version, but avoids feeling too square against the dark card and live camera preview. The action buttons remain more rounded so they still read clearly as tappable Material controls. The flashlight overlay stays circular because it is a 48dp icon button.
 
 ## Screen text states
 
