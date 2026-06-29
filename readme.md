@@ -13,6 +13,10 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ## Changelog
 
+### 0.4.1
+- moved the normal scan prompt into the empty result card
+- hides the scanner subtitle during normal scanning while keeping status messages for permission and camera errors
+
 ### 0.4.0
 - syncs the flashlight button with the real CameraX torch state
 - handles failed torch requests by restoring the button to the current torch state
