@@ -65,9 +65,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/status_top_margin"
+            android:text="@string/scan_status_ready"
             android:textColor="@color/md_text_dim"
-            android:textSize="@dimen/status_text_size"
-            android:visibility="gone" />
+            android:textSize="@dimen/status_text_size" />
 
         <LinearLayout
             android:id="@+id/layoutPermission"
