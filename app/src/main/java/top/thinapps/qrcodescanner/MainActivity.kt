@@ -312,11 +312,15 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        val iconColor = ContextCompat.getColor(this, R.color.md_text)
+        val iconColor = ContextCompat.getColor(
+            this,
+            if (torchEnabled) R.color.md_bg else R.color.md_text
+        )
         val buttonColor = ContextCompat.getColor(
             this,
             if (torchEnabled) R.color.torch_button_bg_on else R.color.torch_button_bg
         )
+        val iconResource = if (torchEnabled) R.drawable.ic_flash_filled else R.drawable.ic_flash
         val description = if (torchEnabled) {
             getString(R.string.action_flashlight_off)
         } else {
@@ -325,6 +329,7 @@ class MainActivity : ComponentActivity() {
 
         binding.btnTorch.isSelected = torchEnabled
         binding.btnTorch.contentDescription = description
+        binding.btnTorch.setIconResource(iconResource)
         binding.btnTorch.backgroundTintList = ColorStateList.valueOf(buttonColor)
         binding.btnTorch.iconTint = ColorStateList.valueOf(iconColor)
     }
