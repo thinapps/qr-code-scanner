@@ -4,6 +4,22 @@ QR Code Scanner keeps the camera preview and image analyzer active after a QR co
 
 To avoid duplicate result spam, detected QR values pass through a small result gate before the UI is updated.
 
+## Screen text states
+
+The main scanner screen keeps the large title and a smaller subtitle/status line above the result card.
+
+Before a QR code is found:
+
+- the subtitle/status line says `Point your camera at a QR code.`
+- the result card says `No QR code scanned yet.`
+
+After a QR code is found:
+
+- the subtitle/status line says `Preview the result before opening it.`
+- the result card shows the scanned value
+
+Permission and camera failure messages also use the subtitle/status line. See [Permissions](permissions.md) for those states.
+
 ## Result gate behavior
 
 - A value must be detected more than once before it is accepted.
