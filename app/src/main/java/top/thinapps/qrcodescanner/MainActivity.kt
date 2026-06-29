@@ -291,7 +291,7 @@ class MainActivity : ComponentActivity() {
         val hasResult = !value.isNullOrBlank()
         binding.btnCopy.isEnabled = hasResult
         binding.btnShare.isEnabled = hasResult
-        binding.btnOpen.isEnabled = hasResult && value?.toHttpUri() != null
+        binding.btnOpen.isEnabled = hasResult && value?.toWebUri() != null
     }
 
     private fun syncTorchButton() {
@@ -348,7 +348,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun openResult() {
-        val uri = lastScannedValue?.toHttpUri() ?: return
+        val uri = lastScannedValue?.toWebUri() ?: return
         try {
             startActivity(Intent(Intent.ACTION_VIEW, uri))
         } catch (error: ActivityNotFoundException) {
@@ -365,20 +365,57 @@ class MainActivity : ComponentActivity() {
         startActivity(Intent.createChooser(intent, getString(R.string.scan_result_share_title)))
     }
 
-    private fun String.toHttpUri(): Uri? {
+    private fun String.toWebUri(): Uri? {
         val normalized = trim()
-        val lower = normalized.lowercase(Locale.ROOT)
-        return if (lower.startsWith("https://") || lower.startsWith("http://")) {
-            Uri.parse(normalized)
-        } else {
-            null
+        if (normalized.isBlank() || normalized.any { it.isWhitespace() }) return null
+
+        if (normalized.startsWith("https://", ignoreCase = true) ||
+            normalized.startsWith("http://", ignoreCase = true)
+        ) {
+            val uri = Uri.parse(normalized)
+            val scheme = uri.scheme?.lowercase(Locale.ROOT)
+            return if ((scheme == "https" || scheme == "http") && !uri.host.isNullOrBlank()) {
+                uri
+            } else {
+                null
+            }
         }
+
+        if (normalized.contains("://") || normalized.contains("@")) return null
+
+        val uri = Uri.parse("https://$normalized")
+        val host = uri.host ?: return null
+        return if (host.isLikelyWebHost()) uri else null
+    }
+
+    private fun String.isLikelyWebHost(): Boolean {
+        val host = trim().trimEnd('.').lowercase(Locale.ROOT)
+        if (host.length > MAX_HOST_LENGTH || !host.contains('.')) return false
+
+        val labels = host.split('.')
+        if (labels.size < 2) return false
+        if (!labels.all { it.isValidHostLabel() }) return false
+
+        val topLevelDomain = labels.last()
+        return topLevelDomain.startsWith("xn--") ||
+            (topLevelDomain.length >= MIN_TLD_LENGTH && topLevelDomain.all { it.isLetter() })
+    }
+
+    private fun String.isValidHostLabel(): Boolean {
+        return isNotEmpty() &&
+            length <= MAX_HOST_LABEL_LENGTH &&
+            !startsWith('-') &&
+            !endsWith('-') &&
+            all { it.isLetterOrDigit() || it == '-' }
     }
 
     private companion object {
         const val REQUIRED_SCAN_HITS = 2
         const val RESULT_COOLDOWN_MS = 1000L
         const val SAME_RESULT_IGNORE_MS = 6000L
+        const val MAX_HOST_LENGTH = 253
+        const val MAX_HOST_LABEL_LENGTH = 63
+        const val MIN_TLD_LENGTH = 2
         const val TAG = "QrCodeScanner"
     }
 }
