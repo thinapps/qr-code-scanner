@@ -13,7 +13,7 @@ Android documents `CameraManager.setTorchMode(...)` as a way to control torch mo
 - Tapping the flashlight button calls CameraX `enableTorch(...)` on that active camera.
 - The button updates immediately so the interface feels responsive while CameraX applies the torch request.
 - When the flashlight is off, the button uses a dark translucent background and outline-style flash icon.
-- When the flashlight is on, the button uses an accent background and filled flash icon.
+- When the flashlight is on, the button uses the same accent color as the action buttons and switches to a filled flash icon.
 - The app observes CameraX torch state and syncs the button back to the real camera state.
 - If CameraX rejects a torch request, the app logs the failure and syncs the button back to the current torch state.
 
