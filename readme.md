@@ -27,6 +27,10 @@ No history, ads, accounts, analytics, networking, or database layer has been add
 
 ## Changelog
 
+### 0.3.2
+- enabled opening web domains without an explicit http or https scheme
+- normalizes schemeless web domains to https links before opening
+
 ### 0.3.1
 - centered the local-only footer message below the scanner result card
 - added haptic feedback when a QR code is captured
