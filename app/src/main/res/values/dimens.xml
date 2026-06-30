@@ -1,4 +1,6 @@
 <resources>
+    <dimen name="weighted_child_width">0dp</dimen>
+    <dimen name="view_min_size_none">0dp</dimen>
     <dimen name="app_gutter">20dp</dimen>
     <dimen name="content_padding_top">24dp</dimen>
     <dimen name="content_padding_bottom">20dp</dimen>
@@ -29,5 +31,4 @@
     <dimen name="torch_button_padding">12dp</dimen>
     <dimen name="torch_button_margin">24dp</dimen>
     <dimen name="torch_button_margin_end">20dp</dimen>
-    <dimen name="torch_button_radius">24dp</dimen>
 </resources>
