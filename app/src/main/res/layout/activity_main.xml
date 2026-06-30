@@ -50,7 +50,7 @@
 
             <TextView
                 android:id="@+id/txtTitle"
-                android:layout_width="@dimen/weighted_child_width"
+                android:layout_width="@dimen/weighted_child_size"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/home_title"
@@ -131,7 +131,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="@dimen/weighted_child_width"
+                        android:layout_width="@dimen/weighted_child_size"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:letterSpacing="0.08"
@@ -178,7 +178,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnCopy"
-                        android:layout_width="@dimen/weighted_child_width"
+                        android:layout_width="@dimen/weighted_child_size"
                         android:layout_height="@dimen/button_height"
                         android:layout_weight="1"
                         android:text="@string/action_copy"
@@ -186,7 +186,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnOpen"
-                        android:layout_width="@dimen/weighted_child_width"
+                        android:layout_width="@dimen/weighted_child_size"
                         android:layout_height="@dimen/button_height"
                         android:layout_marginStart="@dimen/action_button_gap"
                         android:layout_weight="1"
@@ -195,7 +195,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnShare"
-                        android:layout_width="@dimen/weighted_child_width"
+                        android:layout_width="@dimen/weighted_child_size"
                         android:layout_height="@dimen/button_height"
                         android:layout_marginStart="@dimen/action_button_gap"
                         android:layout_weight="1"
