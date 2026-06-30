@@ -7,9 +7,9 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 | Document | Description |
 | --- | --- |
 | [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
-| [Actions](docs/actions.md) | Explains copy, share, open, and URL normalization behavior for scanned results. |
+| [Actions](docs/actions.md) | Explains copy, share, open, URL normalization, and history-preview behavior for scanned results. |
 | [Scanning](docs/scanning.md) | Explains how live scanning stays active while duplicate result spam is filtered. |
-| [History](docs/history.md) | Explains local-only scan history, saved fields, and clearing behavior. |
+| [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, and clearing behavior. |
 | [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, icon buttons, and visible screen text states. |
 | [Permissions](docs/permissions.md) | Explains the camera permission, why it is needed, and how permission or camera errors appear in the app. |
 | [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
@@ -17,9 +17,13 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 ## Changelog
 
 ### 0.5.0
-- adds local-only scan history for accepted QR results
-- adds a history screen with tap-to-preview and clear-all actions
-- adds a history icon beside the scanner title
+- adds local-only scan history for accepted QR results using private app preferences
+- saves scanned value, timestamp, and whether the result was openable as a web link
+- keeps the most recent 50 unique scan values and moves repeat scans back to the top instead of duplicating them
+- adds a title-row history icon that stays visible even when history is empty
+- adds a history screen with newest-first results, tap-to-preview behavior, and a Clear All History action
+- keeps the result-card close icon separate from history clearing so it only hides the currently visible result
+- documents scan history storage, preview behavior, and clearing behavior
 
 ### 0.4.3
 - changes the scanner result card radius from 12dp to 16dp
