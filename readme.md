@@ -17,13 +17,10 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 ## Changelog
 
 ### 0.5.0
-- adds local-only scan history for accepted QR results using private app preferences
-- saves scanned value, timestamp, and whether the result was openable as a web link
-- keeps the most recent 50 unique scan values and moves repeat scans back to the top instead of duplicating them
-- adds a title-row history icon that stays visible even when history is empty
-- adds a history screen with newest-first results, tap-to-preview behavior, and a Clear All History action
-- keeps the result-card close icon separate from history clearing so it only hides the currently visible result
-- documents scan history storage, preview behavior, and clearing behavior
+- adds local-only scan history for accepted QR results
+- keeps the most recent 50 unique scan values and moves repeat scans back to the top
+- adds a title-row history icon and a history screen with tap-to-preview behavior
+- adds a Clear All History action while keeping the result-card close icon limited to hiding the current result
 
 ### 0.4.3
 - changes the scanner result card radius from 12dp to 16dp
