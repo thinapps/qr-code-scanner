@@ -10,7 +10,7 @@ The current text scale is intentionally simple:
 - subtitle/status: `14sp`
 - result label: `12sp`
 - result text: `16sp`
-- history item value: `15sp`
+- history item value: `16sp`
 - history item metadata: `12sp`
 - footer: `12sp`
 
@@ -38,6 +38,8 @@ Icon buttons use a consistent accessible sizing pattern where practical:
 The flashlight button keeps a circular background because it floats over the live camera preview. The dark circle gives the icon enough contrast against changing camera content and makes the overlay feel intentionally tappable.
 
 The title-row history icon stays transparent because it sits inside the bottom content panel on a stable app background. A circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
+
+The history screen back icon uses the same transparent 48dp icon button pattern. It sits beside the history title and returns to the scanner screen without changing saved history.
 
 The result-card close icon also stays transparent because it sits inside the result card header. A circle background would add visual weight and compete with the scanned result content. The larger 48dp touch target gives it good usability without making the close action visually loud.
 
