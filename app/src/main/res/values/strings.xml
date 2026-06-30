@@ -22,6 +22,7 @@
     <string name="action_copy">Copy</string>
     <string name="action_open">Open</string>
     <string name="action_share">Share</string>
+    <string name="action_back">Go back</string>
     <string name="action_open_history">Open scan history</string>
     <string name="action_clear_history">Clear All History</string>
     <string name="action_clear_result">Clear scanned result</string>
