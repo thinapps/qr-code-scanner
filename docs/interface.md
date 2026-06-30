@@ -29,13 +29,17 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Icon buttons
 
-The title-row history icon and result-card close icon use the same explicit sizing pattern:
+Icon buttons use a consistent accessible sizing pattern where practical:
 
-- button touch target: `40dp`
+- button touch target: `48dp`
 - icon bounds: `24dp`
-- padding: `8dp`
-- background: transparent
-- tint: dim text color
+- padding: `12dp`
+
+The flashlight button keeps a circular background because it floats over the live camera preview. The dark circle gives the icon enough contrast against changing camera content and makes the overlay feel intentionally tappable.
+
+The title-row history icon stays transparent because it sits inside the bottom content panel on a stable app background. A circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
+
+The result-card close icon also stays transparent because it sits inside the result card header. A circle background would add visual weight and compete with the scanned result content. The larger 48dp touch target gives it good usability without making the close action visually loud.
 
 The history icon opens saved local scan history. The close icon only clears the currently visible result from the main scanner screen.
 
