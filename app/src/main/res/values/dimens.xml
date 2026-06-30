@@ -22,11 +22,11 @@
     <dimen name="result_top_margin">8dp</dimen>
     <dimen name="result_min_height">48dp</dimen>
     <dimen name="result_text_size">16sp</dimen>
-    <dimen name="history_item_top_margin">10dp</dimen>
+    <dimen name="history_item_top_margin">8dp</dimen>
     <dimen name="history_item_padding">16dp</dimen>
-    <dimen name="history_item_value_text_size">15sp</dimen>
+    <dimen name="history_item_value_text_size">16sp</dimen>
     <dimen name="history_item_meta_text_size">12sp</dimen>
-    <dimen name="history_empty_top_margin">28dp</dimen>
+    <dimen name="history_empty_top_margin">24dp</dimen>
     <dimen name="action_row_top_margin">16dp</dimen>
     <dimen name="action_button_gap">8dp</dimen>
     <dimen name="button_height">48dp</dimen>
