@@ -42,7 +42,7 @@
     <ScrollView
         android:id="@+id/scrollHistory"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/weighted_child_width"
+        android:layout_height="@dimen/weighted_child_size"
         android:layout_marginTop="@dimen/card_top_margin"
         android:layout_weight="1"
         android:visibility="gone">
