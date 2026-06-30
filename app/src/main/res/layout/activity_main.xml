@@ -22,8 +22,8 @@
         android:background="@drawable/torch_button_circle"
         android:backgroundTint="@color/torch_button_bg"
         android:contentDescription="@string/action_flashlight_on"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
+        android:minWidth="@dimen/view_min_size_none"
+        android:minHeight="@dimen/view_min_size_none"
         android:padding="@dimen/torch_button_padding"
         android:scaleType="center"
         android:src="@drawable/ic_flash"
@@ -107,7 +107,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/weighted_child_width"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:letterSpacing="0.08"
@@ -126,8 +126,8 @@
                         android:contentDescription="@string/action_clear_result"
                         android:maxWidth="@dimen/result_close_icon_size"
                         android:maxHeight="@dimen/result_close_icon_size"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
+                        android:minWidth="@dimen/view_min_size_none"
+                        android:minHeight="@dimen/view_min_size_none"
                         android:padding="@dimen/result_close_button_padding"
                         android:scaleType="center"
                         android:src="@drawable/ic_close"
@@ -154,7 +154,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnCopy"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/weighted_child_width"
                         android:layout_height="@dimen/button_height"
                         android:layout_weight="1"
                         android:text="@string/action_copy"
@@ -162,7 +162,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnOpen"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/weighted_child_width"
                         android:layout_height="@dimen/button_height"
                         android:layout_marginStart="@dimen/action_button_gap"
                         android:layout_weight="1"
@@ -171,7 +171,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnShare"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/weighted_child_width"
                         android:layout_height="@dimen/button_height"
                         android:layout_marginStart="@dimen/action_button_gap"
                         android:layout_weight="1"
