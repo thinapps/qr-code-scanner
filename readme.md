@@ -15,6 +15,9 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ## Changelog
 
+### 0.4.3
+- changes the scanner result card radius from 12dp to 16dp
+
 ### 0.4.2
 - changes the scanner subtitle/status text size from 15sp to 14sp
 - changes the scanner result card radius from 8dp to 12dp
