@@ -65,6 +65,11 @@ class HistoryActivity : ComponentActivity() {
     }
 
     private fun setupControls() {
+        binding.btnHistoryBack.setOnClickListener { view ->
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            finish()
+        }
+
         binding.btnClearHistory.setOnClickListener { view ->
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             ScanHistoryRepository.clear(this)
