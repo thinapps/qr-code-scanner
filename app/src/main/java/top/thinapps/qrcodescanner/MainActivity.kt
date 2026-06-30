@@ -132,6 +132,10 @@ class MainActivity : ComponentActivity() {
     private fun setupControls() {
         binding.btnPermission.setOnClickListener { requestCameraPermission() }
         setupTorchControl()
+        binding.btnClearResult.setOnClickListener { view ->
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            clearResult()
+        }
         binding.btnCopy.setOnClickListener { view ->
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             copyResult()
@@ -287,6 +291,18 @@ class MainActivity : ComponentActivity() {
         syncActionButtons()
     }
 
+    private fun clearResult() {
+        val value = lastScannedValue
+        if (!value.isNullOrBlank()) {
+            lastAcceptedScanValue = value
+            lastAcceptedScanAtMs = SystemClock.elapsedRealtime()
+        }
+        lastScannedValue = null
+        showStatus(R.string.scan_status_ready)
+        binding.txtResult.setText(R.string.scan_result_empty)
+        syncActionButtons()
+    }
+
     private fun showPermissionState() {
         camera?.cameraInfo?.torchState?.removeObservers(this)
         camera = null
@@ -306,6 +322,7 @@ class MainActivity : ComponentActivity() {
     private fun syncActionButtons() {
         val value = lastScannedValue
         val hasResult = !value.isNullOrBlank()
+        binding.btnClearResult.visibility = if (hasResult) View.VISIBLE else View.GONE
         binding.btnCopy.isEnabled = hasResult
         binding.btnShare.isEnabled = hasResult
         binding.btnOpen.isEnabled = hasResult && value?.toWebUri() != null
