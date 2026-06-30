@@ -16,6 +16,7 @@
     <string name="action_copy">Copy</string>
     <string name="action_open">Open</string>
     <string name="action_share">Share</string>
+    <string name="action_clear_result">Clear scanned result</string>
     <string name="action_flashlight_on">Turn flashlight on</string>
     <string name="action_flashlight_off">Turn flashlight off</string>
 </resources>
