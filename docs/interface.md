@@ -16,13 +16,13 @@ The action buttons use the default Material button text sizing.
 
 ## Corner radiuses
 
-The scanner screen uses a moderately rounded radius style:
+The scanner screen uses a rounded radius style:
 
-- result card: `12dp`
+- result card: `16dp`
 - action buttons: `16dp`
-- flashlight overlay button: `24dp`
+- flashlight overlay button: circular `48dp` icon button
 
-The result card stays tighter than the earlier 24dp version, but avoids feeling too square against the dark card and live camera preview. The action buttons remain more rounded so they still read clearly as tappable Material controls. The flashlight overlay stays circular because it is a 48dp icon button.
+The result card and action buttons now share the same radius so the bottom scanner panel feels more unified. The result card stays softer against the dark card and live camera preview without returning to the earlier 24dp radius. The flashlight overlay stays circular because it is a 48dp icon button.
 
 ## Screen text states
 
