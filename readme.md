@@ -16,6 +16,11 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ## Changelog
 
+### 0.5.1
+- increases the history and result-close icon buttons to 48dp touch targets while keeping 24dp icons
+- keeps the flashlight button circular because it floats over the live camera preview
+- documents why the history and result-close icons stay transparent inside stable content surfaces
+
 ### 0.5.0
 - adds local-only scan history for accepted QR results
 - keeps the most recent 50 unique scan values and moves repeat scans back to the top
