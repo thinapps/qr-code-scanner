@@ -1,5 +1,5 @@
 <resources>
-    <dimen name="weighted_child_width">0dp</dimen>
+    <dimen name="weighted_child_size">0dp</dimen>
     <dimen name="view_min_size_none">0dp</dimen>
     <dimen name="app_gutter">20dp</dimen>
     <dimen name="content_padding_top">24dp</dimen>
