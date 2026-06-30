@@ -6,7 +6,7 @@ To avoid duplicate result spam, detected QR values pass through a small result g
 
 ## Screen text states
 
-The main scanner screen keeps the large title and a smaller subtitle/status line above the result card.
+The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A history icon sits beside the title and opens the local scan history screen.
 
 Before a QR code is found:
 
@@ -23,7 +23,7 @@ Permission and camera failure messages also use the subtitle/status line. See [P
 
 ## Result clearing
 
-The clear icon only clears the currently visible in-memory result. It does not delete saved history because the app does not save scan history.
+The clear icon only clears the currently visible in-memory result. It does not clear saved scan history. See [Scan History](history.md) for the saved local history behavior.
 
 When the result is cleared:
 
@@ -41,6 +41,8 @@ When the result is cleared:
 - A different QR code can still be accepted after the short cooldown.
 
 This keeps scanning live while avoiding noisy repeated updates from the same QR code or quick flicker between detections.
+
+Accepted results are saved into local scan history after passing this gate.
 
 ## Why there is no Scan Again flow yet
 
