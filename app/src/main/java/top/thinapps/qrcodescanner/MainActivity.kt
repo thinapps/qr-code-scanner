@@ -2,6 +2,7 @@ package top.thinapps.qrcodescanner
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -74,6 +75,20 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private val historyLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+
+        val value = result.data
+            ?.getStringExtra(HistoryActivity.EXTRA_SELECTED_VALUE)
+            ?.trim()
+            .orEmpty()
+        if (value.isBlank()) return@registerForActivityResult
+
+        showResult(value, recordHistory = false)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
@@ -132,6 +147,10 @@ class MainActivity : ComponentActivity() {
     private fun setupControls() {
         binding.btnPermission.setOnClickListener { requestCameraPermission() }
         setupTorchControl()
+        binding.btnHistory.setOnClickListener { view ->
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            historyLauncher.launch(Intent(this, HistoryActivity::class.java))
+        }
         binding.btnClearResult.setOnClickListener { view ->
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             clearResult()
@@ -283,11 +302,18 @@ class MainActivity : ComponentActivity() {
         showResult(value)
     }
 
-    private fun showResult(value: String) {
+    private fun showResult(value: String, recordHistory: Boolean = true) {
         lastScannedValue = value
         showStatus(R.string.scan_status_found)
         binding.txtResult.text = value
         binding.previewView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        if (recordHistory) {
+            ScanHistoryRepository.record(
+                this,
+                value,
+                openableWebLink = value.toWebUri() != null
+            )
+        }
         syncActionButtons()
     }
 
