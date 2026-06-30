@@ -18,6 +18,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ### 0.5.1
 - increases the history and result-close icon buttons to 48dp touch targets while keeping 24dp icons
+- aligns result, action, button, and history spacing with the 8dp layout rhythm
 - clarifies the shared weighted layout dimension name used by scanner and history views
 
 ### 0.5.0
