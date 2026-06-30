@@ -1,6 +1,6 @@
 # Actions
 
-QR Code Scanner keeps result actions simple and local. The app does not store scan history or send scanned content to a server.
+QR Code Scanner keeps result actions simple and local. The app does not send scanned content to a server. Accepted scan results can be saved only in the app's local scan history. See [Scan History](history.md) for that behavior.
 
 ## Copy
 
@@ -31,6 +31,12 @@ For schemeless domains, the app checks the host shape so new or uncommon TLDs ca
 The app also rejects web links that include URI user-info, such as `https://example.com@other.example`, because those links can visually hide the real destination host.
 
 Values with spaces, schemeless `@` characters, URI user-info, or unsupported schemes are not treated as openable web links.
+
+## History preview actions
+
+Tapping a saved history item returns that value to the main scanner screen. From there, the normal Copy, Open, and Share buttons use the same rules as a newly scanned result.
+
+Previewing a saved history item does not create a new history entry or move that item to the top of the history list.
 
 ## Result labels
 
