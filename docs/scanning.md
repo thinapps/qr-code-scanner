@@ -17,8 +17,20 @@ After a QR code is found:
 
 - the subtitle/status line says `Preview the result before opening it.`
 - the result card shows the scanned value
+- a small close icon appears in the result card header so the visible result can be cleared
 
 Permission and camera failure messages also use the subtitle/status line. See [Permissions](permissions.md) for those states.
+
+## Result clearing
+
+The clear icon only clears the currently visible in-memory result. It does not delete saved history because the app does not save scan history.
+
+When the result is cleared:
+
+- the visible result returns to `No QR code scanned yet.`
+- the subtitle/status line returns to `Point your camera at a QR code.`
+- Copy, Open, and Share become disabled again
+- the same just-cleared value remains suppressed briefly if it is still in the camera frame
 
 ## Result gate behavior
 
@@ -36,7 +48,7 @@ A stricter result flow would pause or lock scanning after the first accepted QR 
 
 That flow can make sense later if the app should feel more like a deliberate capture tool. For now, the app stays closer to a lightweight live scanner: it keeps the camera active, filters duplicate noise, and still lets a different QR code replace the current result after a short cooldown.
 
-This avoids adding another button and another scanner state before testing proves the extra step is useful. The current result gate solves the immediate spam problem without making normal scanning slower or more complicated.
+This avoids adding another large button and another scanner state before testing proves the extra step is useful. The current result gate solves the immediate spam problem without making normal scanning slower or more complicated.
 
 ## Current constants
 
