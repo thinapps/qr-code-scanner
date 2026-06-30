@@ -13,9 +13,17 @@
     <string name="scan_result_copied">Copied</string>
     <string name="scan_result_open_failed">No app found to open this link.</string>
     <string name="scan_result_share_title">Share QR result</string>
+    <string name="history_title">Scan History</string>
+    <string name="history_hint">Tap a saved result to preview it again.</string>
+    <string name="history_empty">No scan history yet.</string>
+    <string name="history_item_web_link">Web link • %1$s</string>
+    <string name="history_item_text">Text • %1$s</string>
+    <string name="history_cleared">History cleared</string>
     <string name="action_copy">Copy</string>
     <string name="action_open">Open</string>
     <string name="action_share">Share</string>
+    <string name="action_open_history">Open scan history</string>
+    <string name="action_clear_history">Clear All History</string>
     <string name="action_clear_result">Clear scanned result</string>
     <string name="action_flashlight_on">Turn flashlight on</string>
     <string name="action_flashlight_off">Turn flashlight off</string>
