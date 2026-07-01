@@ -13,8 +13,8 @@ android {
         targetSdk 35
 
         // bump before each release
-        versionCode 16
-        versionName "0.5.3"
+        versionCode 17
+        versionName "0.5.4"
     }
 
     signingConfigs {
@@ -44,7 +44,7 @@ android {
 
     compileOptions {
         // keep java and kotlin bytecode targets aligned
-        sourceCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion_17
         targetCompatibility JavaVersion.VERSION_17
     }
 
