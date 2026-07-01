@@ -18,6 +18,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ### 0.5.2
 - changes the inactive flashlight button background from 30% black (`#4D000000`) to 40% black (`#66000000`) for better visibility over bright camera previews
+- keeps the active flashlight button background fully opaque cyan (`#00BCD4`)
 
 ### 0.5.1
 - adds a 48dp back button to the scan history screen
