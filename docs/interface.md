@@ -59,7 +59,7 @@ The title-row history icon and result-card close icon use the same bounded circu
 
 The history screen back icon remains a separate transparent 48dp icon button beside the history title. It returns to the scanner screen without changing saved history.
 
-The result-card close icon stays transparent at rest because it sits inside the result card header. A permanent circle background would add visual weight and compete with the scanned result content. The larger 48dp touch target gives it good usability without making the close action visually loud.
+The result-card close icon intentionally has no permanent round background. It sits inside the result card header, so a resting circle would add visual weight, make the clear action look too primary, and compete with the scanned result content. The 48dp touch target and shared 5% white ripple keep it usable without making the action visually loud.
 
 The history icon opens saved local scan history. The close icon only clears the currently visible result from the main scanner screen.
 
