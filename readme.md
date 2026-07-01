@@ -100,7 +100,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 - added a scanner flashlight toggle
 - shows the flashlight control only when the active camera supports flash
 - tightened basic XML styling for the scanner screen and buttons
-- polished flashlight button states so off is outlined and on filled accent
+- polished flashlight button states so off is outlined and on is filled accent
 
 ### 0.1.0
 - initialized the Android project framework
