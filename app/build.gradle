@@ -17,16 +17,13 @@ android {
         versionName "0.5.4"
     }
 
-    def releaseStorePasswordProperty = ["RELEASE_STORE", "PASSWORD"].join("_")
-    def releaseKeyPasswordProperty = ["RELEASE_KEY", "PASSWORD"].join("_")
-
     signingConfigs {
         release {
             // github actions writes values to ~/.gradle/gradle.properties
             storeFile file(project.findProperty("RELEASE_STORE_FILE"))
-            storePassword project.findProperty(releaseStorePasswordProperty)
+            storePassword project.findProperty("RELEASE_STORE_PASSWORD")
             keyAlias project.findProperty("RELEASE_KEY_ALIAS")
-            keyPassword project.findProperty(releaseKeyPasswordProperty)
+            keyPassword project.findProperty("RELEASE_KEY_PASSWORD")
         }
     }
 
