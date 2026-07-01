@@ -9,7 +9,7 @@ The current text scale is intentionally simple:
 - title: `28sp`
 - subtitle/status: `14sp`
 - result label: `12sp`
-- result text: `16sp`
+- result text: `16sp` monospace
 - history item value: `16sp`
 - history item metadata: `12sp`
 - footer: `12sp`
@@ -36,6 +36,8 @@ This keeps the bottom scanner area visually bottom-aligned instead of floating i
 ## Result card spacing
 
 The result card keeps `20dp` side and bottom padding, but uses `12dp` top padding so the `Scanned Result` header does not feel pushed too far down by the 48dp close icon row.
+
+The scanned result value uses 16sp monospace text. This gives URLs, codes, and other scanned values a little more structure without adding a nested background or making the result card visually heavier.
 
 The gap between the result header row and result text stays `8dp`. The gap above the Copy, Open, and Share action row stays `16dp`.
 
