@@ -30,7 +30,7 @@ The manifest also declares that the app requires camera hardware:
 
 The app does not request Internet, location, storage, contacts, accounts, notification, or advertising permissions.
 
-Scanned values are handled locally. The app does not upload scans, keep scan history, or send scanned content to a server.
+Scanned values are handled locally. The app does not upload scans or send scanned content to a server. Scan history is stored locally on the device.
 
 ## Permission and camera messages
 
