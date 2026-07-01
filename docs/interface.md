@@ -14,6 +14,8 @@ The current text scale is intentionally simple:
 - history item metadata: `12sp`
 - footer: `12sp`
 
+The history screen reuses the same `28sp` title size and `14sp` subtitle/hint size as the main scanner screen. Its title starts after the 48dp back button slot, so the alignment differs from the main scanner title, but the text scale stays the same.
+
 The action buttons use the default Material button text sizing.
 
 ## Corner radiuses
