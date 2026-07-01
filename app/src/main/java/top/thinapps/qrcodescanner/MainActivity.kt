@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -103,6 +104,7 @@ class MainActivity : ComponentActivity() {
         setContentView(binding.root)
 
         applyWindowInsets()
+        setupTypography()
         setupControls()
         syncActionButtons()
         syncTorchButton()
@@ -142,6 +144,10 @@ class MainActivity : ComponentActivity() {
             insets
         }
         ViewCompat.requestApplyInsets(binding.root)
+    }
+
+    private fun setupTypography() {
+        binding.txtResult.typeface = Typeface.MONOSPACE
     }
 
     private fun setupControls() {
