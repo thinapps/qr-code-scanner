@@ -21,6 +21,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 - adds the shared 5% white (`#0DFFFFFF`) tap ripple to the result-card close icon
 - replaces the history-specific ripple drawable with a shared icon button ripple drawable
 - tightens the result card top padding from `20dp` to `12dp` while keeping side and bottom padding at `20dp`
+- changes scanned result values to 16sp monospace text
 
 ### 0.5.2
 - changes the inactive flashlight button background from 30% black (`#4D000000`) to 40% black (`#66000000`) for better visibility over bright camera previews
@@ -61,9 +62,9 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 - makes the active flashlight button easier to see with an accent background and filled icon
 
 ### 0.3.2
-- enabled opening web domains without an explicit http or https scheme
-- normalizes schemeless web domains to https links before opening
-- rejects web links with URI user-info before enabling Open
+- supports domain-style scanned values without a typed scheme
+- normalizes domain-style scanned values before opening
+- blocks unsafe scanned links before enabling Open
 
 ### 0.3.1
 - centered the local-only footer message below the scanner result card
