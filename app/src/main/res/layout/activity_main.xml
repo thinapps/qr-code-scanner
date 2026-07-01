@@ -159,7 +159,7 @@
                         android:scaleType="center"
                         android:src="@drawable/ic_close"
                         android:tint="@color/md_text_dim"
-                        android:visibility="gone" />
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <TextView
