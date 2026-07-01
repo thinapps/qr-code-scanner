@@ -35,9 +35,11 @@ Icon buttons use a consistent accessible sizing pattern where practical:
 - icon bounds: `24dp`
 - padding: `12dp`
 
-The flashlight button keeps a circular background because it floats over the live camera preview. The dark circle gives the icon enough contrast against changing camera content and makes the overlay feel intentionally tappable.
+The flashlight button keeps a circular background because it floats over the live camera preview. The inactive background uses 40% black (`#66000000`) so the icon remains visible over bright camera content without making the off state too heavy.
 
-The active flashlight state intentionally uses the app accent color instead of adding a separate yellow or orange torch color. That keeps the control aligned with the main scanner actions, avoids making the torch feel like a warning state, and prevents a one-off color from competing with the rest of the interface. The filled active icon uses a dark tint on cyan because it has clearer contrast at the current 24dp icon size than a white fill would.
+The active flashlight state intentionally uses opaque cyan (`#00BCD4`) instead of adding a separate yellow or orange torch color. That keeps the control aligned with the main scanner actions, avoids making the torch feel like a warning state, and prevents a one-off color from competing with the rest of the interface. The filled active icon uses a dark tint on cyan because it has clearer contrast at the current 24dp icon size than a white fill would.
+
+The flashlight button drawable uses a fully opaque base oval and relies on runtime background tint for the actual off or on color. This keeps the inactive state translucent while allowing the active cyan state to stay fully opaque.
 
 The title-row history icon stays transparent because it sits inside the bottom content panel on a stable app background. A circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
 
