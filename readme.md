@@ -9,8 +9,8 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 | [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
 | [Actions](docs/actions.md) | Explains copy, share, open, URL normalization, and history-preview behavior for scanned results. |
 | [Scanning](docs/scanning.md) | Explains how live scanning stays active while duplicate result spam is filtered. |
-| [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, and clearing behavior. |
-| [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, icon buttons, and visible screen text states. |
+| [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, spacing, and clearing behavior. |
+| [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, icon buttons, spacing, and visible screen text states. |
 | [Permissions](docs/permissions.md) | Explains the camera permission, why it is needed, and how permission or camera errors appear in the app. |
 | [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
 
