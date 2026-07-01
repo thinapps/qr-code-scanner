@@ -20,6 +20,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 - softens the history icon tap ripple from 10% white (`#1AFFFFFF`) to 5% white (`#0DFFFFFF`)
 - adds the shared 5% white (`#0DFFFFFF`) tap ripple to the result-card close icon
 - replaces the history-specific ripple drawable with a shared icon button ripple drawable
+- tightens the result card top padding from `20dp` to `12dp` while keeping side and bottom padding at `20dp`
 
 ### 0.5.2
 - changes the inactive flashlight button background from 30% black (`#4D000000`) to 40% black (`#66000000`) for better visibility over bright camera previews
@@ -99,7 +100,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 - added a scanner flashlight toggle
 - shows the flashlight control only when the active camera supports flash
 - tightened basic XML styling for the scanner screen and buttons
-- polished flashlight button states so off is outlined and on is filled accent
+- polished flashlight button states so off is outlined and on filled accent
 
 ### 0.1.0
 - initialized the Android project framework
