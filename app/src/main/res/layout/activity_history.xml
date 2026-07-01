@@ -82,7 +82,7 @@
         android:id="@+id/btnClearHistory"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="@dimen/button_top_margin"
+        android:layout_marginTop="@dimen/card_top_margin"
         android:text="@string/action_clear_history"
         app:cornerRadius="@dimen/button_corner_radius" />
 
