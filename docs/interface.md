@@ -37,6 +37,8 @@ This keeps the bottom scanner area visually bottom-aligned instead of floating i
 
 The result card keeps `20dp` side and bottom padding, but uses `12dp` top padding so the `Scanned Result` header does not feel pushed too far down by the 48dp close icon row.
 
+The result-card close icon reserves its 48dp header slot even when no result is visible. The icon itself becomes invisible when empty, but the reserved space prevents the `Scanned Result` header from shifting horizontally when a QR result appears or is cleared.
+
 The scanned result value uses 16sp monospace text. This gives URLs, codes, and other scanned values a little more structure without adding a nested background or making the result card visually heavier.
 
 The gap between the result header row and result text stays `8dp`. The gap above the Copy, Open, and Share action row stays `16dp`.
