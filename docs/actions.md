@@ -6,6 +6,8 @@ QR Code Scanner keeps result actions simple and local. The app does not send sca
 
 `Copy` copies the scanned value exactly as it was read from the QR code.
 
+The app does not show its own copied toast after this action. It relies on Android's native clipboard confirmation, so supported Android versions show only the modern system copy feedback instead of duplicate app and system messages.
+
 ## Share
 
 `Share` shares the scanned value exactly as it was read from the QR code.
