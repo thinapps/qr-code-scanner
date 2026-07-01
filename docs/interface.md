@@ -45,7 +45,7 @@ The title-row history icon stays transparent at rest because it sits inside the 
 
 The title-row history icon uses a bounded circular ripple with 10% white (`#1AFFFFFF`) for press feedback. This gives the 48dp touch target a visible response without adding resting visual weight or making the history action compete with the flashlight overlay.
 
-The history screen back icon uses the same transparent 48dp icon button pattern. It sits beside the history title and returns to the scanner screen without changing saved history.
+The history screen back icon remains a separate transparent 48dp icon button beside the history title. It returns to the scanner screen without changing saved history.
 
 The result-card close icon also stays transparent because it sits inside the result card header. A circle background would add visual weight and compete with the scanned result content. The larger 48dp touch target gives it good usability without making the close action visually loud.
 
