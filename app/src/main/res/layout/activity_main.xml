@@ -63,7 +63,7 @@
                 android:layout_width="@dimen/header_icon_button_size"
                 android:layout_height="@dimen/header_icon_button_size"
                 android:adjustViewBounds="false"
-                android:background="@android:color/transparent"
+                android:background="@drawable/history_button_ripple"
                 android:contentDescription="@string/action_open_history"
                 android:maxWidth="@dimen/header_icon_size"
                 android:maxHeight="@dimen/header_icon_size"
