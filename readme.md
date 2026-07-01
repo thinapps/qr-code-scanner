@@ -18,6 +18,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ### 0.5.5
 - forces scanned result values through a monospace typeface and monospace text span so Android devices are less likely to render them with proportional-looking fallback text
+- aligns the scan history list-to-clear-button gap with the existing 20dp section spacing
 
 ### 0.5.4
 - reserves the result-card close icon slot so the result header does not shift when a QR result appears or is cleared
