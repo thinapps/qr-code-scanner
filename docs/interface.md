@@ -37,6 +37,8 @@ Icon buttons use a consistent accessible sizing pattern where practical:
 
 The flashlight button keeps a circular background because it floats over the live camera preview. The dark circle gives the icon enough contrast against changing camera content and makes the overlay feel intentionally tappable.
 
+The active flashlight state intentionally uses the app accent color instead of adding a separate yellow or orange torch color. That keeps the control aligned with the main scanner actions, avoids making the torch feel like a warning state, and prevents a one-off color from competing with the rest of the interface. The filled active icon uses a dark tint on cyan because it has clearer contrast at the current 24dp icon size than a white fill would.
+
 The title-row history icon stays transparent because it sits inside the bottom content panel on a stable app background. A circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
 
 The history screen back icon uses the same transparent 48dp icon button pattern. It sits beside the history title and returns to the scanner screen without changing saved history.
