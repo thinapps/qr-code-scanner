@@ -43,11 +43,11 @@ The flashlight button drawable uses a fully opaque base oval and relies on runti
 
 The title-row history icon stays transparent at rest because it sits inside the bottom content panel on a stable app background. A permanent circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
 
-The title-row history icon uses a bounded circular ripple with 5% white (`#0DFFFFFF`) for press feedback. This gives the 48dp touch target a visible response without adding resting visual weight or making the history action compete with the flashlight overlay.
+The title-row history icon and result-card close icon use the same bounded circular ripple with 5% white (`#0DFFFFFF`) for press feedback. This gives their 48dp touch targets a visible response without adding resting visual weight or making either secondary action compete with the flashlight overlay.
 
 The history screen back icon remains a separate transparent 48dp icon button beside the history title. It returns to the scanner screen without changing saved history.
 
-The result-card close icon also stays transparent because it sits inside the result card header. A circle background would add visual weight and compete with the scanned result content. The larger 48dp touch target gives it good usability without making the close action visually loud.
+The result-card close icon stays transparent at rest because it sits inside the result card header. A permanent circle background would add visual weight and compete with the scanned result content. The larger 48dp touch target gives it good usability without making the close action visually loud.
 
 The history icon opens saved local scan history. The close icon only clears the currently visible result from the main scanner screen.
 
