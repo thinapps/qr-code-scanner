@@ -430,7 +430,6 @@ class MainActivity : ComponentActivity() {
         val value = lastScannedValue ?: return
         val clipboard = getSystemService(ClipboardManager::class.java)
         clipboard.setPrimaryClip(ClipData.newPlainText(getString(R.string.scan_result_label), value))
-        Toast.makeText(this, R.string.scan_result_copied, Toast.LENGTH_SHORT).show()
     }
 
     private fun openResult() {
