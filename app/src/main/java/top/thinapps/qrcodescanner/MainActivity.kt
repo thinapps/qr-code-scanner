@@ -15,6 +15,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
@@ -147,7 +150,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setupTypography() {
-        binding.txtResult.typeface = Typeface.MONOSPACE
+        binding.txtResult.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+        setResultText(getString(R.string.scan_result_empty))
     }
 
     private fun setupControls() {
@@ -216,7 +220,7 @@ class MainActivity : ComponentActivity() {
         binding.layoutPermission.visibility = View.GONE
         showStatus(R.string.scan_status_ready)
         if (lastScannedValue.isNullOrBlank()) {
-            binding.txtResult.setText(R.string.scan_result_empty)
+            setResultText(getString(R.string.scan_result_empty))
         }
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -311,7 +315,7 @@ class MainActivity : ComponentActivity() {
     private fun showResult(value: String, recordHistory: Boolean = true) {
         lastScannedValue = value
         showStatus(R.string.scan_status_found)
-        binding.txtResult.text = value
+        setResultText(value)
         binding.previewView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         if (recordHistory) {
             ScanHistoryRepository.record(
@@ -331,7 +335,7 @@ class MainActivity : ComponentActivity() {
         }
         lastScannedValue = null
         showStatus(R.string.scan_status_ready)
-        binding.txtResult.setText(R.string.scan_result_empty)
+        setResultText(getString(R.string.scan_result_empty))
         syncActionButtons()
     }
 
@@ -349,6 +353,24 @@ class MainActivity : ComponentActivity() {
     private fun showStatus(messageResId: Int) {
         binding.txtStatus.setText(messageResId)
         binding.txtStatus.visibility = View.VISIBLE
+    }
+
+    private fun setResultText(value: String) {
+        binding.txtResult.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+        binding.txtResult.text = monospaceText(value)
+    }
+
+    private fun monospaceText(value: String): SpannableString {
+        return SpannableString(value).apply {
+            if (value.isNotEmpty()) {
+                setSpan(
+                    TypefaceSpan("monospace"),
+                    0,
+                    value.length,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
     }
 
     private fun syncActionButtons() {
