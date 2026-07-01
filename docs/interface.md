@@ -27,6 +27,12 @@ The scanner screen uses a rounded radius style:
 
 The result card and action buttons now share the same radius so the bottom scanner panel feels more unified. The result card stays softer against the dark card and live camera preview without returning to the earlier 24dp radius. The flashlight overlay stays circular because it is a 48dp icon button.
 
+## Bottom panel layout
+
+The scanner content panel is `wrap_content` and anchored to the bottom of the screen. The footer is the last child inside that panel, so the footer stays at the bottom of the panel above the bottom padding while the rest of the scan UI grows upward from there.
+
+This keeps the bottom scanner area visually bottom-aligned instead of floating in the middle of the preview. Android still lays out the panel children from top to bottom internally, but the panel's final height is determined by its contents and anchored from the bottom edge.
+
 ## Result card spacing
 
 The result card keeps `20dp` side and bottom padding, but uses `12dp` top padding so the `Scanned Result` header does not feel pushed too far down by the 48dp close icon row.
