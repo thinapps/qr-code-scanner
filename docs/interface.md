@@ -47,6 +47,14 @@ The scanned result value is forced to use Android's monospace typeface in code, 
 
 The gap between the result header row and result text stays `8dp`. The gap above the Copy, Open, and Share action row stays `16dp`.
 
+## History screen spacing
+
+The history screen uses the same `20dp` left and right gutters as the scanner panel. Its base bottom padding is also `20dp`, with the bottom system-bar inset added on devices that need it.
+
+The history subtitle sits `8dp` below the title row. When history has saved items, the list starts `20dp` below the subtitle. When history is empty, the empty-state text sits `24dp` below the subtitle so the empty message has a little more breathing room.
+
+History cards are separated by `8dp` after the first item. The Clear All History button sits outside the scroll area and uses a `20dp` top margin, matching the list's `20dp` section gap below the subtitle.
+
 ## Icon buttons
 
 Icon buttons use a consistent accessible sizing pattern where practical:
