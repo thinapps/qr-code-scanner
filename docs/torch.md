@@ -12,14 +12,18 @@ Android documents `CameraManager.setTorchMode(...)` as a way to control torch mo
 - The flashlight button is shown only when the active CameraX camera reports a flash unit.
 - Tapping the flashlight button calls CameraX `enableTorch(...)` on that active camera.
 - The button updates immediately so the interface feels responsive while CameraX applies the torch request.
-- When the flashlight is off, the button uses a dark translucent background and outline-style flash icon.
-- When the flashlight is on, the button uses the same accent color as the action buttons, a dark foreground tint, and a filled flash icon.
+- When the flashlight is off, the button uses a 40% black (`#66000000`) circular background and outline-style flash icon.
+- When the flashlight is on, the button uses an opaque cyan (`#00BCD4`) circular background, a dark foreground tint, and a filled flash icon.
 - The app observes CameraX torch state and syncs the button back to the real camera state.
 - If CameraX rejects a torch request, the app logs the failure and syncs the button back to the current torch state.
 
 ## Visual state rationale
 
 The active flashlight button keeps the app's cyan accent instead of adding a separate yellow or orange torch color. The flashlight is a scanner utility control, not the app's main brand element, so reusing the existing accent keeps the interface consistent with the Material action buttons and avoids introducing a second attention color that could read as warning.
+
+The inactive flashlight background is translucent so the floating overlay still feels lightweight over the live camera preview. The active flashlight background is intentionally opaque so the on state is clear and does not fade into bright camera content.
+
+The flashlight button drawable keeps its base oval fully opaque while runtime background tint supplies the inactive or active color. This prevents the active cyan tint from inheriting the inactive overlay alpha on devices that preserve alpha through background tinting.
 
 The active icon uses a dark tint instead of white because the active background is already bright cyan. A dark filled icon gives clearer small-icon contrast on that background, especially at the current 24dp icon size.
 
