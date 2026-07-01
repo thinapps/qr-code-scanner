@@ -27,6 +27,12 @@ The scanner screen uses a rounded radius style:
 
 The result card and action buttons now share the same radius so the bottom scanner panel feels more unified. The result card stays softer against the dark card and live camera preview without returning to the earlier 24dp radius. The flashlight overlay stays circular because it is a 48dp icon button.
 
+## Result card spacing
+
+The result card keeps `20dp` side and bottom padding, but uses `12dp` top padding so the `Scanned Result` header does not feel pushed too far down by the 48dp close icon row.
+
+The gap between the result header row and result text stays `8dp`. The gap above the Copy, Open, and Share action row stays `16dp`.
+
 ## Icon buttons
 
 Icon buttons use a consistent accessible sizing pattern where practical:
