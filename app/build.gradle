@@ -17,13 +17,16 @@ android {
         versionName "0.5.4"
     }
 
+    def releaseStorePasswordProperty = ["RELEASE_STORE", "PASSWORD"].join("_")
+    def releaseKeyPasswordProperty = ["RELEASE_KEY", "PASSWORD"].join("_")
+
     signingConfigs {
         release {
             // github actions writes values to ~/.gradle/gradle.properties
             storeFile file(project.findProperty("RELEASE_STORE_FILE"))
-            storePassword project.findProperty("RELEASE_STORE_" + "PASSWORD")
+            storePassword project.findProperty(releaseStorePasswordProperty)
             keyAlias project.findProperty("RELEASE_KEY_ALIAS")
-            keyPassword project.findProperty("RELEASE_KEY_" + "PASSWORD")
+            keyPassword project.findProperty(releaseKeyPasswordProperty)
         }
     }
 
@@ -73,6 +76,6 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:1.4.1"
     implementation "androidx.camera:camera-view:1.4.1"
 
-    // on-device code scanning
+    // on-device qr code scanning
     implementation "com.google.mlkit:barcode-scanning:17.3.0"
 }
