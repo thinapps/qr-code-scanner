@@ -29,6 +29,8 @@ The history icon in the scanner title row opens the history screen. The icon rem
 
 The history screen shows saved results in newest-first order. Each row shows the scanned value and a small metadata line for the result type and timestamp.
 
+The history screen uses the same 20dp side gutters as the scanner panel. The subtitle sits 8dp below the title row, saved history rows start 20dp below the subtitle, rows are separated by 8dp, and the Clear All History button sits 20dp below the scrollable history list area. The screen keeps 20dp base bottom padding, plus the bottom system-bar inset when Android reports one.
+
 Tapping a saved result returns it to the main scanner screen for preview, copy, open, or share actions. Previewing a saved history item does not create a new history entry or move that item to the top of the history list.
 
 ## Clearing history
