@@ -7,6 +7,7 @@
     <color name="md_text">#FFFFFF</color>
     <color name="md_text_dim">#B3FFFFFF</color>
     <color name="card_stroke">#33FFFFFF</color>
+    <color name="icon_button_ripple">#1AFFFFFF</color>
     <color name="torch_button_bg">#66000000</color>
     <color name="torch_button_bg_on">#00BCD4</color>
     <color name="torch_button_ripple">#33FFFFFF</color>
