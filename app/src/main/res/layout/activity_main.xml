@@ -122,7 +122,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/card_padding">
+                android:paddingStart="@dimen/card_padding"
+                android:paddingTop="@dimen/card_padding_top"
+                android:paddingEnd="@dimen/card_padding"
+                android:paddingBottom="@dimen/card_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
