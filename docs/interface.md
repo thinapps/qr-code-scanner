@@ -41,7 +41,9 @@ The active flashlight state intentionally uses opaque cyan (`#00BCD4`) instead o
 
 The flashlight button drawable uses a fully opaque base oval and relies on runtime background tint for the actual off or on color. This keeps the inactive state translucent while allowing the active cyan state to stay fully opaque.
 
-The title-row history icon stays transparent because it sits inside the bottom content panel on a stable app background. A circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
+The title-row history icon stays transparent at rest because it sits inside the bottom content panel on a stable app background. A permanent circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
+
+The title-row history icon uses a bounded circular ripple with 10% white (`#1AFFFFFF`) for press feedback. This gives the 48dp touch target a visible response without adding resting visual weight or making the history action compete with the flashlight overlay.
 
 The history screen back icon uses the same transparent 48dp icon button pattern. It sits beside the history title and returns to the scanner screen without changing saved history.
 
