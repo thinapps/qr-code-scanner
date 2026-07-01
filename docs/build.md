@@ -14,6 +14,8 @@ The repository does not commit Gradle wrapper files. The release workflow downlo
 
 `.github/workflows/android-release.yml` builds a signed release AAB through a manual `workflow_dispatch` run.
 
+The workflow lets `android-actions/setup-android` install only `platform-tools`, then installs the Android 35 platform and build tools explicitly. It avoids the legacy SDK `tools` package because that can pull emulator packages that are not needed for a release bundle build.
+
 The workflow expects these repository secrets:
 
 - `RELEASE_KEYSTORE`
