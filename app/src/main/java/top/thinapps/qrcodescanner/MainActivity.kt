@@ -348,7 +348,7 @@ class MainActivity : ComponentActivity() {
     private fun syncActionButtons() {
         val value = lastScannedValue
         val hasResult = !value.isNullOrBlank()
-        binding.btnClearResult.visibility = if (hasResult) View.VISIBLE else View.GONE
+        binding.btnClearResult.visibility = if (hasResult) View.VISIBLE else View.INVISIBLE
         binding.btnCopy.isEnabled = hasResult
         binding.btnShare.isEnabled = hasResult
         binding.btnOpen.isEnabled = hasResult && value?.toWebUri() != null
