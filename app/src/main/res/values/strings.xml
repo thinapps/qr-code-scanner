@@ -10,7 +10,6 @@
     <string name="scan_status_camera_error">Camera could not start on this device.</string>
     <string name="scan_result_label">Scanned Result</string>
     <string name="scan_result_empty">No QR code scanned yet.</string>
-    <string name="scan_result_copied">Copied</string>
     <string name="scan_result_open_failed">No app found to open this link.</string>
     <string name="scan_result_share_title">Share QR result</string>
     <string name="history_title">Scan History</string>
