@@ -167,6 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/result_top_margin"
+                    android:fontFamily="monospace"
                     android:minHeight="@dimen/result_min_height"
                     android:text="@string/scan_result_empty"
                     android:textColor="@color/md_text"
