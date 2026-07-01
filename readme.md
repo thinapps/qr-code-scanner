@@ -19,6 +19,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 ### 0.5.4
 - reserves the result-card close icon slot so the result header does not shift when a QR result appears or is cleared
 - adds the shared 5% white (`#0DFFFFFF`) tap ripple to the history-screen back button
+- removes the app-level Copy toast so Android's native clipboard confirmation is the only copy feedback
 
 ### 0.5.3
 - softens the history icon tap ripple from 10% white (`#1AFFFFFF`) to 5% white (`#0DFFFFFF`)
