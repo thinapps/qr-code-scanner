@@ -362,14 +362,20 @@ class MainActivity : ComponentActivity() {
 
     private fun monospaceText(value: String): SpannableString {
         return SpannableString(value).apply {
-            if (value.isNotEmpty()) {
-                setSpan(
-                    TypefaceSpan("monospace"),
-                    0,
-                    value.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
+            if (value.isEmpty()) return@apply
+
+            val typefaceSpan = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                TypefaceSpan(Typeface.MONOSPACE)
+            } else {
+                @Suppress("DEPRECATION")
+                TypefaceSpan("monospace")
             }
+            setSpan(
+                typefaceSpan,
+                0,
+                value.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
     }
 
