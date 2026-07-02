@@ -18,6 +18,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ### 0.5.6
 - strengthens scanned result monospace rendering by applying Android's `Typeface.MONOSPACE` object through the text span on Android 9 and newer
+- clarifies the found-result status text and shortens the permission button label while keeping the local-scanning explanation unchanged
 
 ### 0.5.5
 - forces scanned result values through a monospace typeface and monospace text span so Android devices are less likely to render them with proportional-looking fallback text
