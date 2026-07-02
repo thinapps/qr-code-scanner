@@ -92,7 +92,7 @@ Before a QR code is found:
 
 After a QR code is found:
 
-- subtitle/status: `Preview the result before opening it.`
+- subtitle/status: `Preview the scanned result.`
 - result card: scanned value
 
 Permission and camera failure states are covered in [Permissions](permissions.md).
