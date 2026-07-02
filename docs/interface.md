@@ -8,7 +8,7 @@ The current text scale is intentionally simple:
 
 - title: `28sp`
 - subtitle/status: `14sp`
-- result label: `12sp`
+- result label: `12sp`, all-caps, bold
 - result text: `16sp` enforced monospace
 - history item value: `16sp`
 - history item metadata: `12sp`
@@ -40,6 +40,8 @@ The panel background stays dark and flat, but now includes a subtle 1dp top edge
 ## Result card spacing
 
 The result card keeps `20dp` side and bottom padding, but uses `12dp` top padding so the `Scanned Result` header does not feel pushed too far down by the 48dp close icon row.
+
+The `Scanned Result` label uses `12sp` text, all-caps styling, bold weight, and slight letter spacing so it reads as a quiet section label rather than another body line.
 
 The result-card close icon reserves its 48dp header slot even when no result is visible. The icon itself becomes invisible when empty, but the reserved space prevents the `Scanned Result` header from shifting horizontally when a QR result appears or is cleared.
 
