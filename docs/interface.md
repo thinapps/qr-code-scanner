@@ -29,6 +29,12 @@ The scanner screen uses a rounded radius style:
 
 The result card and action buttons now share the same radius so the bottom scanner panel feels more unified. The result card stays softer against the dark card and live camera preview without returning to the earlier 24dp radius. The flashlight overlay stays circular because it is a 48dp icon button.
 
+## Launcher icon
+
+The launcher icon is stored as a square `512x512` PNG at `app/src/main/res/drawable/ic_launcher.png`. The manifest points to it with `android:icon="@drawable/ic_launcher"`.
+
+The icon uses the app's dark background and cyan QR-code shape, with the important QR marks padded away from the edges so Android launchers can safely apply their own masks.
+
 ## Bottom panel layout
 
 The scanner content panel is `wrap_content` and anchored to the bottom of the screen. The footer is the last child inside that panel, so the footer stays at the bottom of the panel above the bottom padding while the rest of the scan UI grows upward from there.
