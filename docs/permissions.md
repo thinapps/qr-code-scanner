@@ -41,7 +41,7 @@ When camera permission is missing or denied:
 - the camera preview is hidden
 - the subtitle/status line says `Camera permission is needed before scanning can start.`
 - the permission panel says `Camera permission is required to scan QR codes. Scanning happens locally on your device.`
-- the permission button says `Allow Camera Permission`
+- the permission button says `Allow Camera`
 
 When permission is granted and the camera starts normally:
 
@@ -50,7 +50,7 @@ When permission is granted and the camera starts normally:
 
 When a QR code is found:
 
-- the subtitle/status line says `Preview the result before opening it.`
+- the subtitle/status line says `Preview the scanned result.`
 - the result card shows the scanned value
 
 When the camera cannot start:
