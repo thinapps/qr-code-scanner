@@ -10,7 +10,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 | [Actions](docs/actions.md) | Explains copy, share, open, URL normalization, and history-preview behavior for scanned results. |
 | [Scanning](docs/scanning.md) | Explains how live scanning stays active while duplicate result spam is filtered. |
 | [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, spacing, and clearing behavior. |
-| [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, icon buttons, spacing, and visible screen text states. |
+| [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, launcher icon, icon buttons, spacing, and visible screen text states. |
 | [Permissions](docs/permissions.md) | Explains the camera permission, why it is needed, and how permission or camera errors appear in the app. |
 | [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
 
@@ -19,6 +19,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 ### 0.5.6
 - strengthens scanned result monospace rendering by applying Android's `Typeface.MONOSPACE` object through the text span on Android 9 and newer
 - clarifies the found-result status text and shortens the permission button label
+- replaces the vector launcher icon with a padded 512px PNG launcher icon
 
 ### 0.5.5
 - forces scanned result values through a monospace typeface and monospace text span so Android devices are less likely to render them with proportional-looking fallback text
