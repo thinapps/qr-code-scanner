@@ -43,7 +43,7 @@ The result card keeps `20dp` side and bottom padding, but uses `12dp` top paddin
 
 The result-card close icon reserves its 48dp header slot even when no result is visible. The icon itself becomes invisible when empty, but the reserved space prevents the `Scanned Result` header from shifting horizontally when a QR result appears or is cleared.
 
-The scanned result value is forced to use Android's monospace typeface in code, with XML kept aligned too. This gives URLs, codes, and other scanned values clearer structure without adding a nested background or making the result card visually heavier.
+The scanned result value is forced to use Android's monospace typeface in XML and code. On Android 9 and newer, the result text span also uses Android's `Typeface.MONOSPACE` object directly instead of only the `monospace` family name. This gives URLs, codes, and other scanned values clearer structure without adding a bundled font file, nested background, or heavier result card styling.
 
 The gap between the result header row and result text stays `8dp`. The gap above the Copy, Open, and Share action row stays `16dp`.
 
