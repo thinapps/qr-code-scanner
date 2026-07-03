@@ -2,6 +2,8 @@
 
 Lightweight Android QR code scanner built with the same basic classic Android/XML approach used by other ThinApps utilities.
 
+<img src="app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png" alt="QR Code Scanner" width="256">
+
 ## Documentation
 
 | Document | Description |
