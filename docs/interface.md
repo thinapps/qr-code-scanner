@@ -31,7 +31,7 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Launcher icon
 
-The launcher icon is stored as a square `512x512` PNG at `app/src/main/res/drawable/ic_launcher.png`. The manifest points to it with `android:icon="@drawable/ic_launcher"`.
+The launcher icon is stored as a square `512x512` PNG at `app/src/main/res/drawable/ic_launcher.png`. The manifest points both `android:icon` and `android:roundIcon` to `@drawable/ic_launcher` so launchers that prefer the round-icon field still use the same current asset.
 
 The icon uses the app's dark background and cyan QR-code shape, with the important QR marks padded away from the edges so Android launchers can safely apply their own masks.
 
