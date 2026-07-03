@@ -42,7 +42,11 @@ The background color is the same dark app background (`#101316`). The foreground
 
 Older devices use the bitmap fallback wrappers in `app/src/main/res/mipmap-anydpi/`. Those wrappers also point to the same foreground PNG so the repo keeps one launcher PNG source while still exposing the icon through `mipmap` resources.
 
-This approach matches Android launcher icon conventions better than a direct `@drawable` PNG. It gives modern launchers the foreground/background layers they expect for masks and icon shapes, keeps the important QR marks padded away from launcher clipping, and avoids maintaining separate density PNG sets for this small app.
+The foreground PNG should stay a transparent `512x512` PNG, not a full square icon with the dark background baked in. Only the QR glyph should be visible. Keep the QR glyph centered, use the app accent cyan (`#00BCD4`), and avoid extra borders, outer containers, shadows, or rounded-square backgrounds in the foreground image.
+
+The current foreground sizing target is intentionally conservative for adaptive icon cropping: the visible QR glyph is about 59% of the 512px canvas, with roughly 20% practical side padding. This keeps the important QR marks inside Android's adaptive-icon safe area while still looking large enough on launchers.
+
+This approach matches Android launcher icon conventions better than a direct `@drawable` PNG. It gives modern launchers the foreground/background layers they expect for icon shapes, keeps the important QR marks padded away from clipping, avoids maintaining separate density PNG sets for this small app, and makes future icon refreshes simple: replace only `app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png` with a transparent foreground PNG that follows the same sizing and color rules.
 
 ## Bottom panel layout
 
