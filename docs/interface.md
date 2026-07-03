@@ -31,7 +31,11 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Launcher icon
 
-The launcher icon is stored as a square `512x512` PNG at `app/src/main/res/drawable/ic_launcher.png`. The manifest points both `android:icon` and `android:roundIcon` to `@drawable/ic_launcher` so launchers that prefer the round-icon field still use the same current asset.
+The launcher icon uses Android's adaptive icon structure. The manifest points `android:icon` to `@mipmap/ic_launcher` and `android:roundIcon` to `@mipmap/ic_launcher_round`.
+
+Android 8.0 and newer use the adaptive icon XML files in `app/src/main/res/mipmap-anydpi-v26/`. Both wrappers use the solid `@color/ic_launcher_background` background layer and the shared `@mipmap/ic_launcher_foreground` foreground PNG.
+
+The single foreground PNG is stored at `app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png`. The older fallback wrappers live in `app/src/main/res/mipmap-anydpi/` and point to the same foreground PNG.
 
 The icon uses the app's dark background and cyan QR-code shape, with the important QR marks padded away from the edges so Android launchers can safely apply their own masks.
 
