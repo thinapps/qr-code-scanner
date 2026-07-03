@@ -31,20 +31,45 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Launcher icon
 
-The launcher icon uses Android's adaptive icon structure instead of pointing the manifest directly at a `drawable` PNG. The manifest points `android:icon` to `@mipmap/ic_launcher` and `android:roundIcon` to `@mipmap/ic_launcher_round`.
+The launcher icon uses Android's adaptive icon structure instead of pointing the manifest directly at a `drawable` PNG.
 
-Android 8.0 and newer use the adaptive icon XML files in `app/src/main/res/mipmap-anydpi-v26/`. Both wrappers define the required two layers:
+The manifest points to mipmap resources:
+
+- `android:icon="@mipmap/ic_launcher"`
+- `android:roundIcon="@mipmap/ic_launcher_round"`
+
+Android 8.0 and newer use the adaptive icon XML wrappers in:
+
+- `app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml`
+- `app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml`
+
+Both adaptive wrappers define the two required color icon layers:
 
 - background: `@color/ic_launcher_background`
 - foreground: `@mipmap/ic_launcher_foreground`
 
-The background color is the same dark app background (`#101316`). The foreground is the single padded QR icon PNG stored at `app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png`.
+The background color is the same dark app background (`#101316`). The foreground is the single QR glyph PNG stored at:
 
-Older devices use the bitmap fallback wrappers in `app/src/main/res/mipmap-anydpi/`. Those wrappers also point to the same foreground PNG so the repo keeps one launcher PNG source while still exposing the icon through `mipmap` resources.
+- `app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png`
 
-The foreground PNG should stay a transparent `512x512` PNG, not a full square icon with the dark background baked in. Only the QR glyph should be visible. Keep the QR glyph centered, use the app accent cyan (`#00BCD4`), and avoid extra borders, outer containers, shadows, or rounded-square backgrounds in the foreground image.
+Older devices use bitmap fallback wrappers in:
 
-The current foreground sizing target is intentionally conservative for adaptive icon cropping: the visible QR glyph is about 59% of the 512px canvas, with roughly 20% practical side padding. This keeps the important QR marks inside Android's adaptive-icon safe area while still looking large enough on launchers.
+- `app/src/main/res/mipmap-anydpi/ic_launcher.xml`
+- `app/src/main/res/mipmap-anydpi/ic_launcher_round.xml`
+
+Those fallback wrappers point to the same foreground PNG so the repo keeps one launcher PNG source while still exposing the icon through `mipmap` resources.
+
+Google's adaptive icon guidance says color adaptive icons should have separate foreground and background layers, the full icon layers are `108x108dp`, the central safe zone is `66x66dp`, the visible logo should be at least `48x48dp` and no larger than `66x66dp`, and the outer `18dp` on each side is reserved for masks and visual effects. Google also says layers should have clean edges and should not include masks or background shadows around the icon outline.
+
+For a `512x512` foreground PNG, the `66/108` safe-zone ratio equals about `61%` of the canvas, or about `313px`. The current QR foreground target is intentionally just under that: the visible QR glyph is about `59%` of the canvas, with roughly `20%` practical side padding. This keeps the important QR marks inside the adaptive-icon safe area while still looking large enough on launchers.
+
+The foreground PNG should stay:
+
+- transparent around the QR glyph
+- QR glyph only, with no baked-in dark background
+- centered on the `512x512` canvas
+- app accent cyan (`#00BCD4`)
+- free of extra borders, outer containers, shadows, masks, or rounded-square backgrounds
 
 This approach matches Android launcher icon conventions better than a direct `@drawable` PNG. It gives modern launchers the foreground/background layers they expect for icon shapes, keeps the important QR marks padded away from clipping, avoids maintaining separate density PNG sets for this small app, and makes future icon refreshes simple: replace only `app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png` with a transparent foreground PNG that follows the same sizing and color rules.
 
