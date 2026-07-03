@@ -18,8 +18,7 @@
         android:layout_height="@dimen/scan_guide_size"
         android:layout_gravity="center"
         android:background="@drawable/scan_guide_overlay"
-        android:importantForAccessibility="no"
-        android:visibility="invisible" />
+        android:importantForAccessibility="no" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnTorch"
