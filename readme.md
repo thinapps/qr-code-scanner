@@ -1,6 +1,6 @@
 # QR Code Scanner
 
-Scans QR and barcodes with history
+Scans QR codes with history
 
 <img src="app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png" alt="QR Code Scanner" width="256">
 
