@@ -31,13 +31,18 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Launcher icon
 
-The launcher icon uses Android's adaptive icon structure. The manifest points `android:icon` to `@mipmap/ic_launcher` and `android:roundIcon` to `@mipmap/ic_launcher_round`.
+The launcher icon uses Android's adaptive icon structure instead of pointing the manifest directly at a `drawable` PNG. The manifest points `android:icon` to `@mipmap/ic_launcher` and `android:roundIcon` to `@mipmap/ic_launcher_round`.
 
-Android 8.0 and newer use the adaptive icon XML files in `app/src/main/res/mipmap-anydpi-v26/`. Both wrappers use the solid `@color/ic_launcher_background` background layer and the shared `@mipmap/ic_launcher_foreground` foreground PNG.
+Android 8.0 and newer use the adaptive icon XML files in `app/src/main/res/mipmap-anydpi-v26/`. Both wrappers define the required two layers:
 
-The single foreground PNG is stored at `app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png`. The older fallback wrappers live in `app/src/main/res/mipmap-anydpi/` and point to the same foreground PNG.
+- background: `@color/ic_launcher_background`
+- foreground: `@mipmap/ic_launcher_foreground`
 
-The icon uses the app's dark background and cyan QR-code shape, with the important QR marks padded away from the edges so Android launchers can safely apply their own masks.
+The background color is the same dark app background (`#101316`). The foreground is the single padded QR icon PNG stored at `app/src/main/res/mipmap-nodpi/ic_launcher_foreground.png`.
+
+Older devices use the bitmap fallback wrappers in `app/src/main/res/mipmap-anydpi/`. Those wrappers also point to the same foreground PNG so the repo keeps one launcher PNG source while still exposing the icon through `mipmap` resources.
+
+This approach matches Android launcher icon conventions better than a direct `@drawable` PNG. It gives modern launchers the foreground/background layers they expect for masks and icon shapes, keeps the important QR marks padded away from launcher clipping, and avoids maintaining separate density PNG sets for this small app.
 
 ## Bottom panel layout
 
