@@ -61,13 +61,15 @@ Those fallback wrappers point to the same foreground PNG so the repo keeps one l
 
 Google's adaptive icon guidance says color adaptive icons should have separate foreground and background layers, the full icon layers are `108x108dp`, the central safe zone is `66x66dp`, the visible logo should be at least `48x48dp` and no larger than `66x66dp`, and the outer `18dp` on each side is reserved for masks and visual effects. Google also says layers should have clean edges and should not include masks or background shadows around the icon outline.
 
-For a `512x512` foreground PNG, the `66/108` safe-zone ratio equals about `61%` of the canvas, or about `313px`. The current QR foreground target is intentionally just under that: the visible QR glyph is about `59%` of the canvas, with roughly `20%` practical side padding. This keeps the important QR marks inside the adaptive-icon safe area while still looking large enough on launchers.
+For this app, the QR glyph needs a more conservative target than the official maximum because the QR finder squares are corner-heavy and real launcher masks can crop aggressively. A previous foreground around `59%` of the `512x512` canvas was too large in adaptive icon testing. The current preferred foreground target is about `208x207px`, or about `40.6%` of the canvas width, centered with about `152px` left and right padding and about `152px` top and bottom padding.
 
 The foreground PNG should stay:
 
-- transparent around the QR glyph
+- `512x512` PNG
+- real RGBA transparency around the QR glyph
 - QR glyph only, with no baked-in dark background
-- centered on the `512x512` canvas
+- centered on the canvas
+- visible glyph around `208x207px`
 - app accent cyan (`#00BCD4`)
 - free of extra borders, outer containers, shadows, masks, or rounded-square backgrounds
 
