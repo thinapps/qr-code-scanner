@@ -4,6 +4,8 @@ QR Code Scanner keeps the camera preview and image analyzer active after a QR co
 
 To avoid duplicate result spam, detected QR values pass through a small result gate before the UI is updated.
 
+The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit QR detection to the guide area, or change the result gate behavior.
+
 ## Screen text states
 
 The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A history icon sits beside the title and opens the local scan history screen.
