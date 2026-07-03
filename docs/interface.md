@@ -1,6 +1,6 @@
 # Interface
 
-QR Code Scanner uses one main scanner screen with a live camera preview, a bottom content panel, a local history button, and a small flashlight overlay button when the active camera supports flash.
+QR Code Scanner uses one main scanner screen with a live camera preview, a subtle scan guide overlay, a bottom content panel, a local history button, and a small flashlight overlay button when the active camera supports flash.
 
 ## Text sizes
 
@@ -28,6 +28,12 @@ The scanner screen uses a rounded radius style:
 - flashlight overlay button: circular `48dp` icon button
 
 The result card and action buttons now share the same radius so the bottom scanner panel feels more unified. The result card stays softer against the dark card and live camera preview without returning to the earlier 24dp radius. The flashlight overlay stays circular because it is a 48dp icon button.
+
+## Scan guide overlay
+
+The scanner screen includes a visual-only QR aiming guide over the preview area. It is a centered `240dp` vector overlay with four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
+
+The guide uses the app accent cyan at partial opacity (`#B300BCD4`). It is non-clickable, hidden from accessibility, and does not change how QR detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
 
 ## Launcher icon
 
