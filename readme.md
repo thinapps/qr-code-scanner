@@ -21,6 +21,7 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 ### 0.6.1
 - switches the installed launcher icon from direct `drawable` PNG wiring to `mipmap` adaptive icon wiring
 - adds foreground/background adaptive icon layers for Android 8.0 and newer while keeping one shared foreground PNG source
+- replaces the foreground asset with a transparent cyan QR glyph sized and padded for the adaptive icon safe area
 - adds `mipmap-anydpi` fallback wrappers for older launchers and points both normal and round icon fields at the mipmap resources
 
 ### 0.6.0
