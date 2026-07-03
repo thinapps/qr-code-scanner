@@ -15,7 +15,7 @@ Before a QR code is found:
 
 After a QR code is found:
 
-- the subtitle/status line says `Preview the result before opening it.`
+- the subtitle/status line says `Preview the scanned result.`
 - the result card shows the scanned value
 - a small close icon appears in the result card header so the visible result can be cleared
 
