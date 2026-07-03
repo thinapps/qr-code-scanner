@@ -18,6 +18,10 @@ Lightweight Android QR code scanner built with the same basic classic Android/XM
 
 ## Changelog
 
+### 0.6.2
+- shrinks the transparent adaptive icon foreground so the QR glyph has more breathing room under circular and rounded launcher masks
+- documents the safer launcher-icon sizing target after adaptive icon mask testing
+
 ### 0.6.1
 - switches the installed launcher icon from direct `drawable` PNG wiring to `mipmap` adaptive icon wiring
 - adds foreground/background adaptive icon layers for Android 8.0 and newer while keeping one shared foreground PNG source
