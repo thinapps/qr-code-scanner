@@ -12,6 +12,15 @@
         android:visibility="invisible"
         app:scaleType="fillCenter" />
 
+    <View
+        android:id="@+id/viewScanGuide"
+        android:layout_width="@dimen/scan_guide_size"
+        android:layout_height="@dimen/scan_guide_size"
+        android:layout_gravity="center"
+        android:background="@drawable/scan_guide_overlay"
+        android:importantForAccessibility="no"
+        android:visibility="invisible" />
+
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnTorch"
         android:layout_width="@dimen/torch_button_size"
