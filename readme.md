@@ -1,6 +1,6 @@
 # QR Code Scanner
 
-Scans QR and barcodes with history
+Scans QR codes with history
 
 ## Documentation
 
@@ -15,6 +15,10 @@ Scans QR and barcodes with history
 | [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
 
 ## Changelog
+
+### 0.6.3
+- adds a subtle centered scan guide overlay over the scanner screen
+- keeps the guide visual-only, non-clickable, and separate from QR detection behavior
 
 ### 0.6.2
 - shrinks the transparent adaptive icon foreground so the QR glyph has more breathing room under circular and rounded launcher masks
