@@ -28,7 +28,14 @@ The app does not currently enable every barcode family. These formats are intent
 - ITF
 - less common specialized formats not listed above
 
-Keeping the enabled list narrow avoids turning on broad all-format scanning before real device testing shows that it is useful.
+These formats are skipped for practical scope reasons:
+
+- PDF417 is common for IDs, shipping labels, and larger stacked codes, but it is less central to the current simple QR and retail-barcode use case.
+- Aztec and Data Matrix are compact 2D formats used in some transport, logistics, and industrial contexts, but they expand the app beyond the current consumer scanner target.
+- ITF is often used for packaging and distribution codes, but it is less useful for ordinary QR and retail scanning than EAN, UPC, and Code formats.
+- Less common specialized formats should be added only when there is a clear reason to support them and enough device testing to confirm they do not make normal scanning noisier.
+
+Keeping the enabled list narrow avoids turning on broad all-format scanning before real device testing shows that it is useful. The current approach also makes the app behavior easier to explain: it scans QR codes and common retail or linear barcodes, not every barcode family ML Kit can recognize.
 
 ## Result handling
 
