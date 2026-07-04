@@ -55,7 +55,17 @@ class MainActivity : ComponentActivity() {
     private val cameraExecutor = Executors.newSingleThreadExecutor()
     private val scanner by lazy {
         val options = BarcodeScannerOptions.Builder()
-            .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+            .setBarcodeFormats(
+                Barcode.FORMAT_QR_CODE,
+                Barcode.FORMAT_EAN_13,
+                Barcode.FORMAT_EAN_8,
+                Barcode.FORMAT_UPC_A,
+                Barcode.FORMAT_UPC_E,
+                Barcode.FORMAT_CODE_128,
+                Barcode.FORMAT_CODE_39,
+                Barcode.FORMAT_CODE_93,
+                Barcode.FORMAT_CODABAR
+            )
             .build()
         BarcodeScanning.getClient(options)
     }
@@ -282,7 +292,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
             .addOnFailureListener { error ->
-                Log.w(TAG, "QR analysis failed", error)
+                Log.w(TAG, "Barcode analysis failed", error)
             }
             .addOnCompleteListener {
                 processingFrame = false
@@ -488,13 +498,15 @@ class MainActivity : ComponentActivity() {
         val normalized = trim()
         if (normalized.isBlank() || normalized.any { it.isWhitespace() }) return null
 
-        if (normalized.startsWith("https://", ignoreCase = true) ||
-            normalized.startsWith("http://", ignoreCase = true)
+        val httpsPrefix = WEB_SCHEME_HTTPS + WEB_SCHEME_SEPARATOR
+        val httpPrefix = WEB_SCHEME_HTTP + WEB_SCHEME_SEPARATOR
+        if (normalized.startsWith(httpsPrefix, ignoreCase = true) ||
+            normalized.startsWith(httpPrefix, ignoreCase = true)
         ) {
             val uri = Uri.parse(normalized)
             val scheme = uri.scheme?.lowercase(Locale.ROOT)
             return if (
-                (scheme == "https" || scheme == "http") &&
+                (scheme == WEB_SCHEME_HTTPS || scheme == WEB_SCHEME_HTTP) &&
                 uri.userInfo.isNullOrBlank() &&
                 !uri.host.isNullOrBlank()
             ) {
@@ -504,9 +516,9 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        if (normalized.contains("://") || normalized.contains("@")) return null
+        if (normalized.contains(WEB_SCHEME_SEPARATOR) || normalized.contains(USER_INFO_SEPARATOR)) return null
 
-        val uri = Uri.parse("https://$normalized")
+        val uri = Uri.parse(httpsPrefix + normalized)
         val host = uri.host ?: return null
         return if (host.isLikelyWebHost()) uri else null
     }
@@ -520,7 +532,7 @@ class MainActivity : ComponentActivity() {
         if (!labels.all { it.isValidHostLabel() }) return false
 
         val topLevelDomain = labels.last()
-        return topLevelDomain.startsWith("xn--") ||
+        return topLevelDomain.startsWith(PUNYCODE_PREFIX) ||
             (topLevelDomain.length >= MIN_TLD_LENGTH && topLevelDomain.all { it.isLetter() })
     }
 
@@ -539,6 +551,11 @@ class MainActivity : ComponentActivity() {
         const val MAX_HOST_LENGTH = 253
         const val MAX_HOST_LABEL_LENGTH = 63
         const val MIN_TLD_LENGTH = 2
+        const val WEB_SCHEME_HTTPS = "https"
+        const val WEB_SCHEME_HTTP = "http"
+        const val WEB_SCHEME_SEPARATOR = "://"
+        const val USER_INFO_SEPARATOR = '@'
+        const val PUNYCODE_PREFIX = "xn--"
         const val TAG = "QrCodeScanner"
     }
 }
