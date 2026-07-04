@@ -39,6 +39,8 @@ The app does not currently support barcode families outside the ML Kit barcode f
 | Format family | Why it is not supported now |
 | --- | --- |
 | Micro QR / rectangular Micro QR | Not exposed by the current ML Kit barcode scanner dependency. Supporting it would require another decoder or custom scanning path. |
+| GS1 DataBar / RSS | Not exposed by the current ML Kit barcode scanner dependency. It can appear in retail, coupon, produce, and healthcare contexts, but it would require another decoder. |
+| GS1 Composite | Not exposed by the current ML Kit barcode scanner dependency. Composite codes combine a linear barcode with an extra stacked component, so they need broader symbology support than this app currently has. |
 | MicroPDF417 | Not exposed by the current ML Kit barcode scanner dependency. It is a specialized stacked barcode family separate from PDF417. |
 | MaxiCode | Not exposed by the current ML Kit barcode scanner dependency. It is mostly a specialized logistics format, so it is outside the current consumer scanner target. |
 | DotCode | Not exposed by the current ML Kit barcode scanner dependency. It is a specialized marking format rather than a normal QR or retail barcode target. |
