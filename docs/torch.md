@@ -1,8 +1,8 @@
 # Scanner Torch Behavior
 
-QR Code Scanner uses CameraX for the live camera preview and QR frame analysis. Because the camera is already open and owned by the scanner pipeline, the flashlight toggle also stays inside CameraX by calling `camera.cameraControl.enableTorch(...)` on the active CameraX camera.
+QR Code Scanner uses CameraX for the live camera preview and frame analysis. Because the camera is already open and owned by the scanner pipeline, the flashlight toggle also stays inside CameraX by calling `camera.cameraControl.enableTorch(...)` on the active CameraX camera.
 
-This is intentionally different from a standalone flashlight app. A flashlight-only app can often use Android's lower-level `CameraManager.setTorchMode(...)` API directly because it does not need to keep a camera preview and image analyzer open at the same time. That path can feel faster on some devices, but it is not the safest default for this app because the QR scanner already has the camera in use.
+This is intentionally different from a standalone flashlight app. A flashlight-only app can often use Android's lower-level `CameraManager.setTorchMode(...)` API directly because it does not need to keep a camera preview and image analyzer open at the same time. That path can feel faster on some devices, but it is not the safest default for this app because the scanner already has the camera in use.
 
 Android documents `CameraManager.setTorchMode(...)` as a way to control torch mode without opening the camera device, but it can fail when the camera device or camera resources are already in use. CameraX provides `CameraControl.enableTorch(...)` for controlling the torch on the active CameraX camera, which fits this app's preview-first scanning model.
 
@@ -29,7 +29,7 @@ The active icon uses a dark tint instead of white because the active background 
 
 ## Why not copy Bright Flashlight exactly?
 
-Bright Flashlight is a dedicated flashlight utility. Its main torch controller can choose a flash-capable camera ID and call `CameraManager.setTorchMode(...)` directly because it is not running a live QR preview and ML analyzer.
+Bright Flashlight is a dedicated flashlight utility. Its main torch controller can choose a flash-capable camera ID and call `CameraManager.setTorchMode(...)` directly because it is not running a live camera preview and ML analyzer.
 
 QR Code Scanner is different: the camera is already bound for scanning. Mixing an independent `CameraManager.setTorchMode(...)` call into that active CameraX camera session may be faster on some devices, but it is more likely to hit device-specific failures or conflicts.
 
