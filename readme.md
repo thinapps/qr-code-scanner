@@ -1,6 +1,6 @@
 # QR Code Scanner
 
-Scans QR codes and common barcodes with history
+Scans QR codes and barcodes with history
 
 ## Documentation
 
