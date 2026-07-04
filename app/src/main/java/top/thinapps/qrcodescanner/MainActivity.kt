@@ -174,18 +174,52 @@ class MainActivity : ComponentActivity() {
         binding.root.addOnLayoutChangeListener(updateListener)
         binding.layoutContent.addOnLayoutChangeListener(updateListener)
         binding.viewScanGuide.addOnLayoutChangeListener(updateListener)
+        binding.btnTorch.addOnLayoutChangeListener(updateListener)
         binding.root.post { updateScanGuidePosition() }
     }
 
     private fun updateScanGuidePosition() {
         val rootHeight = binding.root.height
-        val guideHeight = binding.viewScanGuide.height
-        if (rootHeight <= 0 || guideHeight <= 0) return
+        val rootWidth = binding.root.width
+        if (rootHeight <= 0 || rootWidth <= 0) return
 
         val previewBottom = binding.layoutContent.top.takeIf { it > 0 } ?: rootHeight
         val previewTop = cameraPreviewTopInset.coerceAtMost(previewBottom)
-        val centeredGuideTop = previewTop + ((previewBottom - previewTop - guideHeight) / 2f)
-        binding.viewScanGuide.translationY = centeredGuideTop.coerceAtLeast(previewTop.toFloat())
+        val visiblePreviewHeight = previewBottom - previewTop
+        if (visiblePreviewHeight <= 0) return
+
+        val edgePadding = resources.getDimensionPixelSize(R.dimen.app_gutter)
+        val preferredGuideSize = resources.getDimensionPixelSize(R.dimen.scan_guide_size)
+        val torchClearance = if (
+            binding.btnTorch.visibility == View.VISIBLE &&
+            binding.btnTorch.bottom > previewTop
+        ) {
+            binding.btnTorch.bottom - previewTop + edgePadding
+        } else {
+            edgePadding
+        }
+        val verticalPadding = maxOf(edgePadding, torchClearance)
+        val availableGuideWidth = rootWidth - (edgePadding * 2)
+        val availableGuideHeight = visiblePreviewHeight - (verticalPadding * 2)
+        val guideSize = minOf(
+            preferredGuideSize,
+            availableGuideWidth,
+            availableGuideHeight
+        ).coerceAtLeast(0)
+        if (guideSize <= 0) return
+
+        binding.viewScanGuide.updateLayoutParams<FrameLayout.LayoutParams> {
+            if (width != guideSize) width = guideSize
+            if (height != guideSize) height = guideSize
+        }
+
+        val minGuideTop = previewTop + verticalPadding
+        val maxGuideTop = previewBottom - verticalPadding - guideSize
+        val centeredGuideTop = previewTop + ((visiblePreviewHeight - guideSize) / 2f)
+        binding.viewScanGuide.translationY = centeredGuideTop.coerceIn(
+            minGuideTop.toFloat(),
+            maxGuideTop.toFloat()
+        )
     }
 
     private fun setupTypography() {
@@ -439,6 +473,7 @@ class MainActivity : ComponentActivity() {
 
         if (!hasTorch) {
             binding.btnTorch.isPressed = false
+            updateScanGuidePosition()
             return
         }
 
@@ -462,6 +497,7 @@ class MainActivity : ComponentActivity() {
         binding.btnTorch.setImageResource(iconResource)
         binding.btnTorch.backgroundTintList = ColorStateList.valueOf(buttonColor)
         binding.btnTorch.imageTintList = ColorStateList.valueOf(iconColor)
+        updateScanGuidePosition()
     }
 
     private fun syncTorchState(currentCamera: Camera?) {
