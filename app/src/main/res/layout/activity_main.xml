@@ -9,9 +9,20 @@
         android:id="@+id/previewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="@drawable/scan_guide_foreground"
         android:visibility="invisible"
         app:scaleType="fillCenter" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/viewScanGuide"
+        android:layout_width="@dimen/scan_guide_size"
+        android:layout_height="@dimen/scan_guide_size"
+        android:layout_gravity="top|center_horizontal"
+        android:clickable="false"
+        android:contentDescription="@null"
+        android:focusable="false"
+        android:importantForAccessibility="no"
+        android:src="@drawable/scan_guide_overlay"
+        android:visibility="invisible" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnTorch"
