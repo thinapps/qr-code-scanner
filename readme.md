@@ -19,7 +19,7 @@ Scans QR codes and common barcodes with history
 
 ### 0.7.0
 - adds scanning support for common barcodes: EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, Code 93, and Codabar
-- keeps QR code scanning enabled while avoiding broad all-format scanning for now
+- keeps QR code scanning enabled while leaving PDF417, Aztec, Data Matrix, ITF, and less common specialized formats out of scope for now
 - updates the launcher label, scanner title, app copy, documentation, and scope notes for QR code and barcode scanning
 
 ### 0.6.3
