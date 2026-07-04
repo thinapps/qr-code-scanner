@@ -19,7 +19,7 @@ Scans QR codes and common barcodes with history
 
 ### 0.7.0
 - adds scanning support for the common ML Kit barcode formats: QR Code, EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, Code 93, Codabar, ITF, PDF417, Aztec, and Data Matrix
-- does not support Micro QR, rectangular Micro QR, GS1 DataBar/RSS, GS1 Composite, MicroPDF417, MaxiCode, DotCode, postal barcodes, MSI, Plessey, Code 11, Pharmacode, or proprietary color, circular, or app-specific codes
+- does not support Micro QR, rectangular Micro QR, UPC/EAN 2-digit or 5-digit add-on codes, GS1 DataBar/RSS, GS1 Composite, MicroPDF417, MaxiCode, DotCode, postal barcodes, MSI, Plessey, Code 11, Pharmacode, or proprietary color, circular, or app-specific codes
 - updates the launcher label, scanner title, app copy, documentation, and scope notes for QR code and barcode scanning
 
 ### 0.6.3
