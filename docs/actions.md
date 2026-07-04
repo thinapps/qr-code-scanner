@@ -4,19 +4,19 @@ QR Code Scanner keeps result actions simple and local. The app does not send sca
 
 ## Copy
 
-`Copy` copies the scanned value exactly as it was read from the QR code.
+`Copy` copies the scanned value exactly as it was read from the QR code or barcode.
 
 The app does not show its own copied toast after this action. It relies on Android's native clipboard confirmation, so supported Android versions show only the modern system copy feedback instead of duplicate app and system messages.
 
 ## Share
 
-`Share` shares the scanned value exactly as it was read from the QR code.
+`Share` shares the scanned value exactly as it was read from the QR code or barcode.
 
 ## Open
 
 `Open` is only enabled when the scanned value looks like a web link.
 
-The app accepts normal `http://` and `https://` links when they have a real host and do not include URI user-info. It also accepts likely web domains without a scheme, such as `example.com` or `www.example.com`, and opens them as `https://` links.
+The app accepts normal web links when they have a real host and do not include URI user-info. It also accepts likely web domains without a scheme, such as `example.com` or `www.example.com`, and opens them as secure web links.
 
 The app does not maintain a hardcoded list of valid top-level domains. That would be brittle because valid public suffixes change and there are many possible TLDs.
 
@@ -30,7 +30,7 @@ For schemeless domains, the app checks the host shape so new or uncommon TLDs ca
 - only letters, digits, and dashes in host labels
 - final label has at least two letters or uses a punycode-style `xn--` prefix
 
-The app also rejects web links that include URI user-info, such as `https://example.com@other.example`, because those links can visually hide the real destination host.
+The app also rejects web links that include URI user-info because those links can visually hide the real destination host.
 
 Values with spaces, schemeless `@` characters, URI user-info, or unsupported schemes are not treated as openable web links.
 
@@ -42,8 +42,8 @@ Previewing a saved history item does not create a new history entry or move that
 
 ## Result labels
 
-The app does not currently label scanned results as Website, Text, Email, Phone, or other content types.
+The app does not currently label scanned results as Website, Text, Email, Phone, Product, or other content types.
 
 For now, labels would mostly repeat the existing action state: values accepted by `Open` would be web links, and everything else would behave like plain text. Adding labels at this stage would add visual clutter without making the app much safer or clearer.
 
-Result labels can be reconsidered later if the app adds dedicated actions for more content types, such as email, phone, SMS, Wi-Fi, contacts, calendar events, or locations.
+Result labels can be reconsidered later if the app adds dedicated actions for more content types, such as email, phone, SMS, Wi-Fi, contacts, calendar events, locations, or product-related flows.
