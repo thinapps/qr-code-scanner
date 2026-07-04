@@ -2,9 +2,9 @@
 
 QR Code Scanner keeps the camera preview and image analyzer active after a QR code or barcode is found. The app does not pause the scanner or switch to a separate result screen.
 
-The scanner currently enables QR Code, EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, Code 93, and Codabar formats. See [Scope](scope.md) for the current format list and formats that are intentionally not enabled yet.
+See [Scope](scope.md) for the current supported and unsupported barcode format lists.
 
-To avoid duplicate result spam, detected values pass through a small result gate before the UI is updated.
+To avoid duplicate result noise, detected values pass through a small result gate before the UI is updated.
 
 The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior.
 
@@ -44,7 +44,7 @@ When the result is cleared:
 - If the same value remains continuously in view, the duplicate window keeps sliding forward so the UI does not keep refreshing the same result.
 - A different QR code or barcode can still be accepted after the short cooldown.
 
-This keeps scanning live while avoiding noisy repeated updates from the same QR code, barcode, or quick flicker between detections.
+This keeps scanning live while avoiding repeated updates from the same QR code, barcode, or quick flicker between detections.
 
 Accepted results are saved into local scan history after passing this gate.
 
@@ -54,7 +54,7 @@ A stricter result flow would pause or lock scanning after the first accepted QR 
 
 That flow can make sense later if the app should feel more like a deliberate capture tool. For now, the app stays closer to a lightweight live scanner: it keeps the camera active, filters duplicate noise, and still lets a different QR code or barcode replace the current result after a short cooldown.
 
-This avoids adding another large button and another scanner state before testing proves the extra step is useful. The current result gate solves the immediate spam problem without making normal scanning slower or more complicated.
+This avoids adding another large button and another scanner state before testing proves the extra step is useful. The current result gate solves the immediate repeat-update problem without making normal scanning slower or more complicated.
 
 ## Current constants
 
