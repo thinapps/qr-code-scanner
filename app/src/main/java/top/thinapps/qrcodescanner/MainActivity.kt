@@ -64,7 +64,11 @@ class MainActivity : ComponentActivity() {
                 Barcode.FORMAT_CODE_128,
                 Barcode.FORMAT_CODE_39,
                 Barcode.FORMAT_CODE_93,
-                Barcode.FORMAT_CODABAR
+                Barcode.FORMAT_CODABAR,
+                Barcode.FORMAT_ITF,
+                Barcode.FORMAT_PDF417,
+                Barcode.FORMAT_AZTEC,
+                Barcode.FORMAT_DATA_MATRIX
             )
             .build()
         BarcodeScanning.getClient(options)
