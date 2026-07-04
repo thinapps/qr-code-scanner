@@ -1,11 +1,12 @@
 # QR Code Scanner
 
-Scans QR codes with history
+Scans QR codes and common barcodes with history
 
 ## Documentation
 
 | Document | Description |
 | --- | --- |
+| [Scope](docs/scope.md) | Explains what barcode formats are currently supported and what intentionally remains out of scope. |
 | [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
 | [Actions](docs/actions.md) | Explains copy, share, open, URL normalization, and history-preview behavior for scanned results. |
 | [Scanning](docs/scanning.md) | Explains how live scanning stays active while duplicate result spam is filtered. |
@@ -15,6 +16,11 @@ Scans QR codes with history
 | [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
 
 ## Changelog
+
+### 0.7.0
+- adds scanning support for common barcodes: EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, Code 93, and Codabar
+- keeps QR code scanning enabled while avoiding broad all-format scanning for now
+- updates app copy, documentation, and scope notes for QR code and barcode scanning
 
 ### 0.6.3
 - adds a subtle centered scan guide overlay over the scanner screen
