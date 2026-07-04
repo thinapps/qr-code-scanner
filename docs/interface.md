@@ -31,7 +31,9 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Scan guide overlay
 
-The scanner screen includes a visual-only aiming guide over the preview area. It is a centered `240dp` vector overlay with four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
+The scanner screen includes a visual-only aiming guide above the camera preview. It is a dedicated `240dp` overlay view with four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
+
+The guide is centered in the visible camera area above the bottom scanner panel, not in the full screen. This keeps the guide from being partially covered by the bottom panel and keeps the marks visually aligned with the area the user can actually aim through.
 
 The guide uses the app accent cyan at partial opacity (`#B300BCD4`). It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
 
