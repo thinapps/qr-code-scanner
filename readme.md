@@ -17,10 +17,12 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.7.2
+- increases the scan guide from `240dp` to `260dp`
+
 ### 0.7.1
 - fixes scan guide alignment by drawing the guide as a separate overlay instead of a `PreviewView` foreground
 - centers the guide in the visible camera area above the bottom scanner panel
-- increases the scan guide from `240dp` to `260dp`
 - changes the scan guide from accent cyan to neutral semi-transparent gray (`#99DADADA`)
 - removes the unused scan guide foreground wrapper resource
 
