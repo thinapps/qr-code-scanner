@@ -1,6 +1,6 @@
 # Build
 
-This app keeps the Android build setup intentionally small because it is a single-module QR scanner app built through GitHub Actions.
+This app keeps the Android build setup intentionally small because it is a single-module QR and barcode scanner app built through GitHub Actions.
 
 ## Gradle
 
@@ -16,12 +16,7 @@ The repository does not commit Gradle wrapper files. The release workflow downlo
 
 The workflow lets `android-actions/setup-android` install only `platform-tools`, then installs the Android 35 platform and build tools explicitly. It avoids the legacy SDK `tools` package because that can pull emulator packages that are not needed for a release bundle build.
 
-The workflow expects these repository secrets:
-
-- `RELEASE_KEYSTORE`
-- `RELEASE_STORE_PASSWORD`
-- `RELEASE_KEY_ALIAS`
-- `RELEASE_KEY_PASSWORD`
+Release signing is configured through repository secrets used by the workflow.
 
 ## R8 and ProGuard
 
