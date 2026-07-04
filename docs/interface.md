@@ -31,9 +31,9 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Scan guide overlay
 
-The scanner screen includes a visual-only QR aiming guide over the preview area. It is a centered `240dp` vector overlay with four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
+The scanner screen includes a visual-only aiming guide over the preview area. It is a centered `240dp` vector overlay with four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
 
-The guide uses the app accent cyan at partial opacity (`#B300BCD4`). It is non-clickable, hidden from accessibility, and does not change how QR detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
+The guide uses the app accent cyan at partial opacity (`#B300BCD4`). It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
 
 ## Launcher icon
 
@@ -95,7 +95,7 @@ The result card keeps `20dp` side and bottom padding, but uses `12dp` top paddin
 
 The `Scanned Result` label uses `12sp` text, all-caps styling, bold weight, and slight letter spacing so it reads as a quiet section label rather than another body line.
 
-The result-card close icon reserves its 48dp header slot even when no result is visible. The icon itself becomes invisible when empty, but the reserved space prevents the `Scanned Result` header from shifting horizontally when a QR result appears or is cleared.
+The result-card close icon reserves its 48dp header slot even when no result is visible. The icon itself becomes invisible when empty, but the reserved space prevents the `Scanned Result` header from shifting horizontally when a result appears or is cleared.
 
 The scanned result value is forced to use Android's monospace typeface in XML and code. On Android 9 and newer, the result text span also uses Android's `Typeface.MONOSPACE` object directly instead of only the `monospace` family name. This gives URLs, codes, and other scanned values clearer structure without adding a bundled font file, nested background, or heavier result card styling.
 
@@ -137,12 +137,12 @@ The history icon opens saved local scan history. The close icon only clears the 
 
 The large title stays visible at the top of the bottom panel. The subtitle/status line stays below it and changes with scanner state.
 
-Before a QR code is found:
+Before a scan result is found:
 
-- subtitle/status: `Point your camera at a QR code.`
-- result card: `No QR code scanned yet.`
+- subtitle/status: `Point your camera at a QR code or barcode.`
+- result card: `No QR code or barcode scanned yet.`
 
-After a QR code is found:
+After a scan result is found:
 
 - subtitle/status: `Preview the scanned result.`
 - result card: scanned value
