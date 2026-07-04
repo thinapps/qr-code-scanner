@@ -208,9 +208,12 @@ class MainActivity : ComponentActivity() {
         ).coerceAtLeast(0)
         if (guideSize <= 0) return
 
-        binding.viewScanGuide.updateLayoutParams<FrameLayout.LayoutParams> {
-            if (width != guideSize) width = guideSize
-            if (height != guideSize) height = guideSize
+        val guideLayoutParams = binding.viewScanGuide.layoutParams as FrameLayout.LayoutParams
+        if (guideLayoutParams.width != guideSize || guideLayoutParams.height != guideSize) {
+            binding.viewScanGuide.updateLayoutParams<FrameLayout.LayoutParams> {
+                width = guideSize
+                height = guideSize
+            }
         }
 
         val availableCenteringSpace = (visiblePreviewHeight - guideSize).coerceAtLeast(0)
