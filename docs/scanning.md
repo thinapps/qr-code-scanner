@@ -6,7 +6,7 @@ See [Scope](scope.md) for the current supported and unsupported barcode format l
 
 To avoid duplicate result noise, detected values pass through a small result gate before the UI is updated.
 
-The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior.
+The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior. The guide is centered in the visible camera area above the bottom scanner panel so the panel does not cover the lower guide marks.
 
 ## Screen text states
 
