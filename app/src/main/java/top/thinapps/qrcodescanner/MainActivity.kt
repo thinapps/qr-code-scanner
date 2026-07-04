@@ -198,9 +198,9 @@ class MainActivity : ComponentActivity() {
         } else {
             edgePadding
         }
-        val verticalPadding = maxOf(edgePadding, torchClearance)
+        val preferredVerticalPadding = maxOf(edgePadding, torchClearance)
         val availableGuideWidth = rootWidth - (edgePadding * 2)
-        val availableGuideHeight = visiblePreviewHeight - (verticalPadding * 2)
+        val availableGuideHeight = visiblePreviewHeight - (preferredVerticalPadding * 2)
         val guideSize = minOf(
             preferredGuideSize,
             availableGuideWidth,
@@ -213,13 +213,16 @@ class MainActivity : ComponentActivity() {
             if (height != guideSize) height = guideSize
         }
 
+        val availableCenteringSpace = (visiblePreviewHeight - guideSize).coerceAtLeast(0)
+        val verticalPadding = minOf(preferredVerticalPadding, availableCenteringSpace / 2)
         val minGuideTop = previewTop + verticalPadding
         val maxGuideTop = previewBottom - verticalPadding - guideSize
         val centeredGuideTop = previewTop + ((visiblePreviewHeight - guideSize) / 2f)
-        binding.viewScanGuide.translationY = centeredGuideTop.coerceIn(
-            minGuideTop.toFloat(),
-            maxGuideTop.toFloat()
-        )
+        binding.viewScanGuide.translationY = if (minGuideTop <= maxGuideTop) {
+            centeredGuideTop.coerceIn(minGuideTop.toFloat(), maxGuideTop.toFloat())
+        } else {
+            centeredGuideTop
+        }
     }
 
     private fun setupTypography() {
