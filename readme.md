@@ -20,7 +20,7 @@ Scans QR codes and barcodes with history
 ### 0.7.1
 - fixes scan guide alignment by drawing the guide as a separate overlay instead of a `PreviewView` foreground
 - centers the guide in the visible camera area above the bottom scanner panel
-- changes the scan guide from accent cyan to neutral semi-transparent gray
+- changes the scan guide from accent cyan to neutral semi-transparent gray (`#99DADADA`)
 - removes the unused scan guide foreground wrapper resource
 
 ### 0.7.0
