@@ -82,6 +82,7 @@ class MainActivity : ComponentActivity() {
     private var candidateScanHits = 0
     private var lastAcceptedScanValue: String? = null
     private var lastAcceptedScanAtMs = 0L
+    private var cameraPreviewTopInset = 0
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -121,6 +122,7 @@ class MainActivity : ComponentActivity() {
         setContentView(binding.root)
 
         applyWindowInsets()
+        setupScanGuidePositioning()
         setupTypography()
         setupControls()
         syncActionButtons()
@@ -153,14 +155,37 @@ class MainActivity : ComponentActivity() {
             val bars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
             )
+            cameraPreviewTopInset = bars.top
             binding.layoutContent.updatePadding(bottom = baseBottom + bars.bottom)
             binding.btnTorch.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = baseTorchTopMargin + bars.top
                 marginEnd = baseTorchEndMargin + bars.right
             }
+            updateScanGuidePosition()
             insets
         }
         ViewCompat.requestApplyInsets(binding.root)
+    }
+
+    private fun setupScanGuidePositioning() {
+        val updateListener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            updateScanGuidePosition()
+        }
+        binding.root.addOnLayoutChangeListener(updateListener)
+        binding.layoutContent.addOnLayoutChangeListener(updateListener)
+        binding.viewScanGuide.addOnLayoutChangeListener(updateListener)
+        binding.root.post { updateScanGuidePosition() }
+    }
+
+    private fun updateScanGuidePosition() {
+        val rootHeight = binding.root.height
+        val guideHeight = binding.viewScanGuide.height
+        if (rootHeight <= 0 || guideHeight <= 0) return
+
+        val previewBottom = binding.layoutContent.top.takeIf { it > 0 } ?: rootHeight
+        val previewTop = cameraPreviewTopInset.coerceAtMost(previewBottom)
+        val centeredGuideTop = previewTop + ((previewBottom - previewTop - guideHeight) / 2f)
+        binding.viewScanGuide.translationY = centeredGuideTop.coerceAtLeast(previewTop.toFloat())
     }
 
     private fun setupTypography() {
@@ -231,6 +256,8 @@ class MainActivity : ComponentActivity() {
 
     private fun startCamera() {
         binding.previewView.visibility = View.VISIBLE
+        binding.viewScanGuide.visibility = View.VISIBLE
+        updateScanGuidePosition()
         binding.layoutPermission.visibility = View.GONE
         showStatus(R.string.scan_status_ready)
         if (lastScannedValue.isNullOrBlank()) {
@@ -266,6 +293,8 @@ class MainActivity : ComponentActivity() {
             } catch (error: RuntimeException) {
                 camera = null
                 torchEnabled = false
+                binding.previewView.visibility = View.INVISIBLE
+                binding.viewScanGuide.visibility = View.INVISIBLE
                 syncTorchButton()
                 Log.w(TAG, "Unable to start camera", error)
                 showStatus(R.string.scan_status_camera_error)
@@ -358,6 +387,7 @@ class MainActivity : ComponentActivity() {
         camera = null
         torchEnabled = false
         binding.previewView.visibility = View.INVISIBLE
+        binding.viewScanGuide.visibility = View.INVISIBLE
         binding.layoutPermission.visibility = View.VISIBLE
         showStatus(R.string.scan_status_permission_needed)
         syncActionButtons()
