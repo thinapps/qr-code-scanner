@@ -2,7 +2,7 @@
 
 QR Code Scanner is a small local scanner for QR codes and common barcode formats supported by ML Kit.
 
-## Supported formats
+## Supported now
 
 The scanner currently enables every barcode format exposed by the app's ML Kit barcode scanner dependency:
 
@@ -22,7 +22,7 @@ The scanner currently enables every barcode format exposed by the app's ML Kit b
 
 These cover the common consumer, retail, logistics, ticketing, ID, and compact 2D barcode families that ML Kit supports directly.
 
-## Practical scan notes
+## Supported with practical caveats
 
 Some supported formats are more demanding than others:
 
@@ -32,19 +32,21 @@ Some supported formats are more demanding than others:
 - PDF417 can be large and dense. It may need a clearer, closer, or higher-resolution camera view than simple retail barcodes.
 - Data Matrix is useful for compact 2D labels, but ML Kit only recognizes Data Matrix codes that intersect the center point of the input image.
 
-## Still out of scope
+## Not supported by the current app
 
-The app does not support barcode families that ML Kit's current barcode scanner does not expose, such as:
+The app does not currently support barcode families outside the ML Kit barcode formats enabled above. These are unsupported now:
 
-- Micro QR or rectangular Micro QR
-- MicroPDF417
-- MaxiCode
-- DotCode
-- postal barcodes
-- MSI, Plessey, Code 11, Pharmacode, or similar legacy/specialized linear codes
-- proprietary color, circular, or app-specific codes
+| Format family | Why it is not supported now |
+| --- | --- |
+| Micro QR / rectangular Micro QR | Not exposed by the current ML Kit barcode scanner dependency. Supporting it would require another decoder or custom scanning path. |
+| MicroPDF417 | Not exposed by the current ML Kit barcode scanner dependency. It is a specialized stacked barcode family separate from PDF417. |
+| MaxiCode | Not exposed by the current ML Kit barcode scanner dependency. It is mostly a specialized logistics format, so it is outside the current consumer scanner target. |
+| DotCode | Not exposed by the current ML Kit barcode scanner dependency. It is a specialized marking format rather than a normal QR or retail barcode target. |
+| Postal barcodes | Not exposed by the current ML Kit barcode scanner dependency. Postal formats are country- and routing-specific and are outside the current app scope. |
+| MSI, Plessey, Code 11, Pharmacode, and similar legacy linear codes | Not exposed by the current ML Kit barcode scanner dependency. They are niche or legacy formats compared with EAN, UPC, Code 128, Code 39, Code 93, Codabar, and ITF. |
+| Proprietary color, circular, or app-specific codes | These are not standard ML Kit barcode formats. They would need a vendor SDK, custom decoder, or a specific use case before being added. |
 
-Those formats are not part of the current app scope. Adding them would require a different scanner library, custom decoding, or a clearer use case than this small local scanner currently targets.
+The short version: the app supports every barcode format ML Kit exposes here, including dense or stricter formats like PDF417 and Data Matrix. It does not support barcode families that ML Kit does not expose without adding another scanner library or custom decoding work.
 
 ## Result handling
 
