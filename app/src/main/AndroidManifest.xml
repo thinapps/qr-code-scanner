@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- camera preview and qr analysis -->
+    <!-- camera preview and barcode analysis -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- qr scanning requires a camera -->
+    <!-- QR and barcode scanning requires a camera -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -33,7 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
