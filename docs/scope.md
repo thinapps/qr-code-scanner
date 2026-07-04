@@ -1,10 +1,10 @@
 # Scope
 
-QR Code Scanner is a small local scanner for QR codes and common barcodes.
+QR Code Scanner is a small local scanner for QR codes and common barcode formats supported by ML Kit.
 
 ## Supported formats
 
-The scanner currently enables these formats:
+The scanner currently enables every barcode format exposed by the app's ML Kit barcode scanner dependency:
 
 - QR Code
 - EAN-13
@@ -15,27 +15,36 @@ The scanner currently enables these formats:
 - Code 39
 - Code 93
 - Codabar
-
-These cover the app's current target: QR codes plus common retail and linear barcode formats.
-
-## Not enabled yet
-
-The app does not currently enable every barcode family. These formats are intentionally out of scope for now:
-
+- ITF
 - PDF417
 - Aztec
 - Data Matrix
-- ITF
-- less common specialized formats not listed above
 
-These formats are skipped for practical scope reasons:
+These cover the common consumer, retail, logistics, ticketing, ID, and compact 2D barcode families that ML Kit supports directly.
 
-- PDF417 is common for IDs, shipping labels, and larger stacked codes, but it is less central to the current simple QR and retail-barcode use case.
-- Aztec and Data Matrix are compact 2D formats used in some transport, logistics, and industrial contexts, but they expand the app beyond the current consumer scanner target.
-- ITF is often used for packaging and distribution codes, but it is less useful for ordinary QR and retail scanning than EAN, UPC, and Code formats.
-- Less common specialized formats should be added only when there is a clear reason to support them and enough device testing to confirm they do not make normal scanning noisier.
+## Practical scan notes
 
-Keeping the enabled list narrow avoids turning on broad all-format scanning before real device testing shows that it is useful. The current approach also makes the app behavior easier to explain: it scans QR codes and common retail or linear barcodes, not every barcode family ML Kit can recognize.
+Some supported formats are more demanding than others:
+
+- EAN and UPC are the main retail product formats and should be part of any normal barcode scanner.
+- Code 128, Code 39, Code 93, Codabar, and ITF cover common linear formats used across packaging, inventory, labels, libraries, and older systems.
+- Aztec is useful for some ticketing and transport codes, so it is enabled even though QR is more familiar to most users.
+- PDF417 can be large and dense. It may need a clearer, closer, or higher-resolution camera view than simple retail barcodes.
+- Data Matrix is useful for compact 2D labels, but ML Kit only recognizes Data Matrix codes that intersect the center point of the input image.
+
+## Still out of scope
+
+The app does not support barcode families that ML Kit's current barcode scanner does not expose, such as:
+
+- Micro QR or rectangular Micro QR
+- MicroPDF417
+- MaxiCode
+- DotCode
+- postal barcodes
+- MSI, Plessey, Code 11, Pharmacode, or similar legacy/specialized linear codes
+- proprietary color, circular, or app-specific codes
+
+Those formats are not part of the current app scope. Adding them would require a different scanner library, custom decoding, or a clearer use case than this small local scanner currently targets.
 
 ## Result handling
 
