@@ -13,8 +13,8 @@ android {
         targetSdk 35
 
         // bump before each release
-        versionCode 23
-        versionName "0.6.3"
+        versionCode 24
+        versionName "0.7.0"
     }
 
     signingConfigs {
@@ -73,6 +73,6 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:1.4.1"
     implementation "androidx.camera:camera-view:1.4.1"
 
-    // on-device qr code scanning
+    // on-device QR and barcode scanning
     implementation "com.google.mlkit:barcode-scanning:17.3.0"
 }
