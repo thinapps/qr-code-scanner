@@ -1,6 +1,6 @@
 # Permissions
 
-QR Code Scanner is intentionally permission-light. The app only asks for the camera permission because live QR scanning needs camera frames.
+QR Code Scanner is intentionally permission-light. The app only asks for the camera permission because live QR and barcode scanning needs camera frames.
 
 ## Requested permissions
 
@@ -15,7 +15,7 @@ The app requests:
 This permission is needed for:
 
 - showing the live CameraX preview
-- reading camera frames for on-device QR analysis
+- reading camera frames for on-device QR and barcode analysis
 - controlling the scanner flashlight through the active CameraX camera
 
 The manifest also declares that the app requires camera hardware:
@@ -30,7 +30,7 @@ The manifest also declares that the app requires camera hardware:
 
 The app does not request Internet, location, storage, contacts, accounts, notification, or advertising permissions.
 
-Scanned values are handled locally. The app does not upload scans or send scanned content to a server. Scan history is stored locally on the device.
+Scanned values are handled locally. Scan history is stored locally on the device.
 
 ## Permission and camera messages
 
@@ -40,15 +40,15 @@ When camera permission is missing or denied:
 
 - the camera preview is hidden
 - the subtitle/status line says `Camera permission is needed before scanning can start.`
-- the permission panel says `Camera permission is required to scan QR codes. Scanning happens locally on your device.`
+- the permission panel says `Camera permission is required to scan QR codes and barcodes. Scanning happens locally on your device.`
 - the permission button says `Allow Camera`
 
 When permission is granted and the camera starts normally:
 
-- the subtitle/status line says `Point your camera at a QR code.`
-- the result card says `No QR code scanned yet.` until a QR code is found
+- the subtitle/status line says `Point your camera at a QR code or barcode.`
+- the result card says `No QR code or barcode scanned yet.` until a result is found
 
-When a QR code is found:
+When a scan result is found:
 
 - the subtitle/status line says `Preview the scanned result.`
 - the result card shows the scanned value
