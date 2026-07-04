@@ -39,6 +39,7 @@ The app does not currently support barcode families outside the ML Kit barcode f
 | Format family | Why it is not supported now |
 | --- | --- |
 | Micro QR / rectangular Micro QR | Not exposed by the current ML Kit barcode scanner dependency. Supporting it would require another decoder or custom scanning path. |
+| UPC/EAN 2-digit and 5-digit add-on codes | Not exposed by the current ML Kit barcode scanner dependency. These add-ons can appear beside EAN or UPC codes on magazines, periodicals, and books, but the app currently targets the main EAN or UPC value. |
 | GS1 DataBar / RSS | Not exposed by the current ML Kit barcode scanner dependency. It can appear in retail, coupon, produce, and healthcare contexts, but it would require another decoder. |
 | GS1 Composite | Not exposed by the current ML Kit barcode scanner dependency. Composite codes combine a linear barcode with an extra stacked component, so they need broader symbology support than this app currently has. |
 | MicroPDF417 | Not exposed by the current ML Kit barcode scanner dependency. It is a specialized stacked barcode family separate from PDF417. |
