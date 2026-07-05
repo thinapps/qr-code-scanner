@@ -6,7 +6,11 @@ See [Scope](scope.md) for the current supported and unsupported barcode format l
 
 To avoid duplicate result noise, detected values pass through a small result gate before the UI is updated.
 
-The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior. The guide is centered in the visible camera area above the bottom scanner panel so the panel does not cover the lower guide marks.
+The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior.
+
+The guide is dynamic and follows the visible camera portion of the screen. It targets 72% of the preview width with `240dp` and `320dp` caps, then still shrinks if the available camera area is cramped. The app uses the top of the bottom scanner panel as the lower edge of the visible camera area, so if the bottom panel changes height because of result, permission, footer, or system-inset changes, the guide is recalculated and re-centered above it.
+
+The guide also recalculates after root layout, bottom panel, guide overlay, torch button, and window inset changes. This keeps the guide aligned when the torch appears or disappears and across different screen sizes, system bars, and cutout configurations.
 
 ## Screen text states
 
