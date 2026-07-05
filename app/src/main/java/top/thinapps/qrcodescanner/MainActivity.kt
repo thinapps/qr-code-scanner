@@ -189,7 +189,8 @@ class MainActivity : ComponentActivity() {
         if (visiblePreviewHeight <= 0) return
 
         val edgePadding = resources.getDimensionPixelSize(R.dimen.app_gutter)
-        val preferredGuideSize = resources.getDimensionPixelSize(R.dimen.scan_guide_size)
+        val minGuideSize = resources.getDimensionPixelSize(R.dimen.scan_guide_min_size)
+        val maxGuideSize = resources.getDimensionPixelSize(R.dimen.scan_guide_max_size)
         val torchClearance = if (
             binding.btnTorch.visibility == View.VISIBLE &&
             binding.btnTorch.bottom > previewTop
@@ -201,6 +202,8 @@ class MainActivity : ComponentActivity() {
         val preferredVerticalPadding = maxOf(edgePadding, torchClearance)
         val availableGuideWidth = rootWidth - (edgePadding * 2)
         val availableGuideHeight = visiblePreviewHeight - (preferredVerticalPadding * 2)
+        val targetGuideSize = (rootWidth * SCAN_GUIDE_WIDTH_RATIO).toInt()
+        val preferredGuideSize = targetGuideSize.coerceIn(minGuideSize, maxGuideSize)
         val guideSize = minOf(
             preferredGuideSize,
             availableGuideWidth,
@@ -624,6 +627,7 @@ class MainActivity : ComponentActivity() {
         const val REQUIRED_SCAN_HITS = 2
         const val RESULT_COOLDOWN_MS = 1000L
         const val SAME_RESULT_IGNORE_MS = 6000L
+        const val SCAN_GUIDE_WIDTH_RATIO = 0.72f
         const val MAX_HOST_LENGTH = 253
         const val MAX_HOST_LABEL_LENGTH = 63
         const val MIN_TLD_LENGTH = 2
