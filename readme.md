@@ -17,8 +17,11 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.7.3
+- increases the scan guide preferred maximum from `260dp` to `280dp`
+
 ### 0.7.2
-- increases the scan guide from `240dp` to a preferred maximum of `280dp`
+- increases the scan guide from `240dp` to a preferred maximum of `260dp`
 - lets the guide shrink on cramped preview areas so it does not crowd the torch button, screen edges, or bottom scanner panel
 - avoids redundant scan guide layout updates after the adaptive size is already applied
 
