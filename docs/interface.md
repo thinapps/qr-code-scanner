@@ -35,7 +35,7 @@ The scanner screen includes a visual-only aiming guide above the camera preview.
 
 The guide is centered in the visible camera area above the bottom scanner panel, not in the full screen. This keeps the guide from being partially covered by the bottom panel and keeps the marks visually aligned with the area the user can actually aim through.
 
-The guide uses a neutral light gray at partial opacity (`#99DADADA`) instead of the app accent cyan. This keeps it feeling like passive camera UI rather than a branded action or scan-result state. It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
+The guide uses a neutral light gray at partial opacity (`#8CDADADA`) instead of the app accent cyan. This keeps it feeling like passive camera UI rather than a branded action or scan-result state. It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
 
 ## Launcher icon
 
