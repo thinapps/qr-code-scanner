@@ -19,6 +19,7 @@ Scans QR codes and barcodes with history
 
 ### 0.7.3
 - increases the scan guide preferred maximum from `260dp` to `280dp`
+- softens the scan guide gray from `#99DADADA` to `#8CDADADA`
 
 ### 0.7.2
 - increases the scan guide from `240dp` to a preferred maximum of `260dp`
