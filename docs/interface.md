@@ -33,7 +33,9 @@ The result card and action buttons now share the same radius so the bottom scann
 
 The scanner screen includes a visual-only aiming guide above the camera preview. It targets 72% of the visible preview width, with a `240dp` minimum and `320dp` maximum, and can still shrink on cramped layouts so it does not crowd the torch button, screen edges, or bottom scanner panel. The guide uses four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
 
-The guide is centered in the visible camera area above the bottom scanner panel, not in the full screen. This keeps the guide from being partially covered by the bottom panel and keeps the marks visually aligned with the area the user can actually aim through.
+The guide is dynamic. It is centered inside the visible camera area above the bottom scanner panel, not inside the full screen. The app treats the top of the bottom scanner panel as the lower edge of the usable camera area, so if the result card, permission section, footer, system bars, or bottom inset changes the panel height, the guide is recalculated and re-centered in the remaining camera space.
+
+The guide positioning is recalculated after window inset changes and layout changes on the root view, bottom content panel, guide overlay, and torch button. This keeps the guide aligned when the torch appears or disappears, when the bottom panel changes size, and on different screen heights or cutout/system-bar configurations.
 
 The guide uses a neutral light gray at partial opacity (`#8CDADADA`) instead of the app accent cyan. This keeps it feeling like passive camera UI rather than a branded action or scan-result state. It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
 
