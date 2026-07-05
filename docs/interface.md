@@ -31,7 +31,7 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Scan guide overlay
 
-The scanner screen includes a visual-only aiming guide above the camera preview. It uses a preferred maximum size of `280dp` and can shrink on cramped layouts so it does not crowd the torch button, screen edges, or bottom scanner panel. The guide uses four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
+The scanner screen includes a visual-only aiming guide above the camera preview. It targets 72% of the visible preview width, with a `240dp` minimum and `320dp` maximum, and can still shrink on cramped layouts so it does not crowd the torch button, screen edges, or bottom scanner panel. The guide uses four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
 
 The guide is centered in the visible camera area above the bottom scanner panel, not in the full screen. This keeps the guide from being partially covered by the bottom panel and keeps the marks visually aligned with the area the user can actually aim through.
 
