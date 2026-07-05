@@ -17,6 +17,10 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.7.4
+- sizes the scan guide from 72% of the visible preview width instead of a fixed preferred size
+- caps the guide between `240dp` and `320dp` while keeping cramped-layout shrink behavior
+
 ### 0.7.3
 - increases the scan guide preferred maximum from `260dp` to `280dp`
 - softens the scan guide gray from `#99DADADA` to `#8CDADADA`
