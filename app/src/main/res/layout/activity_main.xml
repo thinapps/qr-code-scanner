@@ -14,8 +14,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/viewScanGuide"
-        android:layout_width="@dimen/scan_guide_max_size"
-        android:layout_height="@dimen/scan_guide_max_size"
+        android:layout_width="@dimen/scan_guide_min_size"
+        android:layout_height="@dimen/scan_guide_min_size"
         android:layout_gravity="top|center_horizontal"
         android:clickable="false"
         android:contentDescription="@null"
