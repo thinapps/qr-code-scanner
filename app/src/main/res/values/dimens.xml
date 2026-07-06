@@ -5,7 +5,6 @@
     <dimen name="content_padding_top">24dp</dimen>
     <dimen name="content_padding_bottom">20dp</dimen>
     <dimen name="scan_guide_min_size">240dp</dimen>
-    <dimen name="scan_guide_max_size">320dp</dimen>
     <dimen name="title_text_size">28sp</dimen>
     <dimen name="status_text_size">14sp</dimen>
     <dimen name="status_top_margin">8dp</dimen>
