@@ -31,11 +31,11 @@ The result card and action buttons now share the same radius so the bottom scann
 
 ## Scan guide overlay
 
-The scanner screen includes a visual-only aiming guide above the camera preview. It targets 72% of the visible preview width, with a `240dp` minimum and `320dp` maximum, and can still shrink on cramped layouts so it does not crowd the torch button, screen edges, or bottom scanner panel. The guide uses four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
+The scanner screen includes a visual-only aiming guide above the camera preview. It targets 80% of the visible preview width, keeps a `240dp` minimum, and does not use a fixed maximum cap. The final size is still limited by the available camera width, available camera height, and edge padding, so it can shrink on cramped layouts without being artificially capped on larger screens. The guide uses four open corners instead of a full box, so it gives users an aiming reference without making the camera view feel boxed in.
 
 The guide is dynamic. It is centered inside the visible camera area above the bottom scanner panel, not inside the full screen. The app treats the top of the bottom scanner panel as the lower edge of the usable camera area, so if the result card, permission section, footer, system bars, or bottom inset changes the panel height, the guide is recalculated and re-centered in the remaining camera space.
 
-The guide positioning is recalculated after window inset changes and layout changes on the root view, bottom content panel, guide overlay, and torch button. This keeps the guide aligned when the torch appears or disappears, when the bottom panel changes size, and on different screen heights or cutout/system-bar configurations.
+The guide positioning is recalculated after window inset changes and layout changes on the root view, bottom content panel, guide overlay, and torch button. The torch button no longer shrinks the guide just because it exists in the top-right corner; it only triggers recalculation when its layout changes. This keeps the guide larger and centered while still adapting across different screen heights, bottom panel sizes, system bars, and cutout configurations.
 
 The guide uses a neutral light gray at partial opacity (`#8CDADADA`) instead of the app accent cyan. This keeps it feeling like passive camera UI rather than a branded action or scan-result state. It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
 
