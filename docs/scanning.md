@@ -8,9 +8,9 @@ To avoid duplicate result noise, detected values pass through a small result gat
 
 The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior.
 
-The guide is dynamic and follows the visible camera portion of the screen. It targets 72% of the preview width with `240dp` and `320dp` caps, then still shrinks if the available camera area is cramped. The app uses the top of the bottom scanner panel as the lower edge of the visible camera area, so if the bottom panel changes height because of result, permission, footer, or system-inset changes, the guide is recalculated and re-centered above it.
+The guide is dynamic and follows the visible camera portion of the screen. It targets 80% of the preview width, keeps a `240dp` minimum, and no longer uses a fixed maximum cap. The app uses the top of the bottom scanner panel as the lower edge of the visible camera area, so if the bottom panel changes height because of result, permission, footer, or system-inset changes, the guide is recalculated and re-centered above it.
 
-The guide also recalculates after root layout, bottom panel, guide overlay, torch button, and window inset changes. This keeps the guide aligned when the torch appears or disappears and across different screen sizes, system bars, and cutout configurations.
+The guide still shrinks if the available camera width or height is genuinely cramped, but the torch button no longer reduces the guide size just because it exists in the top-right corner. Root layout, bottom panel, guide overlay, torch button, and window inset changes still trigger recalculation so the guide stays aligned across different screen sizes, system bars, and cutout configurations.
 
 ## Screen text states
 
