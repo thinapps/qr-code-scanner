@@ -190,20 +190,10 @@ class MainActivity : ComponentActivity() {
 
         val edgePadding = resources.getDimensionPixelSize(R.dimen.app_gutter)
         val minGuideSize = resources.getDimensionPixelSize(R.dimen.scan_guide_min_size)
-        val maxGuideSize = resources.getDimensionPixelSize(R.dimen.scan_guide_max_size)
-        val torchClearance = if (
-            binding.btnTorch.visibility == View.VISIBLE &&
-            binding.btnTorch.bottom > previewTop
-        ) {
-            binding.btnTorch.bottom - previewTop + edgePadding
-        } else {
-            edgePadding
-        }
-        val preferredVerticalPadding = maxOf(edgePadding, torchClearance)
         val availableGuideWidth = rootWidth - (edgePadding * 2)
-        val availableGuideHeight = visiblePreviewHeight - (preferredVerticalPadding * 2)
+        val availableGuideHeight = visiblePreviewHeight - (edgePadding * 2)
         val targetGuideSize = (rootWidth * SCAN_GUIDE_WIDTH_RATIO).toInt()
-        val preferredGuideSize = targetGuideSize.coerceIn(minGuideSize, maxGuideSize)
+        val preferredGuideSize = maxOf(targetGuideSize, minGuideSize)
         val guideSize = minOf(
             preferredGuideSize,
             availableGuideWidth,
@@ -220,7 +210,7 @@ class MainActivity : ComponentActivity() {
         }
 
         val availableCenteringSpace = (visiblePreviewHeight - guideSize).coerceAtLeast(0)
-        val verticalPadding = minOf(preferredVerticalPadding, availableCenteringSpace / 2)
+        val verticalPadding = minOf(edgePadding, availableCenteringSpace / 2)
         val minGuideTop = previewTop + verticalPadding
         val maxGuideTop = previewBottom - verticalPadding - guideSize
         val centeredGuideTop = previewTop + ((visiblePreviewHeight - guideSize) / 2f)
@@ -627,7 +617,7 @@ class MainActivity : ComponentActivity() {
         const val REQUIRED_SCAN_HITS = 2
         const val RESULT_COOLDOWN_MS = 1000L
         const val SAME_RESULT_IGNORE_MS = 6000L
-        const val SCAN_GUIDE_WIDTH_RATIO = 0.72f
+        const val SCAN_GUIDE_WIDTH_RATIO = 0.80f
         const val MAX_HOST_LENGTH = 253
         const val MAX_HOST_LABEL_LENGTH = 63
         const val MIN_TLD_LENGTH = 2
