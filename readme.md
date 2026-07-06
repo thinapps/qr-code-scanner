@@ -17,6 +17,11 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.7.5
+- increases the scan guide target from 72% to 80% of the preview width
+- removes the fixed `320dp` maximum so available camera width and height control the final size
+- removes torch-clearance shrinking while keeping dynamic centering above the bottom scanner panel
+
 ### 0.7.4
 - sizes the scan guide from 72% of the visible preview width instead of a fixed preferred size
 - caps the guide between `240dp` and `320dp` while keeping cramped-layout shrink behavior
