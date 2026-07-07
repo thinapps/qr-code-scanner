@@ -10,5 +10,5 @@
         android:strokeColor="@color/scan_guide_stroke"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
-        android:strokeWidth="6" />
+        android:strokeWidth="5" />
 </vector>
