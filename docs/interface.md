@@ -39,7 +39,7 @@ The guide positioning is recalculated after window inset changes and layout chan
 
 The guide is declared below the flashlight button in the visual stack because the guide view appears before the torch button in the root `FrameLayout`. Android draws later siblings above earlier siblings, so the torch button stays visually above the guide if they ever overlap on a very cramped screen. The guide is also non-clickable, non-focusable, and hidden from accessibility, so it should not intercept taps or accessibility focus intended for the torch button.
 
-The guide uses a neutral light gray at partial opacity (`#8CDADADA`) instead of the app accent cyan. This keeps it feeling like passive camera UI rather than a branded action or scan-result state. It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
+The guide uses a neutral light gray at partial opacity (`#7FDADADA`) instead of the app accent cyan. The stroke is `5` vector units on a `240x240` viewport with rounded caps and joins. This keeps it visible after dynamic scaling while making it feel more passive than a full-opacity scanner target. It is non-clickable, hidden from accessibility, and does not change how detection works. The ML analyzer still scans the camera frame normally; the guide is only visual polish.
 
 ## Launcher icon
 
