@@ -560,7 +560,7 @@ class MainActivity : ComponentActivity() {
         val intent = Intent(Intent.ACTION_SEND)
             .setType("text/plain")
             .putExtra(Intent.EXTRA_TEXT, value)
-        startActivity(Intent.createChooser(intent, getString(R.string.scan_result_share_title)))
+        startActivity(Intent.createChooser(intent, null))
     }
 
     private fun String.toWebUri(): Uri? {
