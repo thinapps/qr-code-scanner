@@ -17,6 +17,10 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.7.6
+- thins the scan guide stroke from `6` to `5`
+- softens the scan guide opacity from `#8CDADADA` to `#7FDADADA`
+
 ### 0.7.5
 - increases the scan guide target from 72% to 80% of the preview width
 - removes the fixed `320dp` maximum so available camera width and height control the final size
