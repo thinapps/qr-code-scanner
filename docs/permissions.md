@@ -39,7 +39,7 @@ The app uses the small subtitle/status line under the main title for scanner sta
 When camera permission is missing or denied:
 
 - the camera preview is hidden
-- the subtitle/status line says `Camera permission is needed before scanning can start.`
+- the subtitle/status line says `Camera permission is needed before scanning.`
 - the permission panel says `Camera permission is required to scan QR codes and barcodes. Scanning happens locally on your device.`
 - the permission button says `Allow Camera`
 
@@ -50,10 +50,10 @@ When permission is granted and the camera starts normally:
 
 When a scan result is found:
 
-- the subtitle/status line says `Preview the scanned result.`
+- the subtitle/status line says `Preview the scanned result below.`
 - the result card shows the scanned value
 
 When the camera cannot start:
 
-- the subtitle/status line says `Camera could not start on this device.`
+- the subtitle/status line says `Error: camera could not start on this device.`
 - the app keeps the result/action area visible, but scanning cannot continue until the camera issue is resolved
