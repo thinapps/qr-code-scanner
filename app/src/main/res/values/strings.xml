@@ -11,7 +11,6 @@
     <string name="scan_result_label">Scanned Result</string>
     <string name="scan_result_empty">No QR code or barcode scanned yet.</string>
     <string name="scan_result_open_failed">No app found to open this link.</string>
-    <string name="scan_result_share_title">Share scanned result</string>
     <string name="history_title">Scan History</string>
     <string name="history_hint">Tap a saved result to preview it again.</string>
     <string name="history_empty">No scan history yet.</string>
