@@ -133,15 +133,15 @@ The active flashlight state intentionally uses opaque cyan (`#00BCD4`) instead o
 
 The flashlight button drawable uses a fully opaque base oval and relies on runtime background tint for the actual off or on color. This keeps the inactive state translucent while allowing the active cyan state to stay fully opaque.
 
-The title-row history icon, result-card close icon, and history-screen back icon use the same bounded circular ripple with 5% white (`#0DFFFFFF`) for press feedback. This gives their 48dp touch targets a visible response without adding resting visual weight or making any secondary icon action compete with the flashlight overlay.
+The title-row history icon, result-card close icon, and history-screen back icon all use the shared secondary icon-button pattern: a `48dp` button, a `24dp` vector icon, `12dp` padding, dim white tint (`@color/md_text_dim` / `#B3FFFFFF`), and the shared bounded oval ripple. The ripple is 5% white (`#0DFFFFFF`) with a transparent resting oval, so these controls have visible press feedback without a permanent circle behind them.
 
-The title-row history icon stays transparent at rest because it sits inside the bottom content panel on a stable app background. A permanent circle background there would make it feel too much like a second primary floating action instead of a quiet header utility.
+The title-row history icon sits on the right side of the main scanner title row. It uses `ic_history`, opens the local scan history screen, and triggers haptic feedback. It stays transparent at rest because it sits inside the stable bottom content panel; a permanent circle there would make it look like a second primary floating action instead of a quiet header utility.
 
-The history screen back icon stays visually quiet for the same reason. It sits beside the history title, returns to the scanner screen, and does not change saved history.
+The history-screen back icon sits on the left side of the history title row. It uses `ic_back`, is `autoMirrored` for right-to-left layouts, returns to the main scanner screen by finishing the history screen, and triggers haptic feedback. It stays visually quiet for the same reason as the history icon: it is a secondary header action, not a primary scanner control.
 
-The result-card close icon intentionally has no permanent round background. It sits inside the result card header, so a resting circle would add visual weight, make the clear action look too primary, and compete with the scanned result content. The 48dp touch target and shared 5% white ripple keep it usable without making the action visually loud.
+The result-card close icon sits on the right side of the `Scanned Result` header row. It uses `ic_close`, clears only the currently visible in-memory result, and triggers haptic feedback. It is `invisible` instead of `gone` when no result is visible, so its `48dp` header slot stays reserved and the result label does not shift when a result appears or is cleared. It intentionally has no permanent round background because it sits inside the result card header; a resting circle would add visual weight and make the clear action look too primary.
 
-The history icon opens saved local scan history. The close icon only clears the currently visible result from the main scanner screen.
+The history icon opens saved local scan history. The back icon only leaves the history screen. The close icon only clears the currently visible result from the main scanner screen and does not clear saved scan history.
 
 ## Screen text states
 
