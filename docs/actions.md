@@ -12,6 +12,8 @@ The app does not show its own copied toast after this action. It relies on Andro
 
 `Share` shares the scanned value exactly as it was read from the QR code or barcode.
 
+The app uses Android's native share sheet with a plain text share intent. It does not pass a custom chooser title because modern Android share sheets may not display app-provided titles in a consistent or obvious place. The system is allowed to show the scanned value, Copy, Quick Share, recent contacts, and app targets using the device's native share UI.
+
 ## Open
 
 `Open` is only enabled when the scanned value looks like a web link.
