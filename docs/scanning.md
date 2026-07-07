@@ -27,11 +27,17 @@ Before a scan result is found:
 
 After a scan result is found:
 
-- the subtitle/status line says `Preview the scanned result.`
+- the subtitle/status line says `Preview the scanned result below.`
 - the result card shows the scanned value
 - a small close icon appears in the result card header so the visible result can be cleared
 
-Permission and camera failure messages also use the subtitle/status line. See [Permissions](permissions.md) for those states.
+When camera permission is missing or denied:
+
+- the subtitle/status line says `Camera permission is needed before scanning.`
+
+When the camera cannot start:
+
+- the subtitle/status line says `Error: camera could not start on this device.`
 
 ## Result clearing
 
