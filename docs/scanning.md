@@ -12,6 +12,8 @@ The guide is dynamic and follows the visible camera portion of the screen. It ta
 
 The guide still shrinks if the available camera width or height is genuinely cramped, but the torch button no longer reduces the guide size just because it exists in the top-right corner. Root layout, bottom panel, guide overlay, torch button, and window inset changes still trigger recalculation so the guide stays aligned across different screen sizes, system bars, and cutout configurations.
 
+If the guide and torch ever visually overlap on a very cramped device, the torch remains above the guide in the root `FrameLayout` draw order. The guide is also non-clickable, non-focusable, and hidden from accessibility, so it should not block torch taps or steal accessibility focus. This keeps the edge case safe without shrinking the guide for every normal phone.
+
 ## Screen text states
 
 The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A history icon sits beside the title and opens the local scan history screen.
