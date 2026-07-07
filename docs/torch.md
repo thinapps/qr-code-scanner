@@ -10,6 +10,10 @@ Android documents `CameraManager.setTorchMode(...)` as a way to control torch mo
 
 - The app binds a CameraX preview and image analyzer to the back camera.
 - The flashlight button is shown only when the active CameraX camera reports a flash unit.
+- The flashlight button uses a `48dp` circular touch target with `12dp` padding, leaving a standard `24dp` icon area inside the button.
+- The button floats at the top-end of the camera preview with a `24dp` top margin and `20dp` end margin.
+- The `20dp` end margin matches the scanner's horizontal gutter, while the `24dp` top margin gives the floating camera control a little extra breathing room from the status bar, display cutouts, and top camera-preview edge.
+- Runtime window insets are added to the top and end margins, so the button remains safe-area-aware on devices with status bars, display cutouts, gesture navigation, or right-side insets.
 - Tapping the flashlight button calls CameraX `enableTorch(...)` on that active camera.
 - The button updates immediately so the interface feels responsive while CameraX applies the torch request.
 - When the flashlight is off, the button uses a 40% black (`#66000000`) circular background and outline-style flash icon.
