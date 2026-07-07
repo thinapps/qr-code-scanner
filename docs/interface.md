@@ -123,6 +123,10 @@ Icon buttons use a consistent accessible sizing pattern where practical:
 - icon bounds: `24dp`
 - padding: `12dp`
 
+The flashlight button follows this pattern with a `48dp` circular button and `12dp` padding around the flash icon. This keeps the floating camera control easy to tap without making the icon itself oversized or visually heavier than the scanner UI.
+
+The flashlight button floats at the top-end of the camera preview with a `24dp` top margin and `20dp` end margin. The end margin matches the scanner's horizontal gutter, while the slightly larger top margin gives the floating control more breathing room from the status bar, display cutouts, and top camera-preview edge. Runtime system-bar and display-cutout insets are added to those margins, so the control remains safe-area-aware on different devices.
+
 The flashlight button keeps a circular background because it floats over the live camera preview. The inactive background uses 40% black (`#66000000`) so the icon remains visible over bright camera content without making the off state too heavy.
 
 The active flashlight state intentionally uses opaque cyan (`#00BCD4`) instead of adding a separate yellow or orange torch color. That keeps the control aligned with the main scanner actions, avoids making the torch feel like a warning state, and prevents a one-off color from competing with the rest of the interface. The filled active icon uses a dark tint on cyan because it has clearer contrast at the current 24dp icon size than a white fill would.
