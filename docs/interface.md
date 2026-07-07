@@ -154,7 +154,15 @@ Before a scan result is found:
 
 After a scan result is found:
 
-- subtitle/status: `Preview the scanned result.`
+- subtitle/status: `Preview the scanned result below.`
 - result card: scanned value
 
-Permission and camera failure states are covered in [Permissions](permissions.md).
+When camera permission is missing or denied:
+
+- subtitle/status: `Camera permission is needed before scanning.`
+
+When the camera cannot start:
+
+- subtitle/status: `Error: camera could not start on this device.`
+
+Permission details are covered in [Permissions](permissions.md).
