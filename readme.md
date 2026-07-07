@@ -20,6 +20,7 @@ Scans QR codes and barcodes with history
 ### 0.7.6
 - thins the scan guide stroke from `6` to `5`
 - softens the scan guide opacity from `#8CDADADA` at about 55% opacity to `#7FDADADA` at about 50% opacity
+- balances scanner subtitle/status copy lengths and makes the camera startup failure message explicitly start with `Error:`
 
 ### 0.7.5
 - increases the scan guide target from 72% to 80% of the preview width
