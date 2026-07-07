@@ -21,6 +21,7 @@ Scans QR codes and barcodes with history
 - thins the scan guide stroke from `6` to `5`
 - softens the scan guide opacity from `#8CDADADA` at about 55% opacity to `#7FDADADA` at about 50% opacity
 - polishes scanner subtitle/status messages for clearer and more balanced state text
+- removes the custom share chooser title so Android can show its native share sheet without app-specific title text
 
 ### 0.7.5
 - increases the scan guide target from 72% to 80% of the preview width
