@@ -93,7 +93,7 @@ The scanner content panel is `wrap_content` and anchored to the bottom of the sc
 
 This keeps the bottom scanner area visually bottom-aligned instead of floating in the middle of the preview. Android still lays out the panel children from top to bottom internally, but the panel's final height is determined by its contents and anchored from the bottom edge.
 
-The panel background stays dark and flat, but now includes a subtle 1dp top edge at 15% white (`#26FFFFFF`). This gives the panel a visible boundary over dark camera previews without adding a shadow or full border.
+The panel background stays dark and flat, but includes a top-only `1dp` edge at 15% white (`#26FFFFFF`). This gives the bottom scanner panel a subtle boundary over dark or busy camera previews without adding a shadow, full border, rounded container, or thicker divider. The edge is intentionally top-only because the panel is flush with the bottom and side screen edges.
 
 ## Result card spacing
 
