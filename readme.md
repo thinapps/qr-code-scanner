@@ -17,6 +17,10 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.7.8
+- bumps Android Gradle Plugin from `8.5.2` to `8.7.3` to stay aligned with Material Components `1.13.0`
+- switches `MainActivity` and `HistoryActivity` from `ComponentActivity` to `AppCompatActivity` for better Material/AppCompat XML compatibility
+
 ### 0.7.7
 - returns the torch button to standard click-only activation and removes the custom touch-down listener
 - moves the bottom scanner panel top-edge height into shared `dimens.xml`
