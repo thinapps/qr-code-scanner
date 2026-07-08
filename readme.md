@@ -18,6 +18,7 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.7.7
+- restores standard click-only activation for the flashlight button
 - moves the bottom scanner panel top-edge height into shared `dimens.xml`
 - removes the unused `md_primary` color resource
 
