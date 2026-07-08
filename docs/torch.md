@@ -48,9 +48,9 @@ The torch button drawable keeps its base oval fully opaque while runtime backgro
 
 The active icon uses a dark tint instead of white because the active background is already bright cyan. A dark filled icon gives clearer small-icon contrast on that background, especially at the current 24dp icon size.
 
-## Why not copy Bright Flashlight exactly?
+## Why not use a standalone torch path?
 
-Bright Flashlight is a dedicated flashlight utility. Its main torch controller can choose a flash-capable camera ID and call `CameraManager.setTorchMode(...)` directly because it is not running a live camera preview and ML analyzer.
+A dedicated torch utility can choose a flash-capable camera ID and call `CameraManager.setTorchMode(...)` directly because it is not running a live camera preview and ML analyzer.
 
 QR Code Scanner is different: the camera is already bound for scanning. Mixing an independent `CameraManager.setTorchMode(...)` call into that active CameraX camera session may be faster on some devices, but it is more likely to hit device-specific failures or conflicts.
 
