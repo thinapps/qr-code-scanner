@@ -1,7 +1,6 @@
 package top.thinapps.qrcodescanner
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.ClipData
@@ -20,7 +19,6 @@ import android.text.Spanned
 import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.HapticFeedbackConstants
-import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
@@ -251,29 +249,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun setupTorchControl() {
         binding.btnTorch.setOnClickListener { toggleTorchWithFeedback() }
-        binding.btnTorch.setOnTouchListener { view, event ->
-            when (event.actionMasked) {
-                MotionEvent.ACTION_DOWN -> {
-                    if (view.visibility != View.VISIBLE || !view.isEnabled) {
-                        return@setOnTouchListener false
-                    }
-                    view.isPressed = true
-                    toggleTorchWithFeedback()
-                    true
-                }
-
-                MotionEvent.ACTION_UP,
-                MotionEvent.ACTION_CANCEL -> {
-                    view.isPressed = false
-                    true
-                }
-
-                else -> true
-            }
-        }
     }
 
     private fun requestCameraPermission() {
