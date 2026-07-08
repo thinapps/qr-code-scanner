@@ -6,7 +6,7 @@ This app keeps the Android build setup intentionally small because it is a singl
 
 The project keeps the simple root `build.gradle` and `settings.gradle` layout because the repository has only one app module.
 
-The root `build.gradle` defines the Android and Kotlin build plugins plus the shared repositories. The app module owns the Android app settings, version, dependencies, signing config, and release build type.
+The root `build.gradle` defines the Android and Kotlin build plugins plus the shared repositories. The app module owns the Android app settings, version, dependencies, signing config, and release build type. The project uses Android Gradle Plugin `8.7.3`, which stays aligned with Material Components `1.13.0` while the workflow downloads Gradle `8.9`.
 
 The repository does not commit Gradle wrapper files. The release workflow downloads Gradle 8.9 and generates the wrapper during the build, matching the current ThinApps utility app pattern.
 
