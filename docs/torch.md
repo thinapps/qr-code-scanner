@@ -22,6 +22,22 @@ Android documents `CameraManager.setTorchMode(...)` as a way to control torch mo
 - The app observes CameraX torch state and syncs the button back to the real camera state.
 - If CameraX rejects a torch request, the app logs the failure and syncs the button back to the current torch state.
 
+## Responsiveness policy
+
+CameraX torch changes are asynchronous. The app can make the interface respond immediately, but it cannot force the physical flashlight hardware to switch faster from inside CameraX.
+
+The settled policy is to keep the flashlight button on normal Android click behavior and avoid custom touch-down handling. Touch-down activation can make the UI event fire slightly earlier, but it does not solve the real delay when the device camera stack is slow to apply `enableTorch(...)`. It also adds custom button semantics and accessibility lint suppression for little practical gain.
+
+The app's preferred responsiveness pattern is:
+
+- use standard click-only activation
+- update the flashlight button state immediately after a valid CameraX torch request
+- observe CameraX torch state and sync back to the real camera state
+- restore the button state if CameraX rejects the torch request
+- avoid direct `CameraManager.setTorchMode(...)` while CameraX owns the active scanner camera
+
+This keeps the code normal and predictable while still giving users instant visual feedback.
+
 ## Visual state rationale
 
 The active flashlight button keeps the app's cyan accent instead of adding a separate yellow or orange torch color. The flashlight is a scanner utility control, not the app's main brand element, so reusing the existing accent keeps the interface consistent with the Material action buttons and avoids introducing a second attention color that could read as warning.
@@ -40,7 +56,7 @@ QR Code Scanner is different: the camera is already bound for scanning. Mixing a
 
 ## Future improvements
 
-If users report that scanner flashlight behavior still feels slow or inconsistent on specific devices, revisit the interaction after testing. The default should remain CameraX-first unless there is a clear reason to risk a lower-level torch path.
+If users report that scanner flashlight behavior still feels slow or inconsistent on specific devices, revisit the interaction after testing. The default should remain CameraX-first, standard-click, and immediate-UI-sync unless there is a clear tested reason to risk a lower-level torch path.
 
 Relevant Android docs:
 
