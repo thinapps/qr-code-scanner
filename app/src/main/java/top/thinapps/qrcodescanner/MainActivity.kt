@@ -463,9 +463,9 @@ class MainActivity : AppCompatActivity() {
         )
         val iconResource = if (torchEnabled) R.drawable.ic_flash_filled else R.drawable.ic_flash
         val description = if (torchEnabled) {
-            getString(R.string.action_flashlight_off)
+            getString(R.string.action_torch_off)
         } else {
-            getString(R.string.action_flashlight_on)
+            getString(R.string.action_torch_on)
         }
 
         binding.btnTorch.isSelected = torchEnabled
