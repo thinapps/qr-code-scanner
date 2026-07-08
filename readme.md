@@ -18,7 +18,7 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.7.7
-- moves the bottom scanner panel top-edge height and color into shared resources
+- replaces the hardcoded bottom scanner panel top-edge values with `@dimen/scanner_panel_top_edge_height` and `@color/scanner_panel_top_edge`
 - removes the unused `md_primary` color resource
 
 ### 0.7.6
