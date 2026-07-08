@@ -13,13 +13,12 @@ Scans QR codes and barcodes with history
 | [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, spacing, and clearing behavior. |
 | [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, launcher icon, icon buttons, spacing, and visible screen text states. |
 | [Permissions](docs/permissions.md) | Explains the camera permission, why it is needed, and how permission or camera errors appear in the app. |
-| [Torch](docs/torch.md) | Explains why scanner flashlight control stays inside CameraX instead of using standalone CameraManager torch control. |
+| [Torch](docs/torch.md) | Explains why scanner torch control stays inside CameraX instead of using standalone CameraManager torch control. |
 
 ## Changelog
 
 ### 0.7.7
-- returns the flashlight button to standard click-only activation and removes the custom touch-down listener
-- keeps the flashlight button state responsive while CameraX applies the async torch request
+- returns the torch button to standard click-only activation and removes the custom touch-down listener
 - moves the bottom scanner panel top-edge height into shared `dimens.xml`
 - removes the unused `md_primary` color resource
 
@@ -96,8 +95,8 @@ Scans QR codes and barcodes with history
 - changes scanned result values to 16sp monospace text
 
 ### 0.5.2
-- changes the inactive flashlight button background from 30% black (`#4D000000`) to 40% black (`#66000000`) for better visibility over bright camera previews
-- keeps the active flashlight button background fully opaque cyan (`#00BCD4`)
+- changes the inactive torch button background from 30% black (`#4D000000`) to 40% black (`#66000000`) for better visibility over bright camera previews
+- keeps the active torch button background fully opaque cyan (`#00BCD4`)
 - adds a 10% white (`#1AFFFFFF`) tap ripple to the history icon
 
 ### 0.5.1
@@ -120,7 +119,7 @@ Scans QR codes and barcodes with history
 ### 0.4.2
 - changes the scanner subtitle/status text size from 15sp to 14sp
 - changes the scanner result card radius from 8dp to 12dp
-- uses an oval image button for the scanner flashlight control
+- uses an oval image button for the scanner torch control
 
 ### 0.4.1
 - keeps the scanner subtitle visible for normal, permission, and camera states
@@ -129,9 +128,9 @@ Scans QR codes and barcodes with history
 - changes the scanner result card radius from 24dp to 8dp
 
 ### 0.4.0
-- syncs the flashlight button with the real CameraX torch state
+- syncs the torch button with the real CameraX torch state
 - handles failed torch requests by restoring the button to the current torch state
-- makes the active flashlight button easier to see with an accent background and filled icon
+- makes the active torch button easier to see with an accent background and filled icon
 
 ### 0.3.2
 - supports domain-style scanned values without a typed scheme
@@ -154,26 +153,26 @@ Scans QR codes and barcodes with history
 - removed the status bar top inset from the bottom scanner panel
 - kept the bottom navigation inset so the panel stays clear of system controls
 - added a local-only open-source footer message below the scanner result card
-- documented why scanner flashlight control stays inside CameraX
+- documented why scanner torch control stays inside CameraX
 
 ### 0.2.2
-- made the flashlight toggle respond on touch-down instead of waiting for click release
-- added haptic feedback for flashlight toggles
-- added an explicit ripple color for the flashlight icon button
-- matched the flashlight overlay alpha to the Screen Light back button pattern
+- made the torch toggle respond on touch-down instead of waiting for click release
+- added haptic feedback for torch toggles
+- added an explicit ripple color for the torch icon button
+- matched the torch overlay alpha to the Screen Light back button pattern
 - tightened scanner horizontal gutters to 20dp
 - made the bottom scanner panel flush with the screen edges while keeping 20dp inner padding
 
 ### 0.2.1
-- moved the flashlight toggle to a top-right scanner overlay
-- replaced the wide flashlight button with a white flash icon on a circular dark background
-- kept the flashlight control hidden unless the active camera supports flash
+- moved the torch toggle to a top-right scanner overlay
+- replaced the wide torch button with a white flash icon on a circular dark background
+- kept the torch control hidden unless the active camera supports flash
 
 ### 0.2.0
-- added a scanner flashlight toggle
-- shows the flashlight control only when the active camera supports flash
+- added a scanner torch toggle
+- shows the torch control only when the active camera supports flash
 - tightened basic XML styling for the scanner screen and buttons
-- polished flashlight button states so off is outlined and on is filled accent
+- polished torch button states so off is outlined and on is filled accent
 
 ### 0.1.0
 - initialized the Android project framework
