@@ -125,6 +125,8 @@ Icon buttons use a consistent accessible sizing pattern where practical:
 
 The flashlight button follows this pattern with a `48dp` circular button and `12dp` padding around the flash icon. This keeps the floating camera control easy to tap without making the icon itself oversized or visually heavier than the scanner UI.
 
+The flashlight button uses normal Android click activation instead of custom touch-down handling. This keeps the control aligned with standard button behavior while still toggling the active CameraX torch and triggering haptic feedback after a valid toggle request.
+
 The flashlight button floats at the top-end of the camera preview with a `24dp` top margin and `20dp` end margin. The end margin matches the scanner's horizontal gutter, while the slightly larger top margin gives the floating control more breathing room from the status bar, display cutouts, and top camera-preview edge. Runtime system-bar and display-cutout insets are added to those margins, so the control remains safe-area-aware on different devices.
 
 The flashlight button keeps a circular background because it floats over the live camera preview. The inactive background uses 40% black (`#66000000`) so the icon remains visible over bright camera content without making the off state too heavy.
