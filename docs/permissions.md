@@ -16,7 +16,7 @@ This permission is needed for:
 
 - showing the live CameraX preview
 - reading camera frames for on-device QR and barcode analysis
-- controlling the scanner flashlight through the active CameraX camera
+- controlling the scanner torch through the active CameraX camera
 
 The manifest also declares that the app requires camera hardware:
 
