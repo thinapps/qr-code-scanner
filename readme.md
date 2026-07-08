@@ -20,6 +20,7 @@ Scans QR codes and barcodes with history
 ### 0.7.8
 - bumps Android Gradle Plugin from `8.5.2` to `8.7.3` to stay aligned with Material Components `1.13.0`
 - switches `MainActivity` and `HistoryActivity` from `ComponentActivity` to `AppCompatActivity` for better Material/AppCompat XML compatibility
+- renames torch accessibility string resources from flashlight wording to torch wording
 
 ### 0.7.7
 - returns the torch button to standard click-only activation and removes the custom touch-down listener
