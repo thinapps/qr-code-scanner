@@ -17,6 +17,10 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.7.7
+- moves the bottom scanner panel top-edge height and color into shared resources
+- removes the unused `md_primary` color resource
+
 ### 0.7.6
 - thins the scan guide stroke from `6` to `5`
 - softens the scan guide opacity from `#8CDADADA` at about 55% opacity to `#7FDADADA` at about 50% opacity
