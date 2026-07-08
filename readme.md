@@ -18,7 +18,7 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.7.7
-- moves the bottom scanner panel top-edge values into resource files
+- moves the bottom scanner panel top-edge height into shared `dimens.xml`
 - removes the unused `md_primary` color resource
 
 ### 0.7.6
