@@ -18,7 +18,8 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.7.7
-- restores standard click-only activation for the flashlight button
+- returns the flashlight button to standard click-only activation and removes the custom touch-down listener
+- keeps the flashlight button state responsive while CameraX applies the async torch request
 - moves the bottom scanner panel top-edge height into shared `dimens.xml`
 - removes the unused `md_primary` color resource
 
