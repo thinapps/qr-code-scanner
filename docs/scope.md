@@ -62,3 +62,11 @@ All accepted scan results use the same simple result flow:
 - save it in local scan history
 
 Scanning happens locally on the device. The app requests only camera permission.
+
+## Intentionally out of scope
+
+The app is not trying to be a warehouse, inventory, or enterprise scanning tool.
+
+Batch scanning, inventory modes, scan queues, CSV export, and similar commercial workflows are intentionally out of scope. Those features would be overboard for this app and would add UI bloat, duplicate-handling rules, export/storage decisions, and edge cases that do not fit a simple consumer scanner.
+
+History search and history export are also intentionally out of scope. The history is meant to be a small local convenience list, not a searchable archive or reporting system.
