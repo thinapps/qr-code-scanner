@@ -10,6 +10,8 @@ The history is intentionally lightweight:
 - no internet access
 - no analytics
 - no database
+- no search
+- no export
 
 ## What gets saved
 
@@ -32,6 +34,12 @@ The history screen shows saved results in newest-first order. Each row shows the
 The history screen uses the same 20dp side gutters as the scanner panel. The subtitle sits 8dp below the title row, saved history rows start 20dp below the subtitle, rows are separated by 8dp, and the Clear All History button sits 20dp below the scrollable history list area. The screen keeps 20dp base bottom padding, plus the bottom system-bar inset when Android reports one.
 
 Tapping a saved result returns it to the main scanner screen for preview, copy, open, or share actions. Previewing a saved history item does not create a new history entry or move that item to the top of the history list.
+
+## What history does not do
+
+The history screen does not include search, export, batch lists, or inventory-style workflows.
+
+Those features are intentionally skipped because this app is a simple local scanner. Turning history into a searchable or exportable archive would be too much bloat for the current app and would add storage, privacy, duplicate-handling, and UI decisions that do not fit the lightweight design.
 
 ## Clearing history
 
