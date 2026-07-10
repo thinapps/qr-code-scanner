@@ -17,6 +17,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.8.0
+- adds manual pinch-to-zoom on the camera preview without adding zoom buttons, a slider, saved zoom state, or auto-zoom behavior
+
 ### 0.7.8
 - bumps Android Gradle Plugin from `8.5.2` to `8.7.3` to stay aligned with Material Components `1.13.0`
 - switches `MainActivity` and `HistoryActivity` from `ComponentActivity` to `AppCompatActivity` for better Material/AppCompat XML compatibility
