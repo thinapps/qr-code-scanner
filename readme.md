@@ -9,13 +9,16 @@ Scans QR codes and barcodes with history
 | [Scope](docs/scope.md) | Explains what barcode formats are currently supported and what intentionally remains out of scope. |
 | [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
 | [Actions](docs/actions.md) | Explains copy, share, open, URL normalization, and history-preview behavior for scanned results. |
-| [Scanning](docs/scanning.md) | Explains how live scanning stays active while duplicate result spam is filtered. |
+| [Scanning](docs/scanning.md) | Explains live scanning, preview focus/zoom behavior, and duplicate result filtering. |
 | [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, spacing, and clearing behavior. |
-| [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, launcher icon, icon buttons, spacing, and visible screen text states. |
+| [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, launcher icon, icon buttons, preview gestures, spacing, and visible screen text states. |
 | [Permissions](docs/permissions.md) | Explains the camera permission, why it is needed, and how permission or camera errors appear in the app. |
 | [Torch](docs/torch.md) | Explains why scanner torch control stays inside CameraX instead of using standalone CameraManager torch control. |
 
 ## Changelog
+
+### 0.8.1
+- adds tap-to-focus on the camera preview while keeping pinch zoom separate from tap gestures
 
 ### 0.8.0
 - adds manual pinch-to-zoom on the camera preview without adding zoom buttons, a slider, saved zoom state, or auto-zoom behavior
