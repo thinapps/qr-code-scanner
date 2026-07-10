@@ -78,3 +78,5 @@ Product and ISBN lookup are intentionally out of scope. Those features would pus
 ML Kit auto-zoom is intentionally out of scope. Manual pinch zoom is the chosen zoom behavior, and the app will not add automatic zoom suggestions because auto-zoom can feel jumpy or unpredictable while the user is aiming.
 
 Type-specific scanned-result actions are intentionally out of scope. The app will not add separate Wi-Fi, contact, email, phone, SMS, calendar, map, or location action flows because they would add parsing edge cases, Android intent quirks, extra buttons, and more ways for the result panel to feel unreliable or over-engineered.
+
+Scan lock, capture lock, and Scan Again flows are intentionally out of scope. The app keeps live scanning active and uses the result gate to reduce duplicate noise instead of adding another scanner state, another large button, or an extra tap before scanning can continue.
