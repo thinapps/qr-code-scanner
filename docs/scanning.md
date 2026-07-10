@@ -22,6 +22,8 @@ The camera preview supports manual pinch-to-zoom. The gesture applies CameraX zo
 
 The app does not add visible plus/minus buttons, a zoom slider, a saved zoom preference, or ML Kit auto-zoom. Pinch zoom keeps the scanner screen clean while still helping with small or distant QR codes and barcodes.
 
+The app will not add ML Kit auto-zoom. Manual pinch zoom is enough for this scanner now, and auto-zoom can feel jumpy or unpredictable when the camera changes zoom on its own while the user is aiming.
+
 ## Screen text states
 
 The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A history icon sits beside the title and opens the local scan history screen.
