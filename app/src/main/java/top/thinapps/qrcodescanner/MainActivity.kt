@@ -20,8 +20,10 @@ import android.text.Spanned
 import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.HapticFeedbackConstants
+import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import android.view.ViewConfiguration
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.SystemBarStyle
@@ -31,6 +33,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.FocusMeteringAction
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
@@ -47,6 +50,7 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import java.util.Locale
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import top.thinapps.qrcodescanner.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -85,6 +89,8 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private val previewTapSlop by lazy { ViewConfiguration.get(this).scaledTouchSlop }
+
     private var camera: Camera? = null
     private var processingFrame = false
     private var torchEnabled = false
@@ -94,6 +100,9 @@ class MainActivity : AppCompatActivity() {
     private var lastAcceptedScanValue: String? = null
     private var lastAcceptedScanAtMs = 0L
     private var cameraPreviewTopInset = 0
+    private var previewDownX = 0f
+    private var previewDownY = 0f
+    private var previewTouchMoved = false
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -136,7 +145,7 @@ class MainActivity : AppCompatActivity() {
         setupScanGuidePositioning()
         setupTypography()
         setupControls()
-        setupPreviewZoom()
+        setupPreviewCameraGestures()
         syncActionButtons()
         syncTorchButton()
         showStatus(R.string.scan_status_ready)
@@ -268,11 +277,83 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun setupPreviewZoom() {
+    private fun setupPreviewCameraGestures() {
         binding.previewView.setOnTouchListener { _, event ->
             scaleGestureDetector.onTouchEvent(event)
+            handlePreviewTapToFocus(event)
             true
         }
+    }
+
+    private fun handlePreviewTapToFocus(event: MotionEvent) {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                previewDownX = event.x
+                previewDownY = event.y
+                previewTouchMoved = false
+            }
+
+            MotionEvent.ACTION_POINTER_DOWN -> {
+                previewTouchMoved = true
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                if (
+                    event.pointerCount > 1 ||
+                    scaleGestureDetector.isInProgress ||
+                    previewMovedBeyondTapSlop(event.x, event.y)
+                ) {
+                    previewTouchMoved = true
+                }
+            }
+
+            MotionEvent.ACTION_UP -> {
+                if (!previewTouchMoved && !scaleGestureDetector.isInProgress) {
+                    focusPreview(event.x, event.y)
+                }
+            }
+
+            MotionEvent.ACTION_CANCEL -> {
+                previewTouchMoved = false
+            }
+        }
+    }
+
+    private fun previewMovedBeyondTapSlop(x: Float, y: Float): Boolean {
+        val deltaX = x - previewDownX
+        val deltaY = y - previewDownY
+        val tapSlop = previewTapSlop.toFloat()
+        return (deltaX * deltaX) + (deltaY * deltaY) > tapSlop * tapSlop
+    }
+
+    private fun focusPreview(x: Float, y: Float) {
+        val currentCamera = camera ?: return
+        if (binding.previewView.width <= 0 || binding.previewView.height <= 0) return
+
+        val point = binding.previewView.meteringPointFactory.createPoint(x, y)
+        val action = FocusMeteringAction.Builder(
+            point,
+            FocusMeteringAction.FLAG_AF or FocusMeteringAction.FLAG_AE
+        )
+            .setAutoCancelDuration(FOCUS_AUTO_CANCEL_SECONDS, TimeUnit.SECONDS)
+            .build()
+        if (!currentCamera.cameraInfo.isFocusMeteringSupported(action)) return
+
+        val focusRequest = currentCamera.cameraControl.startFocusAndMetering(action)
+        focusRequest.addListener(
+            {
+                try {
+                    focusRequest.get()
+                } catch (error: Exception) {
+                    if (error is InterruptedException) {
+                        Thread.currentThread().interrupt()
+                    } else {
+                        Log.d(TAG, "Focus metering request did not complete", error)
+                    }
+                }
+            },
+            ContextCompat.getMainExecutor(this)
+        )
     }
 
     private fun zoomPreview(scaleFactor: Float): Boolean {
@@ -628,6 +709,7 @@ class MainActivity : AppCompatActivity() {
         const val RESULT_COOLDOWN_MS = 1000L
         const val SAME_RESULT_IGNORE_MS = 6000L
         const val SCAN_GUIDE_WIDTH_RATIO = 0.80f
+        const val FOCUS_AUTO_CANCEL_SECONDS = 3L
         const val MAX_HOST_LENGTH = 253
         const val MAX_HOST_LABEL_LENGTH = 63
         const val MIN_TLD_LENGTH = 2
