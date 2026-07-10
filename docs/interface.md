@@ -39,11 +39,15 @@ The guide is declared below the torch button in the visual stack, so the torch b
 
 The guide uses neutral light gray at partial opacity (`#7FDADADA`, about 50% opacity). The stroke is `5` vector units on a `240x240` viewport with rounded caps and joins. It is visual polish only; the ML analyzer still scans the full camera frame normally.
 
-## Preview zoom
+## Preview camera gestures
 
 The camera preview supports manual pinch-to-zoom. The gesture is handled directly on the CameraX preview, applies CameraX zoom ratio changes to the active camera, and clamps each update to the camera's reported minimum and maximum zoom ratios.
 
-The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, saved zoom state, or ML Kit auto-zoom. This keeps the scanner screen clean and avoids another control cluster while still letting users zoom in on smaller or more distant QR codes and barcodes.
+The camera preview also supports tap-to-focus. A normal single-finger tap sends a CameraX focus/metering request at the tapped preview point. The app does not draw a focus ring or add a separate focus button; the gesture stays quiet and camera-native.
+
+Tap-to-focus is separated from pinch zoom by ignoring focus behavior for multi-touch gestures, active scale gestures, or touches that move beyond normal tap slop. That keeps a pinch gesture from accidentally triggering focus at the end of the zoom.
+
+The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, saved zoom state, a focus ring UI, or ML Kit auto-zoom. This keeps the scanner screen clean and avoids another control cluster while still letting users zoom or refocus when needed.
 
 The app will not add ML Kit auto-zoom. Manual pinch zoom already covers the useful zoom case without letting the camera jump in or out automatically while the user is trying to aim.
 
