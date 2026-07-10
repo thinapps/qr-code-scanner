@@ -39,6 +39,12 @@ The guide is declared below the torch button in the visual stack, so the torch b
 
 The guide uses neutral light gray at partial opacity (`#7FDADADA`, about 50% opacity). The stroke is `5` vector units on a `240x240` viewport with rounded caps and joins. It is visual polish only; the ML analyzer still scans the full camera frame normally.
 
+## Preview zoom
+
+The camera preview supports manual pinch-to-zoom. The gesture is handled directly on the CameraX preview, applies CameraX zoom ratio changes to the active camera, and clamps each update to the camera's reported minimum and maximum zoom ratios.
+
+The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, saved zoom state, or ML Kit auto-zoom. This keeps the scanner screen clean and avoids another control cluster while still letting users zoom in on smaller or more distant QR codes and barcodes.
+
 ## Launcher icon
 
 The launcher icon uses Android's adaptive icon structure instead of pointing the manifest directly at a drawable PNG.
