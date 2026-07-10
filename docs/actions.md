@@ -2,6 +2,8 @@
 
 QR Code Scanner keeps result actions simple and local. The app does not send scanned content to a server. Accepted scan results can be saved only in the app's local scan history. See [Scan History](history.md) for that behavior.
 
+The app intentionally uses one generic result flow instead of building separate action flows for every QR or barcode content type.
+
 ## Copy
 
 `Copy` copies the scanned value exactly as it was read from the QR code or barcode.
@@ -42,10 +44,18 @@ Tapping a saved history item returns that value to the main scanner screen. From
 
 Previewing a saved history item does not create a new history entry or move that item to the top of the history list.
 
+## Type-specific actions
+
+The app will not add dedicated scanned-result actions for Wi-Fi, contacts, email, phone, SMS, calendar events, map locations, or similar content types.
+
+Those actions sound useful, but each one becomes its own parsing and intent-handling feature. Wi-Fi codes, contact cards, calendar events, map links, phone numbers, SMS links, and email links all have format quirks, partial data cases, Android-version differences, and failure modes.
+
+Adding separate buttons for those types would also make the result panel more complicated and easier to get wrong. A broken type-specific action would make the app feel less reliable even when scanning, copying, sharing, and safe web opening still work correctly.
+
+The app keeps the generic result flow instead: preview the raw scanned value, copy it, share it, open it only when it looks like a safe web link, and save it locally in history.
+
 ## Result labels
 
-The app does not currently label scanned results as Website, Text, Email, Phone, Product, or other content types.
+The app does not label scanned results as Website, Text, Email, Phone, Product, Wi-Fi, Contact, Calendar, Location, or other content types.
 
-For now, labels would mostly repeat the existing action state: values accepted by `Open` would be web links, and everything else would behave like plain text. Adding labels at this stage would add visual clutter without making the app much safer or clearer.
-
-Result labels can be reconsidered later if the app adds dedicated actions for more content types, such as email, phone, SMS, Wi-Fi, contacts, calendar events, locations, or product-related flows.
+For now, labels would add visual clutter without changing the core behavior. The only type-aware action remains safe web opening, which is already represented by whether the `Open` button is enabled.
