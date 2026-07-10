@@ -1,6 +1,7 @@
 package top.thinapps.qrcodescanner
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.ClipData
@@ -19,6 +20,7 @@ import android.text.Spanned
 import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.HapticFeedbackConstants
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
@@ -72,6 +74,17 @@ class MainActivity : AppCompatActivity() {
         BarcodeScanning.getClient(options)
     }
 
+    private val scaleGestureDetector by lazy {
+        ScaleGestureDetector(
+            this,
+            object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    return zoomPreview(detector.scaleFactor)
+                }
+            }
+        )
+    }
+
     private var camera: Camera? = null
     private var processingFrame = false
     private var torchEnabled = false
@@ -123,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         setupScanGuidePositioning()
         setupTypography()
         setupControls()
+        setupPreviewZoom()
         syncActionButtons()
         syncTorchButton()
         showStatus(R.string.scan_status_ready)
@@ -251,6 +265,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupTorchControl() {
         binding.btnTorch.setOnClickListener { toggleTorchWithFeedback() }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupPreviewZoom() {
+        binding.previewView.setOnTouchListener { _, event ->
+            scaleGestureDetector.onTouchEvent(event)
+            true
+        }
+    }
+
+    private fun zoomPreview(scaleFactor: Float): Boolean {
+        val currentCamera = camera ?: return false
+        val zoomState = currentCamera.cameraInfo.zoomState.value ?: return false
+        val targetZoomRatio = (zoomState.zoomRatio * scaleFactor).coerceIn(
+            zoomState.minZoomRatio,
+            zoomState.maxZoomRatio
+        )
+        currentCamera.cameraControl.setZoomRatio(targetZoomRatio)
+        return true
     }
 
     private fun requestCameraPermission() {
