@@ -45,6 +45,8 @@ The camera preview supports manual pinch-to-zoom. The gesture is handled directl
 
 The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, saved zoom state, or ML Kit auto-zoom. This keeps the scanner screen clean and avoids another control cluster while still letting users zoom in on smaller or more distant QR codes and barcodes.
 
+The app will not add ML Kit auto-zoom. Manual pinch zoom already covers the useful zoom case without letting the camera jump in or out automatically while the user is trying to aim.
+
 ## Launcher icon
 
 The launcher icon uses Android's adaptive icon structure instead of pointing the manifest directly at a drawable PNG.
