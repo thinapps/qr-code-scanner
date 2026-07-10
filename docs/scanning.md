@@ -16,11 +16,15 @@ The guide still shrinks if the available camera width or height is genuinely cra
 
 If the guide and torch ever visually overlap on a very cramped device, the torch remains above the guide in the root `FrameLayout` draw order. The guide is also non-clickable, non-focusable, and hidden from accessibility, so it should not block torch taps or steal accessibility focus. This keeps the edge case safe without shrinking the guide for every normal phone.
 
-## Preview zoom
+## Preview focus and zoom
 
 The camera preview supports manual pinch-to-zoom. The gesture applies CameraX zoom ratio changes to the active camera and clamps each update to the camera's reported minimum and maximum zoom ratios.
 
-The app does not add visible plus/minus buttons, a zoom slider, a saved zoom preference, or ML Kit auto-zoom. Pinch zoom keeps the scanner screen clean while still helping with small or distant QR codes and barcodes.
+The app also supports tap-to-focus on the live preview. A normal single-finger tap creates a CameraX focus/metering request at that preview point. The request uses autofocus and auto-exposure metering, auto-cancels after a short timeout, and fails silently when focus metering is not supported or the camera preview is not ready.
+
+Tap-to-focus is kept separate from pinch zoom. Multi-touch gestures, active scale gestures, and moved touches are treated as zoom/gesture input instead of focus taps.
+
+The app does not add visible plus/minus buttons, a zoom slider, a saved zoom preference, a focus ring UI, or ML Kit auto-zoom. Pinch zoom and tap-to-focus keep the scanner screen clean while still helping with small, distant, or slightly blurry QR codes and barcodes.
 
 The app will not add ML Kit auto-zoom. Manual pinch zoom is enough for this scanner now, and auto-zoom can feel jumpy or unpredictable when the camera changes zoom on its own while the user is aiming.
 
