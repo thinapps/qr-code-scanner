@@ -74,3 +74,5 @@ History search and history export are also intentionally out of scope. The histo
 QR code generation is intentionally out of scope. Adding a generator would turn the app from a scanner into a broader QR toolkit, with extra screens, input validation, output/export choices, generated-code storage questions, and more reliability testing.
 
 Product and ISBN lookup are intentionally out of scope. Those features would push the app toward shopping, catalog, or research behavior, and would likely require internet access, external data sources, or extra product-specific UI that does not fit the current local-only scanner design.
+
+ML Kit auto-zoom is intentionally out of scope. Manual pinch zoom is the chosen zoom behavior, and the app will not add automatic zoom suggestions because auto-zoom can feel jumpy or unpredictable while the user is aiming.
