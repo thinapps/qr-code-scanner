@@ -65,7 +65,7 @@ Scanning happens locally on the device. The app requests only camera permission.
 
 ## Intentionally out of scope
 
-The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, or QR creation toolkit.
+The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, QR creation toolkit, or multi-purpose QR action launcher.
 
 Batch scanning, inventory modes, scan queues, CSV export, and similar commercial workflows are intentionally out of scope. Those features would be overboard for this app and would add UI bloat, duplicate-handling rules, export/storage decisions, and edge cases that do not fit a simple consumer scanner.
 
@@ -76,3 +76,5 @@ QR code generation is intentionally out of scope. Adding a generator would turn 
 Product and ISBN lookup are intentionally out of scope. Those features would push the app toward shopping, catalog, or research behavior, and would likely require internet access, external data sources, or extra product-specific UI that does not fit the current local-only scanner design.
 
 ML Kit auto-zoom is intentionally out of scope. Manual pinch zoom is the chosen zoom behavior, and the app will not add automatic zoom suggestions because auto-zoom can feel jumpy or unpredictable while the user is aiming.
+
+Type-specific scanned-result actions are intentionally out of scope. The app will not add separate Wi-Fi, contact, email, phone, SMS, calendar, map, or location action flows because they would add parsing edge cases, Android intent quirks, extra buttons, and more ways for the result panel to feel unreliable or over-engineered.
