@@ -16,6 +16,12 @@ The guide still shrinks if the available camera width or height is genuinely cra
 
 If the guide and torch ever visually overlap on a very cramped device, the torch remains above the guide in the root `FrameLayout` draw order. The guide is also non-clickable, non-focusable, and hidden from accessibility, so it should not block torch taps or steal accessibility focus. This keeps the edge case safe without shrinking the guide for every normal phone.
 
+## Preview zoom
+
+The camera preview supports manual pinch-to-zoom. The gesture applies CameraX zoom ratio changes to the active camera and clamps each update to the camera's reported minimum and maximum zoom ratios.
+
+The app does not add visible plus/minus buttons, a zoom slider, a saved zoom preference, or ML Kit auto-zoom. Pinch zoom keeps the scanner screen clean while still helping with small or distant QR codes and barcodes.
+
 ## Screen text states
 
 The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A history icon sits beside the title and opens the local scan history screen.
