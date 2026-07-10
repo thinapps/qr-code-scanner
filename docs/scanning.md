@@ -70,13 +70,11 @@ This keeps scanning live while avoiding repeated updates from the same QR code, 
 
 Accepted results are saved into local scan history after passing this gate.
 
-## Why there is no Scan Again flow yet
+## Why there is no Scan Again flow
 
-A stricter result flow would pause or lock scanning after the first accepted QR code or barcode, show the result, and require the user to tap a Scan Again button before another value could be accepted.
+The app will not add a scan lock, capture lock, or Scan Again flow. That stricter pattern would pause or lock scanning after the first accepted QR code or barcode, show the result, and require another tap before scanning could continue.
 
-That flow can make sense later if the app should feel more like a deliberate capture tool. For now, the app stays closer to a lightweight live scanner: it keeps the camera active, filters duplicate noise, and still lets a different QR code or barcode replace the current result after a short cooldown.
-
-This avoids adding another large button and another scanner state before testing proves the extra step is useful. The current result gate solves the immediate repeat-update problem without making normal scanning slower or more complicated.
+That behavior sounds controlled, but it would likely make a lightweight scanner feel slower and more annoying. The app intentionally keeps live scanning active, uses the result gate to reduce duplicate noise, and still lets users clear the visible result without adding another scanner state or large button.
 
 ## Current constants
 
