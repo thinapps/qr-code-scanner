@@ -56,6 +56,8 @@ The app keeps the generic result flow instead: preview the raw scanned value, co
 
 ## Result labels
 
-The app does not label scanned results as Website, Text, Email, Phone, Product, Wi-Fi, Contact, Calendar, Location, or other content types.
+The app will not add content-type labels such as Website, Text, Email, Phone, Product, Wi-Fi, Contact, Calendar, Location, or similar labels.
 
-For now, labels would add visual clutter without changing the core behavior. The only type-aware action remains safe web opening, which is already represented by whether the `Open` button is enabled.
+Those labels can easily become another parsing feature. Incorrect or inconsistent labels would be just as likely to hurt trust as help, especially for malformed QR payloads, partial contact cards, unusual URL formats, Wi-Fi strings, calendar data, map links, or barcode values that do not clearly map to one type.
+
+The only type-aware action remains safe web opening, which is already represented by whether the `Open` button is enabled. Everything else stays visible as the raw scanned value so the result panel remains simple and predictable.
