@@ -110,16 +110,10 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun formatHistoryMeta(item: ScanHistoryItem): String {
-        val timestamp = if (item.scannedAtMs > 0L) {
+        return if (item.scannedAtMs > 0L) {
             dateFormatter.format(Date(item.scannedAtMs))
         } else {
             ""
-        }
-
-        return if (item.openableWebLink) {
-            getString(R.string.history_item_web_link, timestamp)
-        } else {
-            getString(R.string.history_item_text, timestamp)
         }
     }
 
