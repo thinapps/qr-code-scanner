@@ -656,7 +656,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun String.toWebUri(): Uri? {
         val normalized = trim()
-        if (normalized.isBlank() || normalized.any { it.isWhitespace() }) return null
+        if (normalized.isBlank() || normalized.any { it.isUnsafeWebLinkCharacter() }) return null
 
         val httpsPrefix = WEB_SCHEME_HTTPS + WEB_SCHEME_SEPARATOR
         val httpPrefix = WEB_SCHEME_HTTP + WEB_SCHEME_SEPARATOR
@@ -681,6 +681,21 @@ class MainActivity : AppCompatActivity() {
         val uri = Uri.parse(httpsPrefix + normalized)
         val host = uri.host ?: return null
         return if (host.isLikelyWebHost()) uri else null
+    }
+
+    private fun Char.isUnsafeWebLinkCharacter(): Boolean {
+        return isWhitespace() ||
+            isISOControl() ||
+            this == '\\' ||
+            isBidirectionalControl()
+    }
+
+    private fun Char.isBidirectionalControl(): Boolean {
+        return code == 0x061C ||
+            code == 0x200E ||
+            code == 0x200F ||
+            code in 0x202A..0x202E ||
+            code in 0x2066..0x2069
     }
 
     private fun String.isLikelyWebHost(): Boolean {
