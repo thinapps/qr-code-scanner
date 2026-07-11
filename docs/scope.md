@@ -65,11 +65,11 @@ Scanning happens locally on the device. The app requests only camera permission.
 
 ## Intentionally out of scope
 
-The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, QR creation toolkit, history manager, or multi-purpose QR action launcher.
+The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, QR creation toolkit, or multi-purpose QR action launcher.
 
 Batch scanning, inventory modes, scan queues, CSV export, and similar commercial workflows are intentionally out of scope. Those features would be overboard for this app and would add UI bloat, duplicate-handling rules, export/storage decisions, and edge cases that do not fit a simple consumer scanner.
 
-History search, history export, filters, folders, favorites, labels, pinning, tagging, editing, notes, cloud sync, and saved collections are also intentionally out of scope. The history screen is meant to be a small local recent-results list, not a searchable archive, organizer, reporting system, or saved-items database.
+History search, history export, filters, folders, favorites, labels, pinning, tagging, editing, notes, cloud sync, and saved collections are intentionally out of scope. The app does have a history screen, but it is meant to stay a small local recent-results list, not a searchable archive, organizer, reporting system, or saved-items database.
 
 QR code generation is intentionally out of scope. Adding a generator would turn the app from a scanner into a broader QR toolkit, with extra screens, input validation, output/export choices, generated-code storage questions, and more reliability testing.
 
