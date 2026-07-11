@@ -19,7 +19,6 @@ Scans QR codes and barcodes with history
 
 ### 0.8.2
 - rejects backslashes, control characters, and Unicode bidirectional-control characters before enabling Open for scanned web links
-- clarifies that the web-link checks are local parsing safeguards, not phishing detection or destination reputation checks
 
 ### 0.8.1
 - adds tap-to-focus on the camera preview while keeping pinch zoom separate from tap gestures
