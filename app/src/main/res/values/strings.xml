@@ -14,8 +14,6 @@
     <string name="history_title">Scan History</string>
     <string name="history_hint">Tap a saved result to preview it again.</string>
     <string name="history_empty">No scan history yet.</string>
-    <string name="history_item_web_link">Web link • %1$s</string>
-    <string name="history_item_text">Text • %1$s</string>
     <string name="history_cleared">History cleared</string>
     <string name="action_copy">Copy</string>
     <string name="action_open">Open</string>
