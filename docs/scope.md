@@ -61,7 +61,7 @@ All accepted scan results use the same simple result flow:
 - open it only when it passes the app's local web-link checks
 - save it in local scan history
 
-The Open action uses minimal local parsing checks. It accepts only HTTP and HTTPS web links, rejects embedded whitespace, URL user-info, missing hosts, and unsupported explicit schemes, and applies stricter hostname-label checks when adding HTTPS to a result without a scheme. These checks do not detect phishing, consult an online reputation service, or verify that the destination itself is trustworthy.
+The Open action uses minimal local parsing checks. It accepts only HTTP and HTTPS web links, rejects embedded whitespace, backslashes, control characters, Unicode bidirectional-control characters, URL user-info, missing hosts, and unsupported explicit schemes, and applies stricter hostname-label checks when adding HTTPS to a result without a scheme. These checks do not detect phishing, consult an online reputation service, or verify that the destination itself is trustworthy.
 
 Scanning happens locally on the device. The app requests only camera permission.
 
