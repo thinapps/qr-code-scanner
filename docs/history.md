@@ -2,7 +2,7 @@
 
 QR Code Scanner keeps a small local history of accepted scan results.
 
-The history screen is intentionally lightweight and should stay that way:
+The app intentionally has a history screen, but the history screen should stay lightweight:
 
 - stored locally on the device with private app preferences
 - no account
@@ -17,7 +17,7 @@ The history screen is intentionally lightweight and should stay that way:
 - no folders
 - no favorites
 
-The goal is a simple recent-results list, not a saved-items manager, archive, reporting tool, or mini database.
+The goal is a simple recent-results list inside the scanner, not a broader organizing, archiving, reporting, or database-style feature.
 
 ## What gets saved
 
@@ -47,7 +47,7 @@ Tapping a saved result returns it to the main scanner screen for preview, copy, 
 
 The history screen does not include search, export, batch lists, inventory-style workflows, result type labels, filters, folders, favorites, pinning, tagging, editing, notes, cloud sync, or saved collections.
 
-Those features are intentionally skipped because this app is a simple local scanner. Turning history into a searchable, filterable, editable, exportable, or synced archive would add storage, privacy, duplicate-handling, UI, and maintenance decisions that do not fit the lightweight design.
+Those features are intentionally skipped because this app is a simple local scanner with a small recent-results history screen. Expanding history into searchable, filterable, editable, exportable, or synced workflows would add storage, privacy, duplicate-handling, UI, and maintenance decisions that do not fit the lightweight design.
 
 Future history changes should be limited to small reliability or clarity fixes. They should not turn the history screen into a complicated organizing system.
 
