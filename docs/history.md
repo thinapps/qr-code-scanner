@@ -21,6 +21,9 @@ Each history item stores:
 
 - scanned value
 - scan timestamp
+- whether the value was openable as a web link when it was scanned
+
+The openable-web-link flag is internal history metadata. It is not shown as a result type label on the history row.
 
 The app keeps the most recent 50 unique values. If the same value is scanned again, it moves back to the top with a new timestamp instead of creating a duplicate row.
 
