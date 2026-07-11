@@ -19,6 +19,7 @@ Scans QR codes and barcodes with history
 
 ### 0.8.1
 - adds tap-to-focus on the camera preview while keeping pinch zoom separate from tap gestures
+- simplifies scan history metadata to timestamp-only so history does not add result type labels
 
 ### 0.8.0
 - adds manual pinch-to-zoom on the camera preview without adding zoom buttons, a slider, saved zoom state, or auto-zoom behavior
