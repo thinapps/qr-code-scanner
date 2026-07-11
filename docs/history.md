@@ -2,7 +2,7 @@
 
 QR Code Scanner keeps a small local history of accepted scan results.
 
-The history is intentionally lightweight:
+The history screen is intentionally lightweight and should stay that way:
 
 - stored locally on the device with private app preferences
 - no account
@@ -12,6 +12,12 @@ The history is intentionally lightweight:
 - no database
 - no search
 - no export
+- no filters
+- no labels
+- no folders
+- no favorites
+
+The goal is a simple recent-results list, not a saved-items manager, archive, reporting tool, or mini database.
 
 ## What gets saved
 
@@ -39,12 +45,14 @@ Tapping a saved result returns it to the main scanner screen for preview, copy, 
 
 ## What history does not do
 
-The history screen does not include search, export, batch lists, inventory-style workflows, or result type labels.
+The history screen does not include search, export, batch lists, inventory-style workflows, result type labels, filters, folders, favorites, pinning, tagging, editing, notes, cloud sync, or saved collections.
 
-Those features are intentionally skipped because this app is a simple local scanner. Turning history into a searchable or exportable archive would be too much bloat for the current app and would add storage, privacy, duplicate-handling, and UI decisions that do not fit the lightweight design.
+Those features are intentionally skipped because this app is a simple local scanner. Turning history into a searchable, filterable, editable, exportable, or synced archive would add storage, privacy, duplicate-handling, UI, and maintenance decisions that do not fit the lightweight design.
+
+Future history changes should be limited to small reliability or clarity fixes. They should not turn the history screen into a complicated organizing system.
 
 ## Clearing history
 
 The history screen includes a Clear All History button. Clearing history removes the saved local history list only. The button is disabled while history is empty.
 
-The close icon in the scanner result card is separate. It only hides the currently visible result from the main scanner screen and does not clear saved scan history.
+The close icon in the scanner result card is separate. It only hides the currently visible result from the main scanner screen and does not clear saved history.
