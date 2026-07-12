@@ -15,6 +15,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.Settings
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.TypefaceSpan
@@ -103,11 +104,22 @@ class MainActivity : AppCompatActivity() {
     private var previewDownX = 0f
     private var previewDownY = 0f
     private var previewTouchMoved = false
+    private var cameraPermissionRequestAttempted = false
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) {
+            startCamera()
+        } else {
+            showPermissionState()
+        }
+    }
+
+    private val cameraSettingsLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (hasCameraPermission()) {
             startCamera()
         } else {
             showPermissionState()
@@ -248,7 +260,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupControls() {
-        binding.btnPermission.setOnClickListener { requestCameraPermission() }
+        binding.btnPermission.setOnClickListener { handleCameraPermissionAction() }
         setupTorchControl()
         binding.btnHistory.setOnClickListener { view ->
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -367,8 +379,30 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    private fun handleCameraPermissionAction() {
+        if (shouldOpenCameraPermissionSettings()) {
+            openCameraPermissionSettings()
+        } else {
+            requestCameraPermission()
+        }
+    }
+
     private fun requestCameraPermission() {
+        cameraPermissionRequestAttempted = true
         permissionLauncher.launch(Manifest.permission.CAMERA)
+    }
+
+    private fun shouldOpenCameraPermissionSettings(): Boolean {
+        return cameraPermissionRequestAttempted &&
+            !shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+    }
+
+    private fun openCameraPermissionSettings() {
+        val intent = Intent(
+            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+            Uri.fromParts("package", packageName, null)
+        )
+        cameraSettingsLauncher.launch(intent)
     }
 
     private fun hasCameraPermission(): Boolean {
