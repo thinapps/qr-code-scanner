@@ -13,8 +13,8 @@ android {
         targetSdk 35
 
         // bump before each release
-        versionCode 35
-        versionName "0.8.2"
+        versionCode 36
+        versionName "0.8.3"
     }
 
     signingConfigs {
