@@ -18,6 +18,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.8.4
+- restores the currently visible scanned result after Android recreates the scanner screen
+
 ### 0.8.3
 - keeps `Allow Camera` as the single permission button label while opening app settings when Android no longer shows the camera permission dialog
 
