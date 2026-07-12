@@ -43,6 +43,8 @@ The history screen uses the same 20dp side gutters as the scanner panel. The sub
 
 Tapping a saved result returns it to the main scanner screen for preview, copy, open, or share actions. Previewing a saved history item does not create a new history entry or move that item to the top of the history list.
 
+Restoring the currently visible result after Android recreates the scanner screen also does not create a new history entry or change the saved history order.
+
 ## What history does not do
 
 The history screen does not include search, export, batch lists, inventory-style workflows, result type labels, filters, folders, favorites, pinning, tagging, editing, notes, cloud sync, or saved collections.
