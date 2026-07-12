@@ -18,6 +18,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.8.5
+- improves tap-to-focus compatibility by requesting autofocus directly and checking whether focus succeeds
+
 ### 0.8.4
 - restores the currently visible scanned result after Android recreates the scanner screen
 
@@ -129,7 +132,7 @@ Scans QR codes and barcodes with history
 
 ### 0.5.0
 - adds local-only scan history for accepted QR results
-- keeps the most recent 50 unique scan values and moves repeat scans back to the top
+- keeps the most recent 50 unique values and moves repeat scans back to the top
 - adds a title-row history icon and a history screen with tap-to-preview behavior
 - adds a Clear All History action while keeping the result-card close icon limited to hiding the current result
 
