@@ -26,6 +26,18 @@ The manifest also declares that the app requires camera hardware:
     android:required="true" />
 ```
 
+## Permission request flow
+
+When camera permission is missing, the app shows the permission panel and immediately opens Android's camera permission dialog.
+
+The permission button always says `Allow Camera`. Its wording does not change based on permission state:
+
+- after a normal denial, tapping `Allow Camera` requests the Android permission dialog again while Android still allows another request
+- after repeated denial causes Android to stop presenting the dialog, tapping the same `Allow Camera` button opens the app's system settings page so camera permission can be enabled manually
+- after returning from app settings, scanning starts if camera permission was granted; otherwise the permission panel remains visible
+
+This keeps the normal first-run request automatic while preserving one consistent fallback button instead of switching between `Allow Camera` and a separate settings label.
+
 ## Permissions not requested
 
 The app does not request Internet, location, storage, contacts, accounts, notification, or advertising permissions.
