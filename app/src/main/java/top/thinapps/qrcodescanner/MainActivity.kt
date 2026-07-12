@@ -362,33 +362,46 @@ class MainActivity : AppCompatActivity() {
         if (binding.previewView.width <= 0 || binding.previewView.height <= 0) return
 
         val point = binding.previewView.meteringPointFactory.createPoint(x, y)
-        val autofocusAndExposureAction = FocusMeteringAction.Builder(
-            point,
-            FocusMeteringAction.FLAG_AF or FocusMeteringAction.FLAG_AE
-        )
-            .setAutoCancelDuration(FOCUS_AUTO_CANCEL_SECONDS, TimeUnit.SECONDS)
-            .build()
         val autofocusOnlyAction = FocusMeteringAction.Builder(
             point,
             FocusMeteringAction.FLAG_AF
         )
             .setAutoCancelDuration(FOCUS_AUTO_CANCEL_SECONDS, TimeUnit.SECONDS)
             .build()
-        val action = when {
-            currentCamera.cameraInfo.isFocusMeteringSupported(autofocusAndExposureAction) -> {
-                autofocusAndExposureAction
-            }
-            currentCamera.cameraInfo.isFocusMeteringSupported(autofocusOnlyAction) -> {
-                autofocusOnlyAction
-            }
-            else -> return
+        if (!currentCamera.cameraInfo.isFocusMeteringSupported(autofocusOnlyAction)) return
+
+        val autofocusAndExposureAction = FocusMeteringAction.Builder(
+            point,
+            FocusMeteringAction.FLAG_AF or FocusMeteringAction.FLAG_AE
+        )
+            .setAutoCancelDuration(FOCUS_AUTO_CANCEL_SECONDS, TimeUnit.SECONDS)
+            .build()
+        val useExposureMetering = currentCamera.cameraInfo.isFocusMeteringSupported(
+            autofocusAndExposureAction
+        )
+        val firstAction = if (useExposureMetering) {
+            autofocusAndExposureAction
+        } else {
+            autofocusOnlyAction
         }
 
+        startFocusRequest(currentCamera, firstAction) { focusSuccessful ->
+            if (!focusSuccessful && useExposureMetering) {
+                startFocusRequest(currentCamera, autofocusOnlyAction)
+            }
+        }
+    }
+
+    private fun startFocusRequest(
+        currentCamera: Camera,
+        action: FocusMeteringAction,
+        onComplete: (Boolean) -> Unit = {}
+    ) {
         val focusRequest = currentCamera.cameraControl.startFocusAndMetering(action)
         focusRequest.addListener(
             {
                 try {
-                    focusRequest.get()
+                    onComplete(focusRequest.get().isFocusSuccessful)
                 } catch (error: Exception) {
                     if (error is InterruptedException) {
                         Thread.currentThread().interrupt()
