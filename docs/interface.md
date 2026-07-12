@@ -43,11 +43,13 @@ The guide uses neutral light gray at partial opacity (`#7FDADADA`, about 50% opa
 
 The camera preview supports manual pinch-to-zoom. The gesture is handled directly on the CameraX preview, applies CameraX zoom ratio changes to the active camera, and clamps each update to the camera's reported minimum and maximum zoom ratios.
 
-The camera preview also supports tap-to-focus. A normal single-finger tap sends a CameraX focus/metering request at the tapped preview point. The app does not draw a focus ring or add a separate focus button; the gesture stays quiet and camera-native.
+The camera preview also supports tap-to-focus. A normal single-finger tap sends a CameraX focus/metering request at the tapped preview point. The app intentionally skips a visible focus ring for now and does not add a separate focus button; the gesture stays quiet and camera-native.
+
+A focus ring is not proof that the camera actually locked focus, so adding one now would be cosmetic rather than a reliability improvement. It should only be reconsidered if device testing shows that users need clearer confirmation that a tap was accepted.
 
 Tap-to-focus is separated from pinch zoom by ignoring focus behavior for multi-touch gestures, active scale gestures, or touches that move beyond normal tap slop. That keeps a pinch gesture from accidentally triggering focus at the end of the zoom.
 
-The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, saved zoom state, a focus ring UI, or ML Kit auto-zoom. This keeps the scanner screen clean and avoids another control cluster while still letting users zoom or refocus when needed.
+The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, saved zoom state, or ML Kit auto-zoom. This keeps the scanner screen clean and avoids another control cluster while still letting users zoom or refocus when needed.
 
 The app will not add ML Kit auto-zoom. Manual pinch zoom already covers the useful zoom case without letting the camera jump in or out automatically while the user is trying to aim.
 
