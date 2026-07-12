@@ -158,9 +158,9 @@ class MainActivity : AppCompatActivity() {
         setupTypography()
         setupControls()
         setupPreviewCameraGestures()
+        restoreVisibleResult(savedInstanceState)
         syncActionButtons()
         syncTorchButton()
-        showStatus(R.string.scan_status_ready)
 
         if (hasCameraPermission()) {
             startCamera()
@@ -168,6 +168,13 @@ class MainActivity : AppCompatActivity() {
             showPermissionState()
             requestCameraPermission()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        lastScannedValue
+            ?.takeIf { it.isNotBlank() }
+            ?.let { outState.putString(STATE_VISIBLE_RESULT, it) }
+        super.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
@@ -257,6 +264,18 @@ class MainActivity : AppCompatActivity() {
     private fun setupTypography() {
         binding.txtResult.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         setResultText(getString(R.string.scan_result_empty))
+    }
+
+    private fun restoreVisibleResult(savedInstanceState: Bundle?) {
+        val restoredValue = savedInstanceState
+            ?.getString(STATE_VISIBLE_RESULT)
+            ?.takeIf { it.isNotBlank() }
+            ?: return
+
+        lastScannedValue = restoredValue
+        lastAcceptedScanValue = restoredValue
+        lastAcceptedScanAtMs = SystemClock.elapsedRealtime()
+        setResultText(restoredValue)
     }
 
     private fun setupControls() {
@@ -417,9 +436,11 @@ class MainActivity : AppCompatActivity() {
         binding.viewScanGuide.visibility = View.VISIBLE
         updateScanGuidePosition()
         binding.layoutPermission.visibility = View.GONE
-        showStatus(R.string.scan_status_ready)
         if (lastScannedValue.isNullOrBlank()) {
+            showStatus(R.string.scan_status_ready)
             setResultText(getString(R.string.scan_result_empty))
+        } else {
+            showStatus(R.string.scan_status_found)
         }
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -767,6 +788,7 @@ class MainActivity : AppCompatActivity() {
         const val WEB_SCHEME_SEPARATOR = "://"
         const val USER_INFO_SEPARATOR = '@'
         const val PUNYCODE_PREFIX = "xn--"
+        const val STATE_VISIBLE_RESULT = "visible_result"
         const val TAG = "QrCodeScanner"
     }
 }
