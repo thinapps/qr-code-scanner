@@ -20,7 +20,7 @@ Scans QR codes and barcodes with history
 
 ### 0.8.4
 - restores the currently visible scanned result after Android recreates the scanner screen
-- retries tap-to-focus with autofocus-only when the initial autofocus and auto-exposure request does not lock focus
+- aligns tap-to-focus with CameraX's standard focus and metering action at the tapped preview point
 
 ### 0.8.3
 - keeps `Allow Camera` as the single permission button label while opening app settings when Android no longer shows the camera permission dialog
