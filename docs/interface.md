@@ -118,6 +118,9 @@ After a scan result is found:
 When camera permission is missing or denied:
 
 - subtitle/status: `Camera permission is needed before scanning.`
+- permission button: `Allow Camera`
+
+The permission button keeps that one label for every denied state. It retries Android's permission dialog while another request is available and opens the app's system settings page after Android stops presenting the dialog.
 
 When the camera cannot start:
 
