@@ -62,6 +62,14 @@ When the result is cleared:
 - Copy, Open, and Share become disabled again
 - the same just-cleared value remains suppressed briefly if it is still in the camera frame
 
+## Result restoration after screen recreation
+
+The app saves only the currently visible scanned value as small transient activity state. If Android recreates `MainActivity` after a rotation, another configuration change, or system-initiated process recreation, the result card, result status, clear icon, and result action states are restored.
+
+Restoring a visible result does not add another history entry or replay the scan haptic. The restored value is also returned to the short duplicate-suppression window so the same code does not immediately fire again if it remains in the camera frame.
+
+This is not permanent result storage. A new scanner screen after the user fully dismisses the previous activity starts empty, while saved scan history remains separate.
+
 ## Result gate behavior
 
 - A value must be detected more than once before it is accepted.
