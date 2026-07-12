@@ -24,7 +24,9 @@ The app also supports tap-to-focus on the live preview. A normal single-finger t
 
 Tap-to-focus is kept separate from pinch zoom. Multi-touch gestures, active scale gestures, and moved touches are treated as zoom/gesture input instead of focus taps.
 
-The app does not add visible plus/minus buttons, a zoom slider, a saved zoom preference, a focus ring UI, or ML Kit auto-zoom. Pinch zoom and tap-to-focus keep the scanner screen clean while still helping with small, distant, or slightly blurry QR codes and barcodes.
+The app intentionally skips a visible focus ring for now. Tap-to-focus stays quiet and camera-native instead of adding cosmetic feedback that does not prove the camera actually locked focus. A focus ring should only be reconsidered if device testing shows that users need clearer tap feedback.
+
+The app also does not add visible plus/minus buttons, a zoom slider, a saved zoom preference, or ML Kit auto-zoom. Pinch zoom and tap-to-focus keep the scanner screen clean while still helping with small, distant, or slightly blurry QR codes and barcodes.
 
 The app will not add ML Kit auto-zoom. Manual pinch zoom is enough for this scanner now, and auto-zoom can feel jumpy or unpredictable when the camera changes zoom on its own while the user is aiming.
 
