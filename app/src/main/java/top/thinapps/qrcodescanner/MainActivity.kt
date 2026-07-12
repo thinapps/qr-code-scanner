@@ -364,22 +364,27 @@ class MainActivity : AppCompatActivity() {
         val point = binding.previewView.meteringPointFactory.createPoint(x, y)
         val action = FocusMeteringAction.Builder(
             point,
-            FocusMeteringAction.FLAG_AF or FocusMeteringAction.FLAG_AE
+            FocusMeteringAction.FLAG_AF
         )
             .setAutoCancelDuration(FOCUS_AUTO_CANCEL_SECONDS, TimeUnit.SECONDS)
             .build()
-        if (!currentCamera.cameraInfo.isFocusMeteringSupported(action)) return
+        if (!currentCamera.cameraInfo.isFocusMeteringSupported(action)) {
+            Log.d(TAG, "Tap-to-focus is not supported by this camera")
+            return
+        }
 
         val focusRequest = currentCamera.cameraControl.startFocusAndMetering(action)
         focusRequest.addListener(
             {
                 try {
-                    focusRequest.get()
+                    if (!focusRequest.get().isFocusSuccessful) {
+                        Log.d(TAG, "Tap-to-focus did not lock focus")
+                    }
                 } catch (error: Exception) {
                     if (error is InterruptedException) {
                         Thread.currentThread().interrupt()
                     } else {
-                        Log.d(TAG, "Focus metering request did not complete", error)
+                        Log.d(TAG, "Tap-to-focus request did not complete", error)
                     }
                 }
             },
