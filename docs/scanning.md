@@ -20,7 +20,7 @@ If the guide and torch ever visually overlap on a very cramped device, the torch
 
 The camera preview supports manual pinch-to-zoom. The gesture applies CameraX zoom ratio changes to the active camera and clamps each update to the camera's reported minimum and maximum zoom ratios.
 
-The app also supports tap-to-focus on the live preview. A normal single-finger tap creates a CameraX autofocus request at that preview point. The request uses autofocus-only metering so it explicitly triggers a focus scan without also locking exposure. It auto-cancels after a short timeout, checks CameraX's returned focus result, and logs unsupported or unsuccessful requests without interrupting scanning.
+The app also supports tap-to-focus on the live preview. A normal single-finger tap first requests autofocus and auto-exposure metering at that preview point. If the camera does not support that combined action, the app falls back to autofocus-only. The request auto-cancels after a short timeout and does nothing when autofocus itself is unsupported or the camera preview is not ready.
 
 Tap-to-focus is kept separate from pinch zoom. Multi-touch gestures, active scale gestures, and moved touches are treated as zoom/gesture input instead of focus taps.
 
