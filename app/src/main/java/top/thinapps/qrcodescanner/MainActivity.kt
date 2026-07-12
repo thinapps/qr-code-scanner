@@ -362,54 +362,10 @@ class MainActivity : AppCompatActivity() {
         if (binding.previewView.width <= 0 || binding.previewView.height <= 0) return
 
         val point = binding.previewView.meteringPointFactory.createPoint(x, y)
-        val autofocusOnlyAction = FocusMeteringAction.Builder(
-            point,
-            FocusMeteringAction.FLAG_AF
-        )
+        val action = FocusMeteringAction.Builder(point)
             .setAutoCancelDuration(FOCUS_AUTO_CANCEL_SECONDS, TimeUnit.SECONDS)
             .build()
-        if (!currentCamera.cameraInfo.isFocusMeteringSupported(autofocusOnlyAction)) return
-
-        val autofocusAndExposureAction = FocusMeteringAction.Builder(
-            point,
-            FocusMeteringAction.FLAG_AF or FocusMeteringAction.FLAG_AE
-        )
-            .setAutoCancelDuration(FOCUS_AUTO_CANCEL_SECONDS, TimeUnit.SECONDS)
-            .build()
-        val useExposureMetering = currentCamera.cameraInfo.isFocusMeteringSupported(
-            autofocusAndExposureAction
-        )
-        val firstAction = if (useExposureMetering) {
-            autofocusAndExposureAction
-        } else {
-            autofocusOnlyAction
-        }
-
-        startFocusRequest(currentCamera, firstAction) { focusSuccessful ->
-            if (!focusSuccessful && useExposureMetering) {
-                startFocusRequest(currentCamera, autofocusOnlyAction)
-            }
-        }
-    }
-
-    private fun startFocusRequest(
-        currentCamera: Camera,
-        action: FocusMeteringAction,
-        onComplete: (Boolean) -> Unit = {}
-    ) {
-        val focusRequest = currentCamera.cameraControl.startFocusAndMetering(action)
-        focusRequest.addListener(
-            {
-                try {
-                    onComplete(focusRequest.get().isFocusSuccessful)
-                } catch (error: Exception) {
-                    if (error is InterruptedException) {
-                        Thread.currentThread().interrupt()
-                    }
-                }
-            },
-            ContextCompat.getMainExecutor(this)
-        )
+        currentCamera.cameraControl.startFocusAndMetering(action)
     }
 
     private fun zoomPreview(scaleFactor: Float): Boolean {
