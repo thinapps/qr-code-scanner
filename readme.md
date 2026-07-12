@@ -12,6 +12,7 @@ Scans QR codes and barcodes with history
 | [Scanning](docs/scanning.md) | Explains live scanning, preview focus/zoom behavior, and duplicate result filtering. |
 | [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, spacing, and clearing behavior. |
 | [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, launcher icon, icon buttons, preview gestures, spacing, and visible screen text states. |
+| [Accessibility](docs/accessibility.md) | Explains the current accessibility baseline, intentionally deferred behavior, testing policy, and possible future improvements. |
 | [Permissions](docs/permissions.md) | Explains the camera permission, why it is needed, and how permission or camera errors appear in the app. |
 | [Torch](docs/torch.md) | Explains why scanner torch control stays inside CameraX instead of using standalone CameraManager torch control. |
 
