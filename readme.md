@@ -17,6 +17,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.8.3
+- keeps `Allow Camera` as the single permission button label while opening app settings when Android no longer shows the camera permission dialog
+
 ### 0.8.2
 - rejects backslashes, control characters, and Unicode bidirectional-control characters before enabling Open for scanned web links
 
