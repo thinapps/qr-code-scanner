@@ -42,6 +42,18 @@ Values with unsupported explicit schemes, missing hosts, schemeless `@` characte
 
 These are minimal local parsing safeguards. The app does not detect phishing, consult an online reputation service, or verify that a destination is trustworthy.
 
+## No automatic opening
+
+The app will not automatically open a scanned link or launch another app as soon as a code is detected. Every result is shown in the result card first, and the user must explicitly tap `Open` after the value passes the local web-link checks.
+
+Auto-open would make scanning less predictable and could send users to an unexpected destination before they have reviewed the scanned value. The app will not add an auto-open preference or timed redirect.
+
+## Scan feedback
+
+Accepted scans use haptic feedback. The app will not add a scan beep, success sound, spoken confirmation, or sound setting.
+
+A beep can be disruptive in public or quiet places and would require another preference and audio-behavior edge cases. The existing haptic and visible result are enough for this app.
+
 ## History preview actions
 
 Tapping a saved history item returns that value to the main scanner screen. From there, the normal Copy, Open, and Share buttons use the same rules as a newly scanned result.
