@@ -51,6 +51,8 @@ Tap-to-focus is separated from pinch zoom by ignoring focus behavior for multi-t
 
 The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, or saved zoom state. Manual pinch zoom is the complete zoom interface for this app and no separate zoom controls are planned.
 
+The app uses the rear camera only and will not add a front-camera switch. The rear camera is the normal scanner camera and generally provides better close-range focus, detail, and low-light performance. Supporting camera switching would add another control plus extra lifecycle, torch, zoom, and focus states for a limited scanning use case.
+
 The app will not add ML Kit auto-zoom. Manual pinch zoom already covers the useful zoom case without letting the camera jump in or out automatically while the user is trying to aim.
 
 ## Theme and launch surface
