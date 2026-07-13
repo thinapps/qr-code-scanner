@@ -49,9 +49,15 @@ A focus ring is not proof that the camera actually locked focus, so adding one n
 
 Tap-to-focus is separated from pinch zoom by ignoring focus behavior for multi-touch gestures, active scale gestures, or touches that move beyond normal tap slop. That keeps a pinch gesture from accidentally triggering focus at the end of the zoom.
 
-The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, saved zoom state, or ML Kit auto-zoom. This keeps the scanner screen clean and avoids another control cluster while still letting users zoom or refocus when needed.
+The app intentionally does not show plus/minus zoom buttons, a zoom slider, a visible zoom label, or saved zoom state. Manual pinch zoom is the complete zoom interface for this app and no separate zoom controls are planned.
 
 The app will not add ML Kit auto-zoom. Manual pinch zoom already covers the useful zoom case without letting the camera jump in or out automatically while the user is trying to aim.
+
+## Theme and launch surface
+
+The app uses one dark interface and will not add light mode, alternate color themes, accent pickers, or a theme settings screen. A theme system would add preferences and visual combinations without improving the scanner itself.
+
+The app also will not add a Quick Settings tile, lock-screen shortcut, persistent notification shortcut, home-screen widget, or similar secondary launcher surface. Opening the normal app already goes directly to the scanner, so extra entry points would duplicate that behavior and add service, manifest, and lifecycle complexity.
 
 ## Launcher icon
 
