@@ -84,3 +84,13 @@ Type-specific scanned-result actions are intentionally out of scope. The app wil
 Content-type result labels are intentionally out of scope. The app will not label results as Website, Text, Email, Phone, Product, Wi-Fi, Contact, Calendar, Location, or similar categories because inaccurate labels, ambiguous payloads, and parser edge cases could hurt trust more than they help.
 
 Scan lock, capture lock, and Scan Again flows are intentionally out of scope. The app keeps live scanning active and uses the result gate to reduce duplicate noise instead of adding another scanner state, another large button, or an extra tap before scanning can continue.
+
+Automatic result actions are intentionally out of scope. The app will not auto-open links, launch another app immediately after scanning, or add an auto-open preference. Users always review the scanned value first and explicitly choose `Open` when available.
+
+Audio scan feedback is intentionally out of scope. The app will not add a scan beep, success sound, spoken confirmation, or sound setting. Accepted scans already use haptic feedback and visible result feedback without making noise in public or quiet places.
+
+Extra scanner controls are intentionally out of scope. The app will not add plus/minus zoom buttons, a zoom slider, a separate focus button, or a visible focus ring. Pinch zoom and quiet CameraX tap-to-focus are the complete manual camera controls for now.
+
+Theme customization is intentionally out of scope. The app will keep one dark interface instead of adding light mode, alternate themes, accent pickers, or a theme settings screen.
+
+Secondary launcher surfaces are intentionally out of scope. The app will not add a Quick Settings tile, lock-screen shortcut, persistent notification shortcut, home-screen widget, or similar entry point because the normal launcher already opens directly into the scanner.
