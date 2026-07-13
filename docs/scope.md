@@ -89,7 +89,7 @@ Automatic result actions are intentionally out of scope. The app will not auto-o
 
 Audio scan feedback is intentionally out of scope. The app will not add a scan beep, success sound, spoken confirmation, or sound setting. Accepted scans already use haptic feedback and visible result feedback without making noise in public or quiet places.
 
-Extra scanner controls are intentionally out of scope. The app will not add plus/minus zoom buttons, a zoom slider, a separate focus button, or a visible focus ring. Pinch zoom and quiet CameraX tap-to-focus are the complete manual camera controls for now.
+Extra scanner controls are intentionally out of scope. The app will not add plus/minus zoom buttons, a zoom slider, a separate focus button, a visible focus ring, or a front-camera switch. The rear camera is the fixed scanner camera because it is the normal choice for aiming at nearby codes and generally provides better close-range focus, detail, and low-light performance. Pinch zoom and quiet CameraX tap-to-focus are the complete manual camera controls for now.
 
 Theme customization is intentionally out of scope. The app will keep one dark interface instead of adding light mode, alternate themes, accent pickers, or a theme settings screen.
 
