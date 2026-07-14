@@ -10,6 +10,8 @@ The app intentionally uses one generic result flow instead of building separate 
 
 The app does not show its own copied toast after this action. It relies on Android's native clipboard confirmation, so supported Android versions show only the modern system copy feedback instead of duplicate app and system messages.
 
+Copying will remain an explicit user action. The app will not automatically copy every accepted scan or add an auto-copy preference because scanned values may be sensitive, automatic copying would overwrite unrelated clipboard content, and a scan should not silently change shared device state.
+
 ## Share
 
 `Share` shares the scanned value exactly as it was read from the QR code or barcode.
