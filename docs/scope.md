@@ -116,6 +116,8 @@ ML Kit auto-zoom is intentionally out of scope. Manual pinch zoom is the chosen 
 
 Forced keep-awake behavior is intentionally out of scope. The app will follow the device's normal screen timeout and will not use a keep-screen-on flag, wake lock, or keep-awake setting. The live camera preview and barcode analyzer already consume noticeable battery, so preventing normal timeout could leave them running unnecessarily when the phone is set down or the app is forgotten.
 
+Dedicated device-class layouts are intentionally out of scope. The app should remain reasonably usable across common orientations, screen sizes, tablets, foldables, and Android multi-window use, and actual overlap, cutoff, inset, scrolling, or camera-layout problems should be fixed as normal reliability bugs. It will not add separate landscape, tablet, foldable, split-screen, two-column, or hinge-aware layouts unless real device testing finds a compatibility problem that cannot be fixed within the shared layout.
+
 Type-specific scanned-result actions are intentionally out of scope. The app will not add separate Wi-Fi, contact, email, phone, SMS, calendar, map, or location action flows because they would add parsing edge cases, Android intent quirks, extra buttons, and more ways for the result panel to feel unreliable or over-engineered.
 
 Content-type result labels are intentionally out of scope. The app will not label results as Website, Text, Email, Phone, Product, Wi-Fi, Contact, Calendar, Location, or similar categories because inaccurate labels, ambiguous payloads, and parser edge cases could hurt trust more than they help.
