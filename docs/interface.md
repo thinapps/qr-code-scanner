@@ -156,4 +156,4 @@ When the camera cannot start:
 
 Picker cancellation does not change the screen. A selected image with no readable supported code shows the short toast `No readable code found.` An unreadable image shows `Could not read that image.`
 
-Permission details are covered in [Permissions](permissions.md].
+Permission details are covered in [Permissions](permissions.md).
