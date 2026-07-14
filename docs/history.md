@@ -23,7 +23,7 @@ The goal is a simple recent-results list inside the scanner, not a broader organ
 
 A live camera result is saved only after the camera result gate accepts it. This avoids saving every camera-frame detection or duplicate scanner noise.
 
-A selected-image result is saved immediately after the first supported value is found because the app analyzes only one still image. It uses the same repository and duplicate rules as a camera result.
+A selected-image result is saved immediately after the first supported non-blank value is found because the app analyzes only one still image. It uses the same repository and duplicate rules as a camera result.
 
 Each history item stores:
 
@@ -31,11 +31,13 @@ Each history item stores:
 - scan timestamp
 - whether the value was openable as a web link when it was scanned
 
+The accepted scanned value is stored exactly as received. History rejects blank-only values but does not trim, edit, normalize, or otherwise rewrite a valid value.
+
 The openable-web-link flag is internal history metadata. It is not shown as a result type label on the history row.
 
 History does not store whether a result came from the camera or an image. It also does not store or copy the selected image, its URI, its filename, or a thumbnail.
 
-The app keeps the most recent 50 unique values. If the same value is scanned again from either source, it moves back to the top with a new timestamp instead of creating a duplicate row.
+The app keeps the most recent 50 unique exact values. If the same exact value is scanned again from either source, it moves back to the top with a new timestamp instead of creating a duplicate row.
 
 ## History screen
 
