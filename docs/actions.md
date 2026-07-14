@@ -42,6 +42,12 @@ Values with unsupported explicit schemes, missing hosts, schemeless `@` characte
 
 These are minimal local parsing safeguards. The app does not detect phishing, consult an online reputation service, or verify that a destination is trustworthy.
 
+## No online lookup or remote analysis
+
+The app will not add a Web Search, Research, Check Link, product lookup, webpage preview, redirect resolver, reputation check, remote decoder, server-side OCR, cloud analysis, or AI-analysis action. It does not fetch webpages in the background or upload scanned values, camera frames, or selected images for remote processing.
+
+Local validation only decides whether `Open` may be enabled. Tapping `Open` explicitly hands the link to another installed app through Android; the scanner itself does not visit, inspect, summarize, or research the destination. Tapping `Share` is also an explicit user action handled by Android's normal share flow rather than automatic app communication.
+
 ## No automatic opening
 
 The app will not automatically open a scanned link or launch another app as soon as a code is detected. Every result is shown in the result card first, and the user must explicitly tap `Open` after the value passes the local web-link checks.
