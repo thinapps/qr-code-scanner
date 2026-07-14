@@ -45,7 +45,7 @@ PDFs, office documents, and arbitrary non-image files are intentionally unsuppor
 
 ## No custom fallback passes
 
-Each selected image is passed to ML Kit normally. If no readable supported result is found, the app shows `No readable code found.` and stops instead of creating alternate versions of the image and running more decoding passes.
+Each selected image is passed to ML Kit normally. If no supported non-blank raw value is found, the app shows `No readable code found.` and stops instead of creating alternate versions of the image and running more decoding passes.
 
 Extra fallback passes would add bitmap work, slower failed scans, more code paths, and much more testing for rare edge cases. One narrow fallback should be reconsidered only if repeated real-world reports prove that ML Kit consistently misses an important case.
 
@@ -91,6 +91,7 @@ When camera permission is missing or denied:
 
 When the camera cannot start:
 
+- CameraX provider initialization failures and camera binding failures use the same error state
 - the subtitle/status line says `Error: camera could not start on this device.`
 - the photo-library icon remains available for selected-image scanning
 
