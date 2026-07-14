@@ -71,6 +71,22 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnScanImage"
+                android:layout_width="@dimen/header_icon_button_size"
+                android:layout_height="@dimen/header_icon_button_size"
+                android:adjustViewBounds="false"
+                android:background="@drawable/icon_button_ripple"
+                android:contentDescription="@string/action_scan_from_image"
+                android:maxWidth="@dimen/header_icon_size"
+                android:maxHeight="@dimen/header_icon_size"
+                android:minWidth="@dimen/view_min_size_none"
+                android:minHeight="@dimen/view_min_size_none"
+                android:padding="@dimen/header_icon_button_padding"
+                android:scaleType="center"
+                android:src="@drawable/ic_photo_library"
+                android:tint="@color/md_text_dim" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnHistory"
                 android:layout_width="@dimen/header_icon_button_size"
                 android:layout_height="@dimen/header_icon_button_size"
