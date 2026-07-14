@@ -54,6 +54,10 @@ This keeps the normal first-run request automatic while preserving one consisten
 
 The app does not request Internet, location, storage, media-library, contacts, accounts, notification, or advertising permissions.
 
+No Internet permission means the scanner itself does not upload camera frames, selected images, scanned values, or history; call remote decoding, OCR, AI, search, reputation, or lookup services; fetch webpages; or perform background web research. All scanning and link-shape validation run on the device.
+
+The user can still explicitly tap `Open` to hand a supported link to another installed app, or tap `Share` to invoke Android's share sheet. Those actions are handled outside the scanner through normal Android intents and do not require the scanner to hold Internet permission.
+
 Camera frames, selected images, and scanned values are processed locally. Scan history stores only the accepted value, timestamp, and internal openable-link flag in private app preferences. Selected image files are not stored by the app.
 
 ## Permission and camera messages
