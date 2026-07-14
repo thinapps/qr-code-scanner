@@ -82,7 +82,7 @@ Batch scanning, inventory modes, scan queues, CSV export, and similar commercial
 
 Selected-image scanning stays deliberately narrow. The app will not add multi-image selection, batch image scanning, crop or rotate tools, an image editor, retained image previews, saved image copies, or a custom gallery screen. The standard Photo Picker provides the one approved image entry point.
 
-A Share-sheet image receiver is intentionally not included. Images cannot be shared into the app from other apps, because that would add another manifest entry point and external launch state beyond the normal scanner screen.
+A Share-sheet image receiver is intentionally not included. The existing Photo Picker already covers scanning saved images from inside the app. Adding a receiver would provide only a small shortcut while adding another exported manifest entry point, cold-launch and already-running intent handling, temporary shared-URI permission cases, invalid or missing shared content, and more lifecycle and testing surface. Images therefore cannot be shared into the app unless future user demand clearly justifies that extra complexity.
 
 History search, history export, filters, folders, favorites, labels, pinning, tagging, editing, notes, cloud sync, and saved collections are intentionally out of scope. The app does have a history screen, but it is meant to stay a small local recent-results list, not a searchable archive, organizer, reporting system, or saved-items database.
 
