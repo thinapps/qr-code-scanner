@@ -18,6 +18,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.9.1
+- clarifies selected-image failures with the shorter `No readable code found.` message
+
 ### 0.9.0
 - adds a title-row photo-library button that opens Android's single-image Photo Picker without requesting storage or media permission
 - scans the selected image locally with the same enabled QR code and barcode formats used by the live camera
