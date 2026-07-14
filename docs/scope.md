@@ -80,6 +80,10 @@ Translations are not part of the current release scope, but they are not ruled o
 
 Localization can be reconsidered if the app grows enough to justify maintaining translated string resources, preferably with reliable native or community review rather than unverified machine translation. Any future translation work should cover the complete visible interface and accessibility labels instead of shipping partial language support.
 
+Showing the detected barcode format, such as `QR Code`, `EAN-13`, or `Code 128`, is also on the back burner rather than ruled out. This information may be useful to technical users, but most people may not recognize the terminology and an extra label could make the result card feel more complicated.
+
+Barcode-format labels should be reconsidered only if users request them or testing shows a clear benefit. They would identify the barcode symbology only and must not be confused with content-type labels such as Website, Wi-Fi, Product, or Contact, which remain intentionally out of scope.
+
 ## Intentionally out of scope
 
 The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, QR creation toolkit, image editor, or multi-purpose QR action launcher.
