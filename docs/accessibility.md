@@ -10,17 +10,19 @@ The current interface already includes these accessibility basics:
 
 - primary action buttons use standard Material buttons
 - icon buttons use `48dp` touch targets with `24dp` icons
-- the history, back, clear-result, and torch icon buttons have descriptive string-resource labels
+- the photo-library, history, back, clear-result, and torch icon buttons have descriptive string-resource labels
+- the photo-library icon uses the label and tooltip `Scan from image`
 - the torch label changes between `Turn torch on` and `Turn torch off`, so its state is not communicated only by color or icon shape
 - unavailable result actions are disabled through normal Android button state
+- the photo-library button is disabled through normal Android button state only while one selected image is being processed
 - visible text remains normal `TextView` content so Android accessibility services can announce it without duplicate content descriptions
 - the scanned result is selectable text and its Copy, Open, and Share actions remain separate standard buttons
-- accepted scans and valid button actions provide haptic feedback
+- accepted camera and selected-image scans and valid button actions provide haptic feedback
 - the visual scan guide is non-clickable, non-focusable, and excluded from accessibility because it is decorative
-- the Android camera permission dialog uses the system's own accessibility behavior
+- the Android camera permission dialog and Android Photo Picker use the system's own accessibility behavior
 - the fallback permission control keeps the visible and announced label `Allow Camera`
 
-The app's core scanning flow still depends on physically aiming the camera at a code. The current success haptic confirms an accepted scan, but the app does not provide nonvisual aiming guidance.
+The app's live scanning flow still depends on physically aiming the camera at a code. The selected-image option provides a separate system-picker path, but the current success haptic confirms only that a result was accepted and the app does not provide nonvisual image-selection or camera-aiming guidance beyond Android's standard controls.
 
 ## Not implemented for now
 
@@ -28,13 +30,13 @@ The app's core scanning flow still depends on physically aiming the camera at a 
 
 The scanner status line does not use `android:accessibilityLiveRegion` and the app does not call `announceForAccessibility()` whenever the status changes.
 
-The normal ready and found-result messages can change during scanning. Automatically announcing every change could interrupt TalkBack users or repeat information without reading the actual result. The system camera permission dialog already announces itself.
+The normal ready and found-result messages can change during scanning. Automatically announcing every change could interrupt TalkBack users or repeat information without reading the actual result. The system camera permission dialog and Photo Picker already announce themselves.
 
 A targeted announcement should be considered only if manual testing shows that a critical state, such as a camera-start failure, is otherwise missed.
 
 ### Automatic reading of scanned values
 
-The app does not automatically speak the full scanned value after every scan. Scanned values can be long, sensitive, malformed, or intentionally disruptive. Repeated detections could also cause unwanted interruptions.
+The app does not automatically speak the full scanned value after every camera or selected-image scan. Scanned values can be long, sensitive, malformed, or intentionally disruptive. Repeated detections could also cause unwanted interruptions.
 
 The result remains visible and selectable so users can move accessibility focus to it when they choose.
 
@@ -70,8 +72,12 @@ Accessibility changes should be driven by testing rather than added speculativel
 - first launch and camera permission approval
 - normal permission denial and retry
 - repeated denial followed by the `Allow Camera` settings fallback
+- finding and activating `Scan from image`
+- selecting one image and canceling Android's Photo Picker
+- successful selected-image scanning while camera permission is granted and denied
+- selected-image no-code and unreadable-image toast feedback
 - torch discovery and on/off state
-- accepted scan feedback
+- accepted camera scan feedback
 - result discovery and reading
 - Copy, Open, Share, and clear-result actions
 - opening history, selecting a saved result, and clearing history
@@ -79,7 +85,7 @@ Accessibility changes should be driven by testing rather than added speculativel
 
 Also verify:
 
-- Switch Access or keyboard focus can reach every action in a sensible order
+- Switch Access or keyboard focus can reach every action in the title-row order: photo library, then history
 - large font settings do not hide controls or make the bottom panel unusable
 - dim text and disabled states remain distinguishable with adequate contrast
 - the Accessibility Scanner and Android Lint do not report meaningful unresolved issues
