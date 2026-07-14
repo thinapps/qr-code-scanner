@@ -1,10 +1,12 @@
 # Scanner Result Handling
 
-QR Code Scanner keeps the camera preview and image analyzer active after a QR code or barcode is found. The app does not pause the scanner or switch to a separate result screen.
+QR Code Scanner supports both live CameraX scanning and one selected image from Android's Photo Picker. Both paths use the same ML Kit barcode formats, result card, actions, haptic feedback, and local history.
 
 See [Scope](scope.md) for the current supported and unsupported barcode format lists.
 
-To avoid duplicate result noise, detected values pass through a small result gate before the UI is updated.
+The live camera keeps its preview and image analyzer active after a QR code or barcode is found. The app does not pause the scanner or switch to a separate result screen.
+
+To avoid duplicate camera-result noise, live detections pass through a small result gate before the UI is updated.
 
 The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior.
 
@@ -15,6 +17,27 @@ The guide uses a `5` vector-unit stroke on a `240x240` viewport and neutral semi
 The guide still shrinks if the available camera width or height is genuinely cramped, but the torch button no longer reduces the guide size just because it exists in the top-right corner. Root layout, bottom panel, guide overlay, torch button, and window inset changes still trigger recalculation so the guide stays aligned across different screen sizes, system bars, and cutout configurations.
 
 If the guide and torch ever visually overlap on a very cramped device, the torch remains above the guide in the root `FrameLayout` draw order. The guide is also non-clickable, non-focusable, and hidden from accessibility, so it should not block torch taps or steal accessibility focus. This keeps the edge case safe without shrinking the guide for every normal phone.
+
+## Selected image scanning
+
+The photo-library icon in the main title row opens Android's standard single-image Photo Picker. The request is image-only and does not add a custom file browser, image editor, crop screen, image preview, multi-select mode, batch flow, or Share-sheet entry point.
+
+After one image is selected:
+
+- the app reads the picker URI directly and does not copy the image into app storage
+- ML Kit processes the image locally with the same enabled QR and barcode formats as the live camera
+- only the first detected value is accepted
+- the selected-image result bypasses the live camera's repeated-detection requirement and appears immediately
+- the result uses the normal result card, actions, haptic feedback, and local history behavior
+- no source badge or `From image` metadata is added to the result or history row
+
+The photo-library button is disabled only while the selected image is being read and analyzed. The existing scanner screen remains visible without a spinner, dialog, image preview, or separate processing screen.
+
+If a live camera frame is already being analyzed when an image is selected, the selected image waits for that frame to finish. Live camera frames are then ignored while the selected image is processed, but the CameraX preview remains bound and visible. Camera analysis resumes automatically afterward without restarting the camera.
+
+Canceling the picker does nothing. If the selected image contains no supported result, the app shows `No QR code or barcode found in that image.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
+
+Selected-image scanning remains available when camera permission is denied because it does not need the camera. It also does not require storage or broad photo-library permission.
 
 ## Preview focus and zoom
 
@@ -32,14 +55,14 @@ The app will not add ML Kit auto-zoom. Manual pinch zoom is enough for this scan
 
 ## Screen text states
 
-The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A history icon sits beside the title and opens the local scan history screen.
+The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A photo-library icon sits beside the title, immediately to the left of the history icon. The history icon opens the local scan history screen.
 
 Before a scan result is found:
 
 - the subtitle/status line says `Point your camera at a QR code or barcode.`
 - the result card says `No QR code or barcode scanned yet.`
 
-After a scan result is found:
+After a camera or selected-image result is found:
 
 - the subtitle/status line says `Preview the scanned result below.`
 - the result card shows the scanned value
@@ -48,10 +71,12 @@ After a scan result is found:
 When camera permission is missing or denied:
 
 - the subtitle/status line says `Camera permission is needed before scanning.`
+- the photo-library icon remains available for selected-image scanning
 
 When the camera cannot start:
 
 - the subtitle/status line says `Error: camera could not start on this device.`
+- the photo-library icon remains available for selected-image scanning
 
 ## Result clearing
 
@@ -72,17 +97,19 @@ Restoring a visible result does not add another history entry or replay the scan
 
 This is not permanent result storage. A new scanner screen after the user fully dismisses the previous activity starts empty, while saved scan history remains separate.
 
-## Result gate behavior
+## Live camera result gate behavior
 
-- A value must be detected more than once before it is accepted.
-- After a result is accepted, another result cannot replace it immediately.
+- A camera value must be detected more than once before it is accepted.
+- After a result is accepted, another camera result cannot replace it immediately.
 - The same accepted value is ignored for a short duplicate window.
 - If the same value remains continuously in view, the duplicate window keeps sliding forward so the UI does not keep refreshing the same result.
 - A different QR code or barcode can still be accepted after the short cooldown.
 
-This keeps scanning live while avoiding repeated updates from the same QR code, barcode, or quick flicker between detections.
+This keeps live scanning active while avoiding repeated updates from the same QR code, barcode, or quick flicker between detections.
 
-Accepted results are saved into local scan history after passing this gate.
+A selected-image result does not use the repeated-detection gate because the app receives only one still image. It is accepted immediately, updates the same duplicate-suppression state, and prevents the live camera from immediately firing the same value again.
+
+Accepted camera and selected-image results are saved into the same local history. Repeated values refresh the existing history item instead of creating duplicate rows.
 
 ## Why there is no Scan Again flow
 
@@ -92,10 +119,10 @@ That behavior sounds controlled, but it would likely make a lightweight scanner 
 
 ## Current constants
 
-The current gate uses these values in `MainActivity.kt`:
+The current live camera gate uses these values in `MainActivity.kt`:
 
 - `REQUIRED_SCAN_HITS = 2`
 - `RESULT_COOLDOWN_MS = 1000L`
 - `SAME_RESULT_IGNORE_MS = 6000L`
 
-These values are intentionally conservative. They should make scanning feel calmer without making normal single-code scanning feel slow.
+These values are intentionally conservative. They should make live scanning feel calmer without making normal single-code scanning feel slow.
