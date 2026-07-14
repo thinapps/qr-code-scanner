@@ -74,6 +74,12 @@ The Open action uses minimal local parsing checks. It accepts only HTTP and HTTP
 
 Scanning happens locally on the device. Camera permission is requested only for live scanning. Selected-image scanning uses the system picker, requires no storage or broad photo permission, reads the returned URI directly, and does not copy or retain the selected image in app storage.
 
+## Back burner
+
+Translations are not part of the current release scope, but they are not ruled out. The app stays English-only for now while its features and wording are still settling.
+
+Localization can be reconsidered if the app grows enough to justify maintaining translated string resources, preferably with reliable native or community review rather than unverified machine translation. Any future translation work should cover the complete visible interface and accessibility labels instead of shipping partial language support.
+
 ## Intentionally out of scope
 
 The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, QR creation toolkit, image editor, or multi-purpose QR action launcher.
