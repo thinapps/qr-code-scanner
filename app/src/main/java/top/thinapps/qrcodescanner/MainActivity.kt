@@ -29,6 +29,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.Camera
@@ -93,7 +94,11 @@ class MainActivity : AppCompatActivity() {
     private val previewTapSlop by lazy { ViewConfiguration.get(this).scaledTouchSlop }
 
     private var camera: Camera? = null
+    @Volatile
     private var processingFrame = false
+    @Volatile
+    private var processingSelectedImage = false
+    private var pendingSelectedImageUri: Uri? = null
     private var torchEnabled = false
     private var lastScannedValue: String? = null
     private var candidateScanValue: String? = null
@@ -123,6 +128,14 @@ class MainActivity : AppCompatActivity() {
             startCamera()
         } else {
             showPermissionState()
+        }
+    }
+
+    private val imagePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
+        if (uri != null) {
+            queueSelectedImage(uri)
         }
     }
 
@@ -281,6 +294,13 @@ class MainActivity : AppCompatActivity() {
     private fun setupControls() {
         binding.btnPermission.setOnClickListener { handleCameraPermissionAction() }
         setupTorchControl()
+        ViewCompat.setTooltipText(binding.btnScanImage, getString(R.string.action_scan_from_image))
+        binding.btnScanImage.setOnClickListener { view ->
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            imagePickerLauncher.launch(
+                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+            )
+        }
         binding.btnHistory.setOnClickListener { view ->
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             historyLauncher.launch(Intent(this, HistoryActivity::class.java))
@@ -305,6 +325,60 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupTorchControl() {
         binding.btnTorch.setOnClickListener { toggleTorchWithFeedback() }
+    }
+
+    private fun queueSelectedImage(uri: Uri) {
+        processingSelectedImage = true
+        pendingSelectedImageUri = uri
+        binding.btnScanImage.isEnabled = false
+        processPendingSelectedImageIfReady()
+    }
+
+    private fun processPendingSelectedImageIfReady() {
+        if (processingFrame) return
+
+        val uri = pendingSelectedImageUri ?: return
+        pendingSelectedImageUri = null
+
+        val image = try {
+            InputImage.fromFilePath(this, uri)
+        } catch (error: Exception) {
+            Log.w(TAG, "Unable to read selected image", error)
+            Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
+            finishSelectedImageProcessing()
+            return
+        }
+
+        scanner.process(image)
+            .addOnSuccessListener { barcodes ->
+                val value = barcodes.firstNotNullOfOrNull { it.rawValue }?.trim().orEmpty()
+                if (value.isEmpty()) {
+                    Toast.makeText(this, R.string.scan_image_no_code, Toast.LENGTH_SHORT).show()
+                } else {
+                    acceptSelectedImageResult(value)
+                }
+            }
+            .addOnFailureListener { error ->
+                Log.w(TAG, "Selected image analysis failed", error)
+                Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
+            }
+            .addOnCompleteListener {
+                finishSelectedImageProcessing()
+            }
+    }
+
+    private fun acceptSelectedImageResult(value: String) {
+        val now = SystemClock.elapsedRealtime()
+        candidateScanValue = value
+        candidateScanHits = REQUIRED_SCAN_HITS
+        lastAcceptedScanValue = value
+        lastAcceptedScanAtMs = now
+        showResult(value, feedbackView = binding.btnScanImage)
+    }
+
+    private fun finishSelectedImageProcessing() {
+        processingSelectedImage = false
+        binding.btnScanImage.isEnabled = true
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -464,7 +538,7 @@ class MainActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalGetImage::class)
     private fun analyzeImage(imageProxy: ImageProxy) {
-        if (processingFrame) {
+        if (processingSelectedImage || processingFrame) {
             imageProxy.close()
             return
         }
@@ -481,7 +555,11 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { barcodes ->
                 val value = barcodes.firstNotNullOfOrNull { it.rawValue }?.trim().orEmpty()
                 if (value.isNotEmpty()) {
-                    runOnUiThread { maybeAcceptScanResult(value) }
+                    runOnUiThread {
+                        if (!processingSelectedImage) {
+                            maybeAcceptScanResult(value)
+                        }
+                    }
                 }
             }
             .addOnFailureListener { error ->
@@ -490,6 +568,7 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 processingFrame = false
                 imageProxy.close()
+                runOnUiThread { processPendingSelectedImageIfReady() }
             }
     }
 
@@ -515,11 +594,15 @@ class MainActivity : AppCompatActivity() {
         showResult(value)
     }
 
-    private fun showResult(value: String, recordHistory: Boolean = true) {
+    private fun showResult(
+        value: String,
+        recordHistory: Boolean = true,
+        feedbackView: View = binding.previewView
+    ) {
         lastScannedValue = value
         showStatus(R.string.scan_status_found)
         setResultText(value)
-        binding.previewView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        feedbackView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         if (recordHistory) {
             ScanHistoryRepository.record(
                 this,
