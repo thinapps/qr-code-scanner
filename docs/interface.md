@@ -146,6 +146,6 @@ When the camera cannot start:
 - subtitle/status: `Error: camera could not start on this device.`
 - photo-library icon: still enabled for selected-image scanning
 
-Picker cancellation does not change the screen. A selected image with no supported code shows the short toast `No QR code or barcode found in that image.` An unreadable image shows `Could not read that image.`
+Picker cancellation does not change the screen. A selected image with no supported code shows the short toast `No code found in that image.` An unreadable image shows `Could not read that image.`
 
 Permission details are covered in [Permissions](permissions.md).
