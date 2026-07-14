@@ -114,6 +114,8 @@ Product and ISBN lookup are intentionally out of scope. Those features would pus
 
 ML Kit auto-zoom is intentionally out of scope. Manual pinch zoom is the chosen zoom behavior, and the app will not add automatic zoom suggestions because auto-zoom can feel jumpy or unpredictable while the user is aiming.
 
+Forced keep-awake behavior is intentionally out of scope. The app will follow the device's normal screen timeout and will not use a keep-screen-on flag, wake lock, or keep-awake setting. The live camera preview and barcode analyzer already consume noticeable battery, so preventing normal timeout could leave them running unnecessarily when the phone is set down or the app is forgotten.
+
 Type-specific scanned-result actions are intentionally out of scope. The app will not add separate Wi-Fi, contact, email, phone, SMS, calendar, map, or location action flows because they would add parsing edge cases, Android intent quirks, extra buttons, and more ways for the result panel to feel unreliable or over-engineered.
 
 Content-type result labels are intentionally out of scope. The app will not label results as Website, Text, Email, Phone, Product, Wi-Fi, Contact, Calendar, Location, or similar categories because inaccurate labels, ambiguous payloads, and parser edge cases could hurt trust more than they help.
