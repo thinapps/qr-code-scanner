@@ -42,6 +42,12 @@ Values with unsupported explicit schemes, missing hosts, schemeless `@` characte
 
 These are minimal local parsing safeguards. The app does not detect phishing, consult an online reputation service, or verify that a destination is trustworthy.
 
+## No destination scoring or domain preview
+
+The app will not add an `Opens: example.com` summary, registrable-domain guess, public-suffix or TLD classification, punycode risk score, or Safe/Suspicious label. Modern domains can use country-code hierarchies, internationalized names, new or specialized TLDs, and legitimate long subdomains, so a small local parser could easily identify the wrong meaningful domain or flag valid links.
+
+An incorrect warning would create noise, while an unflagged link could create false confidence. The app therefore shows the exact scanned value and limits URL handling to basic structural checks used only to decide whether `Open` may be enabled. Passing those checks is not a safety verdict.
+
 ## No online lookup or remote analysis
 
 The app will not add a Web Search, Research, Check Link, product lookup, webpage preview, redirect resolver, reputation check, remote decoder, server-side OCR, cloud analysis, or AI-analysis action. It does not fetch webpages in the background or upload scanned values, camera frames, or selected images for remote processing.
