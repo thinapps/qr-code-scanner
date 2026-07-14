@@ -1,6 +1,6 @@
 # Scope
 
-QR Code Scanner is a small local scanner for QR codes and common barcode formats supported by ML Kit.
+QR Code Scanner is a small local scanner for QR codes and common barcode formats supported by ML Kit. It accepts either the live rear camera or one image selected through Android's Photo Picker.
 
 ## Supported now
 
@@ -22,6 +22,13 @@ The scanner currently enables every barcode format exposed by the app's ML Kit b
 
 These cover the common consumer, retail, logistics, ticketing, ID, and compact 2D barcode families that ML Kit supports directly.
 
+Both supported scan sources use this same format list:
+
+- continuous live scanning from the fixed rear camera
+- one image selected through Android's standard single-image Photo Picker
+
+Selected-image scanning accepts the first detected value only. It does not add cropping, editing, image preview, multi-select, batch processing, or a separate result flow.
+
 ## Supported with practical caveats
 
 Some supported formats are more demanding than others:
@@ -29,7 +36,7 @@ Some supported formats are more demanding than others:
 - EAN and UPC are the main retail product formats and should be part of any normal barcode scanner.
 - Code 128, Code 39, Code 93, Codabar, and ITF cover common linear formats used across packaging, inventory, labels, libraries, and older systems.
 - Aztec is useful for some ticketing and transport codes, so it is enabled even though QR is more familiar to most users.
-- PDF417 can be large and dense. It may need a clearer, closer, or higher-resolution camera view than simple retail barcodes.
+- PDF417 can be large and dense. It may need a clearer, closer, or higher-resolution camera view or selected image than simple retail barcodes.
 - Data Matrix is useful for compact 2D labels, but ML Kit only recognizes Data Matrix codes that intersect the center point of the input image.
 
 ## Not supported by the current app
@@ -53,7 +60,7 @@ The short version: the app supports every barcode format ML Kit exposes here, in
 
 ## Result handling
 
-All accepted scan results use the same simple result flow:
+All accepted camera and selected-image results use the same simple result flow:
 
 - preview the scanned value
 - copy it
@@ -61,15 +68,21 @@ All accepted scan results use the same simple result flow:
 - open it only when it passes the app's local web-link checks
 - save it in local scan history
 
+The app does not label whether a saved result came from the camera or an image. History remains timestamp-only and keeps one row per exact value.
+
 The Open action uses minimal local parsing checks. It accepts only HTTP and HTTPS web links, rejects embedded whitespace, backslashes, control characters, Unicode bidirectional-control characters, URL user-info, missing hosts, and unsupported explicit schemes, and applies stricter hostname-label checks when adding HTTPS to a result without a scheme. These checks do not detect phishing, consult an online reputation service, or verify that the destination itself is trustworthy.
 
-Scanning happens locally on the device. The app requests only camera permission.
+Scanning happens locally on the device. Camera permission is requested only for live scanning. Selected-image scanning uses the system picker, requires no storage or broad photo permission, reads the returned URI directly, and does not copy or retain the selected image in app storage.
 
 ## Intentionally out of scope
 
-The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, QR creation toolkit, or multi-purpose QR action launcher.
+The app is not trying to be a warehouse, inventory, enterprise scanning tool, shopping lookup app, QR creation toolkit, image editor, or multi-purpose QR action launcher.
 
 Batch scanning, inventory modes, scan queues, CSV export, and similar commercial workflows are intentionally out of scope. Those features would be overboard for this app and would add UI bloat, duplicate-handling rules, export/storage decisions, and edge cases that do not fit a simple consumer scanner.
+
+Selected-image scanning stays deliberately narrow. The app will not add multi-image selection, batch image scanning, crop or rotate tools, an image editor, retained image previews, saved image copies, or a custom gallery screen. The standard Photo Picker provides the one approved image entry point.
+
+A Share-sheet image receiver is intentionally not included. Images cannot be shared into the app from other apps, because that would add another manifest entry point and external launch state beyond the normal scanner screen.
 
 History search, history export, filters, folders, favorites, labels, pinning, tagging, editing, notes, cloud sync, and saved collections are intentionally out of scope. The app does have a history screen, but it is meant to stay a small local recent-results list, not a searchable archive, organizer, reporting system, or saved-items database.
 
