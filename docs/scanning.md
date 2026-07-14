@@ -35,7 +35,7 @@ The photo-library button is disabled only while the selected image is being read
 
 If a live camera frame is already being analyzed when an image is selected, the selected image waits for that frame to finish. Live camera frames are then ignored while the selected image is processed, but the CameraX preview remains bound and visible. Camera analysis resumes automatically afterward without restarting the camera.
 
-Canceling the picker does nothing. If the selected image contains no supported result, the app shows `No code found in that image.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
+Canceling the picker does nothing. If the selected image contains no readable supported result, the app shows `No readable code found.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
 
 Selected-image scanning remains available when camera permission is denied because it does not need the camera. It also does not require storage or broad photo-library permission.
 
