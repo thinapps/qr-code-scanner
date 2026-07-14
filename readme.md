@@ -18,6 +18,11 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.9.2
+- reads selected images on the background camera executor instead of the main UI thread
+- serializes live camera and selected-image ML Kit requests through one processing gate
+- ignores delayed selected-image callbacks after the scanner activity is destroyed
+
 ### 0.9.1
 - updates CameraX from `1.4.1` to `1.5.3` for newer Android camera compatibility
 - handles CameraX provider initialization failures through the existing camera-error state
