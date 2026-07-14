@@ -39,11 +39,17 @@ Canceling the picker does nothing. If the selected image contains no readable su
 
 Selected-image scanning remains available when camera permission is denied because it does not need the camera. It also does not require storage or broad photo-library permission.
 
+## No custom fallback passes
+
+Each selected image is passed to ML Kit normally. If no readable supported result is found, the app shows `No readable code found.` and stops instead of creating alternate versions of the image and running more decoding passes.
+
+Extra fallback passes would add bitmap work, slower failed scans, more code paths, and much more testing for rare edge cases. One narrow fallback should be reconsidered only if repeated real-world reports prove that ML Kit consistently misses an important case.
+
 ## Preview focus and zoom
 
 The camera preview supports manual pinch-to-zoom. The gesture applies CameraX zoom ratio changes to the active camera and clamps each update to the camera's reported minimum and maximum zoom ratios.
 
-The app also supports tap-to-focus on the live preview. A normal single-finger tap creates one standard CameraX focus-and-metering action at that preview point using `PreviewView`'s metering point factory. CameraX applies the focus and metering behavior supported by the active camera, and the action automatically cancels after a short timeout. The app does nothing when the camera preview is not ready.
+The app also supports tap-to-focus on the live preview. A normal single-finger tap creates one standard CameraX focus-and-metering action at the tapped preview point using `PreviewView`'s metering point factory. CameraX applies the focus and metering behavior supported by the active camera, and the action automatically cancels after a short timeout. The app does nothing when the camera preview is not ready.
 
 Tap-to-focus is kept separate from pinch zoom. Multi-touch gestures, active scale gestures, and moved touches are treated as zoom/gesture input instead of focus taps.
 
