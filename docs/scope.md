@@ -106,7 +106,7 @@ URL destination analysis and safety scoring are intentionally out of scope. The 
 
 Manual text entry and automatic clipboard changes are intentionally out of scope. Results come only from the live camera or one selected image; the app will not add an editable result field, Paste button, clipboard import, manually typed URL or text entry, automatic copying, or an auto-copy preference. The result remains read-only and Copy remains an explicit user action.
 
-History search, history export, filters, folders, favorites, labels, pinning, tagging, editing, notes, cloud sync, and saved collections are intentionally out of scope. The app does have a history screen, but it is meant to stay a small local recent-results list, not a searchable archive, organizer, reporting system, or saved-items database.
+History search, history export, filters, folders, favorites, labels, pinning, tagging, editing, notes, cloud sync, saved collections, history on/off settings, private scanning modes, retention settings, and per-item deletion are intentionally out of scope. The app does have a history screen, but it is meant to stay a small local recent-results list with Clear All History as its only management action, not a searchable archive, organizer, configurable privacy system, reporting tool, or saved-items database.
 
 QR code generation is intentionally out of scope. Adding a generator would turn the app from a scanner into a broader QR toolkit, with extra screens, input validation, output/export choices, generated-code storage questions, and more reliability testing.
 
