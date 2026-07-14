@@ -11,6 +11,8 @@
     <string name="scan_result_label">Scanned Result</string>
     <string name="scan_result_empty">No QR code or barcode scanned yet.</string>
     <string name="scan_result_open_failed">No app found to open this link.</string>
+    <string name="scan_image_no_code">No QR code or barcode found in that image.</string>
+    <string name="scan_image_read_failed">Could not read that image.</string>
     <string name="history_title">Scan History</string>
     <string name="history_hint">Tap a saved result to preview it again.</string>
     <string name="history_empty">No scan history yet.</string>
@@ -19,6 +21,7 @@
     <string name="action_open">Open</string>
     <string name="action_share">Share</string>
     <string name="action_back">Go back</string>
+    <string name="action_scan_from_image">Scan from image</string>
     <string name="action_open_history">Open scan history</string>
     <string name="action_clear_history">Clear All History</string>
     <string name="action_clear_result">Clear scanned result</string>
