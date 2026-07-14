@@ -26,7 +26,7 @@ The photo-library icon in the main title row opens Android's standard single-ima
 
 After one image is selected:
 
-- the app reads the picker URI directly and does not copy the image into app storage
+- the app reads the picker URI on a background executor and does not copy the image into app storage
 - ML Kit processes the image locally with the same enabled QR and barcode formats as the live camera
 - only the first non-blank raw value is accepted, without trimming it
 - the selected-image result bypasses the live camera's repeated-detection requirement and appears immediately
@@ -35,7 +35,9 @@ After one image is selected:
 
 The photo-library button is disabled only while the selected image is being read and analyzed. The existing scanner screen remains visible without a spinner, dialog, image preview, or separate processing screen.
 
-If a live camera frame is already being analyzed when an image is selected, the selected image waits for that frame to finish. Live camera frames are then ignored while the selected image is processed, but the CameraX preview remains bound and visible. Camera analysis resumes automatically afterward without restarting the camera.
+Live camera and selected-image analysis share one processing gate so only one ML Kit scan request runs at a time. If a live camera frame is already being analyzed when an image is selected, the selected image waits for that frame to finish. Live camera frames are then ignored while the selected image is read and processed, but the CameraX preview remains bound and visible. Camera analysis resumes automatically afterward without restarting the camera.
+
+If Android destroys the scanner activity while a selected image is being read or analyzed, the old activity ignores the result and does not show a toast or update its views. This prevents delayed callbacks from targeting a screen that has already been replaced or closed.
 
 Canceling the picker does nothing. If the selected image contains no supported non-blank raw value, the app shows `No readable code found.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
 
