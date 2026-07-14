@@ -63,7 +63,7 @@ The app uses one dark interface and will not add light mode, alternate color the
 
 The app also will not add a Quick Settings tile, lock-screen shortcut, persistent notification shortcut, home-screen widget, or similar secondary launcher surface. Opening the normal app already goes directly to the scanner, so extra entry points would duplicate that behavior and add service, manifest, and lifecycle complexity.
 
-Images also cannot be shared into the app from another app. The standard Photo Picker button is the only image entry point, so the manifest does not gain a Share-sheet receiver or another external launch path.
+Images also cannot be shared into the app from another app. The standard Photo Picker button already covers selecting a saved image, so a Share-sheet receiver would provide only a small shortcut while adding another external launch path, temporary shared-URI permission handling, cold-launch and already-running intent states, invalid shared-content cases, and extra share-menu presence. The Photo Picker remains the only image entry point unless real user demand justifies that additional complexity.
 
 ## Launcher icon
 
