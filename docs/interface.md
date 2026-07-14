@@ -65,6 +65,8 @@ The app also will not add a Quick Settings tile, lock-screen shortcut, persisten
 
 Images also cannot be shared into the app from another app. The standard Photo Picker button already covers selecting a saved image, so a Share-sheet receiver would provide only a small shortcut while adding another external launch path, temporary shared-URI permission handling, cold-launch and already-running intent states, invalid shared-content cases, and extra share-menu presence. The Photo Picker remains the only image entry point unless real user demand justifies that additional complexity.
 
+Other apps also cannot launch this app as a scanner and receive a result through a custom Android intent, deep link, activity result, or compatibility API. Supporting that would create an exported integration contract with caller validation, input options, cancellation and error behavior, cold-launch and already-running states, and long-term compatibility expectations. The app remains a standalone scanner opened through its normal launcher.
+
 ## Launcher icon
 
 The launcher icon uses Android's adaptive icon structure instead of pointing the manifest directly at a drawable PNG.
