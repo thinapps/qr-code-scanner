@@ -1,6 +1,8 @@
 # Interface
 
-QR Code Scanner uses one main scanner screen with a live CameraX preview, a subtle scan guide overlay, a bottom content panel, a local history button, and a small torch overlay button when the active camera supports flash.
+QR Code Scanner uses one main scanner screen with a live CameraX preview, a subtle scan guide overlay, a bottom content panel, a photo-library button, a local history button, and a small torch overlay button when the active camera supports flash.
+
+Selected-image scanning stays inside this same screen. The app does not add an image preview, crop screen, processing dialog, spinner, second result layout, or separate gallery screen.
 
 ## Text sizes
 
@@ -61,6 +63,8 @@ The app uses one dark interface and will not add light mode, alternate color the
 
 The app also will not add a Quick Settings tile, lock-screen shortcut, persistent notification shortcut, home-screen widget, or similar secondary launcher surface. Opening the normal app already goes directly to the scanner, so extra entry points would duplicate that behavior and add service, manifest, and lifecycle complexity.
 
+Images also cannot be shared into the app from another app. The standard Photo Picker button is the only image entry point, so the manifest does not gain a Share-sheet receiver or another external launch path.
+
 ## Launcher icon
 
 The launcher icon uses Android's adaptive icon structure instead of pointing the manifest directly at a drawable PNG.
@@ -87,6 +91,8 @@ The scanned result value is forced to use Android's monospace typeface in XML an
 
 The gap between the result header row and result text stays `8dp`. The gap above the Copy, Open, and Share action row stays `16dp`.
 
+Camera and selected-image results use this exact same card. There is no `From image` badge, source label, thumbnail, or additional metadata row.
+
 ## History screen spacing
 
 The history screen uses the same `20dp` left and right gutters as the scanner panel. Its base bottom padding is also `20dp`, with the bottom system-bar inset added on devices that need it.
@@ -107,7 +113,9 @@ The torch button floats at the top-end of the camera preview with a `24dp` top m
 
 The torch button keeps a circular background because it floats over the live camera preview. The inactive background uses 40% black (`#66000000`) so the icon remains visible over bright camera content without making the off state too heavy. The active state uses opaque cyan (`#00BCD4`) with a dark filled icon for clearer contrast.
 
-The title-row history icon, result-card close icon, and history-screen back icon all use the shared secondary icon-button pattern: a `48dp` button, a `24dp` vector icon, `12dp` padding, dim white tint, and the shared bounded oval ripple.
+The title-row photo-library icon and history icon, result-card close icon, and history-screen back icon all use the shared secondary icon-button pattern: a `48dp` button, a `24dp` vector icon, `12dp` padding, dim white tint, and the shared bounded oval ripple.
+
+The title-row order is title, photo library, then history. The photo-library icon uses the approved `ic_photo_library.xml` vector, has the accessible label and tooltip `Scan from image`, and opens the system single-image picker. It is disabled only while the selected image is actively being read and analyzed.
 
 The history icon opens saved local scan history. The back icon only leaves the history screen. The close icon only clears the currently visible result from the main scanner screen and does not clear saved scan history.
 
@@ -120,7 +128,7 @@ Before a scan result is found:
 - subtitle/status: `Point your camera at a QR code or barcode.`
 - result card: `No QR code or barcode scanned yet.`
 
-After a scan result is found:
+After a camera or selected-image result is found:
 
 - subtitle/status: `Preview the scanned result below.`
 - result card: scanned value
@@ -129,11 +137,15 @@ When camera permission is missing or denied:
 
 - subtitle/status: `Camera permission is needed before scanning.`
 - permission button: `Allow Camera`
+- photo-library icon: still enabled for selected-image scanning
 
 The permission button keeps that one label for every denied state. It retries Android's permission dialog while another request is available and opens the app's system settings page after Android stops presenting the dialog.
 
 When the camera cannot start:
 
 - subtitle/status: `Error: camera could not start on this device.`
+- photo-library icon: still enabled for selected-image scanning
+
+Picker cancellation does not change the screen. A selected image with no supported code shows the short toast `No QR code or barcode found in that image.` An unreadable image shows `Could not read that image.`
 
 Permission details are covered in [Permissions](permissions.md).
