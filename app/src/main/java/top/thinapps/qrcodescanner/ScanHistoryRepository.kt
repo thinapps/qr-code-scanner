@@ -30,7 +30,7 @@ object ScanHistoryRepository {
 
         for (index in 0 until parsedItems.length()) {
             val itemJson = parsedItems.optJSONObject(index) ?: continue
-            val value = itemJson.optString(KEY_VALUE, "").trim()
+            val value = itemJson.optString(KEY_VALUE, "")
             if (value.isBlank() || value in seenValues) continue
 
             seenValues += value
@@ -45,16 +45,15 @@ object ScanHistoryRepository {
     }
 
     fun record(context: Context, value: String, openableWebLink: Boolean) {
-        val normalizedValue = value.trim()
-        if (normalizedValue.isBlank()) return
+        if (value.isBlank()) return
 
         val updatedItems = listOf(
             ScanHistoryItem(
-                value = normalizedValue,
+                value = value,
                 scannedAtMs = System.currentTimeMillis(),
                 openableWebLink = openableWebLink
             )
-        ) + getItems(context).filter { item -> item.value != normalizedValue }
+        ) + getItems(context).filter { item -> item.value != value }
 
         saveItems(context, updatedItems.take(MAX_HISTORY_ITEMS))
     }
