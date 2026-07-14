@@ -27,7 +27,7 @@ Both supported scan sources use this same format list:
 - continuous live scanning from the fixed rear camera
 - one image selected through Android's standard single-image Photo Picker
 
-Selected-image scanning accepts the first detected value only. It does not add cropping, editing, image preview, multi-select, batch processing, or a separate result flow.
+Selected-image scanning accepts the first non-blank raw value only and preserves it without trimming or rewriting it. It does not add cropping, editing, image preview, multi-select, batch processing, or a separate result flow.
 
 ## Supported with practical caveats
 
@@ -67,6 +67,8 @@ All accepted camera and selected-image results use the same simple result flow:
 - share it
 - open it only when it passes the app's local web-link checks
 - save it in local scan history
+
+The accepted non-blank raw value is preserved exactly across the result card, Copy, Share, transient result restoration, and local history. The app does not trim, edit, normalize, or otherwise rewrite it; URL normalization is used only when the user explicitly opens a supported web link.
 
 The app does not label whether a saved result came from the camera or an image. History remains timestamp-only and keeps one row per exact value.
 
