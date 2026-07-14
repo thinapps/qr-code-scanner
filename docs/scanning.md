@@ -61,6 +61,12 @@ The app also does not add visible plus/minus buttons, a zoom slider, a saved zoo
 
 The app will not add ML Kit auto-zoom. Manual pinch zoom is enough for this scanner now, and auto-zoom can feel jumpy or unpredictable when the camera changes zoom on its own while the user is aiming.
 
+## Screen timeout and battery
+
+The app follows the device's normal Android screen-timeout behavior. It will not force the display to stay awake with `FLAG_KEEP_SCREEN_ON`, a wake lock, or a keep-awake setting.
+
+The live camera preview and continuous barcode analysis already use noticeable battery while the scanner is open. Allowing the normal screen timeout reduces the chance that the camera and analyzer keep running unnecessarily after the phone is set down or the app is forgotten.
+
 ## Screen text states
 
 The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A photo-library icon sits beside the title, immediately to the left of the history icon. The history icon opens the local scan history screen.
