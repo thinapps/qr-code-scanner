@@ -20,7 +20,7 @@ If the guide and torch ever visually overlap on a very cramped device, the torch
 
 ## Selected image scanning
 
-The photo-library icon in the main title row opens Android's standard single-image Photo Picker. The request is image-only and does not add a custom file browser, image editor, crop screen, image preview, multi-select mode, batch flow, or Share-sheet entry point.
+The photo-library icon in the main title row opens Android's standard single-image Photo Picker. The request is image-only and does not add a custom file browser, document picker, image editor, crop screen, image preview, multi-select mode, batch flow, or Share-sheet entry point.
 
 After one image is selected:
 
@@ -38,6 +38,8 @@ If a live camera frame is already being analyzed when an image is selected, the 
 Canceling the picker does nothing. If the selected image contains no readable supported result, the app shows `No readable code found.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
 
 Selected-image scanning remains available when camera permission is denied because it does not need the camera. It also does not require storage or broad photo-library permission.
+
+PDFs, office documents, and arbitrary non-image files are intentionally unsupported. Adding them would require a broader file picker, PDF or document rendering, page selection, file-type handling, and additional failure states that do not fit the app's simple camera-or-image model. A code inside a document can be scanned from the live camera or from a normal image saved separately.
 
 ## No custom fallback passes
 
