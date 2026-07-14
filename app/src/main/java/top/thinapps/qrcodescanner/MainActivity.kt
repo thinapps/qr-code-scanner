@@ -146,7 +146,6 @@ class MainActivity : AppCompatActivity() {
 
         val value = result.data
             ?.getStringExtra(HistoryActivity.EXTRA_SELECTED_VALUE)
-            ?.trim()
             .orEmpty()
         if (value.isBlank()) return@registerForActivityResult
 
@@ -351,8 +350,8 @@ class MainActivity : AppCompatActivity() {
 
         scanner.process(image)
             .addOnSuccessListener { barcodes ->
-                val value = barcodes.firstNotNullOfOrNull { it.rawValue }?.trim().orEmpty()
-                if (value.isEmpty()) {
+                val value = firstReadableRawValue(barcodes)
+                if (value == null) {
                     Toast.makeText(this, R.string.scan_image_no_code, Toast.LENGTH_SHORT).show()
                 } else {
                     acceptSelectedImageResult(value)
@@ -500,16 +499,16 @@ class MainActivity : AppCompatActivity() {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder()
-                .build()
-                .also { it.setSurfaceProvider(binding.previewView.surfaceProvider) }
-            val analysis = ImageAnalysis.Builder()
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .build()
-                .also { it.setAnalyzer(cameraExecutor, ::analyzeImage) }
-
             try {
+                val cameraProvider = cameraProviderFuture.get()
+                val preview = Preview.Builder()
+                    .build()
+                    .also { it.setSurfaceProvider(binding.previewView.surfaceProvider) }
+                val analysis = ImageAnalysis.Builder()
+                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .build()
+                    .also { it.setAnalyzer(cameraExecutor, ::analyzeImage) }
+
                 camera?.cameraInfo?.torchState?.removeObservers(this)
                 cameraProvider.unbindAll()
                 val boundCamera = cameraProvider.bindToLifecycle(
@@ -524,14 +523,8 @@ class MainActivity : AppCompatActivity() {
                     syncTorchButton()
                 }
                 syncTorchState(boundCamera)
-            } catch (error: RuntimeException) {
-                camera = null
-                torchEnabled = false
-                binding.previewView.visibility = View.INVISIBLE
-                binding.viewScanGuide.visibility = View.INVISIBLE
-                syncTorchButton()
-                Log.w(TAG, "Unable to start camera", error)
-                showStatus(R.string.scan_status_camera_error)
+            } catch (error: Exception) {
+                showCameraError(error)
             }
         }, ContextCompat.getMainExecutor(this))
     }
@@ -553,8 +546,8 @@ class MainActivity : AppCompatActivity() {
         val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
         scanner.process(image)
             .addOnSuccessListener { barcodes ->
-                val value = barcodes.firstNotNullOfOrNull { it.rawValue }?.trim().orEmpty()
-                if (value.isNotEmpty()) {
+                val value = firstReadableRawValue(barcodes)
+                if (value != null) {
                     runOnUiThread {
                         if (!processingSelectedImage) {
                             maybeAcceptScanResult(value)
@@ -620,7 +613,7 @@ class MainActivity : AppCompatActivity() {
             lastAcceptedScanAtMs = SystemClock.elapsedRealtime()
         }
         lastScannedValue = null
-        showStatus(R.string.scan_status_ready)
+        showIdleStatus()
         setResultText(getString(R.string.scan_result_empty))
         syncActionButtons()
     }
@@ -637,6 +630,36 @@ class MainActivity : AppCompatActivity() {
         syncTorchButton()
     }
 
+    private fun showCameraError(error: Exception) {
+        if (error is InterruptedException) {
+            Thread.currentThread().interrupt()
+        }
+        camera?.cameraInfo?.torchState?.removeObservers(this)
+        camera = null
+        torchEnabled = false
+        binding.previewView.visibility = View.INVISIBLE
+        binding.viewScanGuide.visibility = View.INVISIBLE
+        syncTorchButton()
+        Log.w(TAG, "Unable to start camera", error)
+        showStatus(R.string.scan_status_camera_error)
+    }
+
+    private fun showIdleStatus() {
+        when {
+            binding.layoutPermission.visibility == View.VISIBLE -> {
+                showStatus(R.string.scan_status_permission_needed)
+            }
+
+            binding.previewView.visibility != View.VISIBLE -> {
+                showStatus(R.string.scan_status_camera_error)
+            }
+
+            else -> {
+                showStatus(R.string.scan_status_ready)
+            }
+        }
+    }
+
     private fun showStatus(messageResId: Int) {
         binding.txtStatus.setText(messageResId)
         binding.txtStatus.visibility = View.VISIBLE
@@ -645,6 +668,12 @@ class MainActivity : AppCompatActivity() {
     private fun setResultText(value: String) {
         binding.txtResult.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
         binding.txtResult.text = monospaceText(value)
+    }
+
+    private fun firstReadableRawValue(barcodes: List<Barcode>): String? {
+        return barcodes.firstNotNullOfOrNull { barcode ->
+            barcode.rawValue?.takeIf { value -> value.isNotBlank() }
+        }
     }
 
     private fun monospaceText(value: String): SpannableString {
