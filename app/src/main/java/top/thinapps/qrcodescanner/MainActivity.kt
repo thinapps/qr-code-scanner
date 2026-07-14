@@ -52,7 +52,9 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import java.util.Locale
 import java.util.concurrent.Executors
+import java.util.concurrent.RejectedExecutionException
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import top.thinapps.qrcodescanner.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -94,10 +96,11 @@ class MainActivity : AppCompatActivity() {
     private val previewTapSlop by lazy { ViewConfiguration.get(this).scaledTouchSlop }
 
     private var camera: Camera? = null
-    @Volatile
-    private var processingFrame = false
+    private val scannerBusy = AtomicBoolean(false)
     @Volatile
     private var processingSelectedImage = false
+    @Volatile
+    private var activityDestroyed = false
     private var pendingSelectedImageUri: Uri? = null
     private var torchEnabled = false
     private var lastScannedValue: String? = null
@@ -190,6 +193,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        activityDestroyed = true
+        pendingSelectedImageUri = null
         camera?.cameraInfo?.torchState?.removeObservers(this)
         camera?.cameraControl?.enableTorch(false)
         scanner.close()
@@ -334,22 +339,60 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun processPendingSelectedImageIfReady() {
-        if (processingFrame) return
-
         val uri = pendingSelectedImageUri ?: return
+        if (!scannerBusy.compareAndSet(false, true)) return
         pendingSelectedImageUri = null
 
-        val image = try {
-            InputImage.fromFilePath(this, uri)
-        } catch (error: Exception) {
-            Log.w(TAG, "Unable to read selected image", error)
-            Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
+        try {
+            cameraExecutor.execute { readAndProcessSelectedImage(uri) }
+        } catch (error: RejectedExecutionException) {
+            Log.w(TAG, "Selected image executor is unavailable", error)
             finishSelectedImageProcessing()
+        }
+    }
+
+    private fun readAndProcessSelectedImage(uri: Uri) {
+        if (activityDestroyed) {
+            releaseSelectedImageProcessing()
             return
         }
 
-        scanner.process(image)
-            .addOnSuccessListener { barcodes ->
+        val image = try {
+            InputImage.fromFilePath(applicationContext, uri)
+        } catch (error: Exception) {
+            Log.w(TAG, "Unable to read selected image", error)
+            ContextCompat.getMainExecutor(this).execute {
+                if (!activityDestroyed) {
+                    Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
+                }
+                finishSelectedImageProcessing()
+            }
+            return
+        }
+
+        if (activityDestroyed) {
+            releaseSelectedImageProcessing()
+            return
+        }
+
+        val mainExecutor = ContextCompat.getMainExecutor(this)
+        val scanTask = try {
+            scanner.process(image)
+        } catch (error: Exception) {
+            Log.w(TAG, "Unable to start selected image analysis", error)
+            mainExecutor.execute {
+                if (!activityDestroyed) {
+                    Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
+                }
+                finishSelectedImageProcessing()
+            }
+            return
+        }
+
+        scanTask
+            .addOnSuccessListener(mainExecutor) { barcodes ->
+                if (activityDestroyed) return@addOnSuccessListener
+
                 val value = firstReadableRawValue(barcodes)
                 if (value == null) {
                     Toast.makeText(this, R.string.scan_image_no_code, Toast.LENGTH_SHORT).show()
@@ -357,11 +400,13 @@ class MainActivity : AppCompatActivity() {
                     acceptSelectedImageResult(value)
                 }
             }
-            .addOnFailureListener { error ->
+            .addOnFailureListener(mainExecutor) { error ->
                 Log.w(TAG, "Selected image analysis failed", error)
-                Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
+                if (!activityDestroyed) {
+                    Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
+                }
             }
-            .addOnCompleteListener {
+            .addOnCompleteListener(mainExecutor) {
                 finishSelectedImageProcessing()
             }
     }
@@ -376,8 +421,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun finishSelectedImageProcessing() {
+        releaseSelectedImageProcessing()
+        if (!activityDestroyed) {
+            binding.btnScanImage.isEnabled = true
+        }
+    }
+
+    private fun releaseSelectedImageProcessing() {
         processingSelectedImage = false
-        binding.btnScanImage.isEnabled = true
+        scannerBusy.set(false)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -531,7 +583,7 @@ class MainActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalGetImage::class)
     private fun analyzeImage(imageProxy: ImageProxy) {
-        if (processingSelectedImage || processingFrame) {
+        if (processingSelectedImage) {
             imageProxy.close()
             return
         }
@@ -542,14 +594,30 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        processingFrame = true
+        if (!scannerBusy.compareAndSet(false, true)) {
+            imageProxy.close()
+            return
+        }
+
         val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-        scanner.process(image)
+        val scanTask = try {
+            scanner.process(image)
+        } catch (error: Exception) {
+            scannerBusy.set(false)
+            imageProxy.close()
+            Log.w(TAG, "Unable to start barcode analysis", error)
+            if (!activityDestroyed) {
+                runOnUiThread { processPendingSelectedImageIfReady() }
+            }
+            return
+        }
+
+        scanTask
             .addOnSuccessListener { barcodes ->
                 val value = firstReadableRawValue(barcodes)
                 if (value != null) {
                     runOnUiThread {
-                        if (!processingSelectedImage) {
+                        if (!activityDestroyed && !processingSelectedImage) {
                             maybeAcceptScanResult(value)
                         }
                     }
@@ -559,9 +627,11 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG, "Barcode analysis failed", error)
             }
             .addOnCompleteListener {
-                processingFrame = false
+                scannerBusy.set(false)
                 imageProxy.close()
-                runOnUiThread { processPendingSelectedImageIfReady() }
+                if (!activityDestroyed) {
+                    runOnUiThread { processPendingSelectedImageIfReady() }
+                }
             }
     }
 
