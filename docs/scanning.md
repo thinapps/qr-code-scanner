@@ -8,6 +8,8 @@ The live camera keeps its preview and image analyzer active after a QR code or b
 
 To avoid duplicate camera-result noise, live detections pass through a small result gate before the UI is updated.
 
+When ML Kit returns one or more results, the app accepts the first non-blank raw value. It does not trim or otherwise rewrite that accepted value before showing, copying, sharing, or saving it.
+
 The centered scan guide is visual only. It gives users an aiming reference, but it does not crop the camera frame, limit detection to the guide area, or change the result gate behavior.
 
 The guide is dynamic and follows the visible camera portion of the screen. It targets 80% of the preview width, keeps a `240dp` minimum, and no longer uses a fixed maximum cap. The app uses the top of the bottom scanner panel as the lower edge of the visible camera area, so if the bottom panel changes height because of result, permission, footer, or system-inset changes, the guide is recalculated and re-centered above it.
@@ -26,7 +28,7 @@ After one image is selected:
 
 - the app reads the picker URI directly and does not copy the image into app storage
 - ML Kit processes the image locally with the same enabled QR and barcode formats as the live camera
-- only the first detected value is accepted
+- only the first non-blank raw value is accepted, without trimming it
 - the selected-image result bypasses the live camera's repeated-detection requirement and appears immediately
 - the result uses the normal result card, actions, haptic feedback, and local history behavior
 - no source badge or `From image` metadata is added to the result or history row
@@ -35,7 +37,7 @@ The photo-library button is disabled only while the selected image is being read
 
 If a live camera frame is already being analyzed when an image is selected, the selected image waits for that frame to finish. Live camera frames are then ignored while the selected image is processed, but the CameraX preview remains bound and visible. Camera analysis resumes automatically afterward without restarting the camera.
 
-Canceling the picker does nothing. If the selected image contains no readable supported result, the app shows `No readable code found.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
+Canceling the picker does nothing. If the selected image contains no supported non-blank raw value, the app shows `No readable code found.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
 
 Selected-image scanning remains available when camera permission is denied because it does not need the camera. It also does not require storage or broad photo-library permission.
 
@@ -99,9 +101,11 @@ The clear icon only clears the currently visible in-memory result. It does not c
 When the result is cleared:
 
 - the visible result returns to `No QR code or barcode scanned yet.`
-- the subtitle/status line returns to `Point your camera at a QR code or barcode.`
+- the subtitle/status line returns to the underlying scanner state: ready, camera permission needed, or camera start error
 - Copy, Open, and Share become disabled again
 - the same just-cleared value remains suppressed briefly if it is still in the camera frame
+
+This matters when a result came from a selected image or saved history while live camera scanning was unavailable. Clearing that result must not replace the permission or camera-error message with the normal camera-ready prompt.
 
 ## Result restoration after screen recreation
 
@@ -123,7 +127,7 @@ This keeps live scanning active while avoiding repeated updates from the same QR
 
 A selected-image result does not use the repeated-detection gate because the app receives only one still image. It is accepted immediately, updates the same duplicate-suppression state, and prevents the live camera from immediately firing the same value again.
 
-Accepted camera and selected-image results are saved into the same local history. Repeated values refresh the existing history item instead of creating duplicate rows.
+Accepted camera and selected-image results are saved into the same local history. Repeated exact values refresh the existing history item instead of creating duplicate rows.
 
 ## Why there is no Scan Again flow
 
