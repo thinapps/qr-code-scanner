@@ -19,7 +19,10 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.9.0
-- adds scanning QR codes and barcodes from a selected image
+- adds a title-row photo-library button that opens Android's single-image Photo Picker without requesting storage or media permission
+- scans the selected image locally with the same enabled QR code and barcode formats used by the live camera
+- sends the first detected value directly to the normal result card, actions, haptic feedback, and timestamp-only local history
+- temporarily ignores live camera analysis while the selected image is processed, then resumes automatically and shows clear no-code or read-failure feedback
 
 ### 0.8.4
 - restores the currently visible scanned result after Android recreates the scanner screen
