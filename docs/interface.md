@@ -57,6 +57,12 @@ The app uses the rear camera only and will not add a front-camera switch. The re
 
 The app will not add ML Kit auto-zoom. Manual pinch zoom already covers the useful zoom case without letting the camera jump in or out automatically while the user is trying to aim.
 
+## Screen sizes and orientations
+
+The app aims for reasonable compatibility across normal phone orientations, tablets, foldables, and Android multi-window use. The existing interface should remain usable without important controls being cut off, overlapped, or made unreachable, and actual problems with insets, scrolling, result restoration, or camera layout should be treated as normal reliability bugs.
+
+Portrait phones remain the primary design target. The app will not add dedicated landscape, tablet, foldable, split-screen, two-column, or hinge-aware layouts unless real device testing finds a compatibility problem that cannot be fixed within the shared layout. Device-specific redesigns would add layout variants and testing combinations without improving the basic scanner for most users.
+
 ## Theme and launch surface
 
 The app uses one dark interface and will not add light mode, alternate color themes, accent pickers, or a theme settings screen. A theme system would add preferences and visual combinations without improving the scanner itself.
@@ -150,4 +156,4 @@ When the camera cannot start:
 
 Picker cancellation does not change the screen. A selected image with no readable supported code shows the short toast `No readable code found.` An unreadable image shows `Could not read that image.`
 
-Permission details are covered in [Permissions](permissions.md).
+Permission details are covered in [Permissions](permissions.md].
