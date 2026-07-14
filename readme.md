@@ -6,17 +6,20 @@ Scans QR codes and barcodes with history
 
 | Document | Description |
 | --- | --- |
-| [Scope](docs/scope.md) | Explains what barcode formats are currently supported and what intentionally remains out of scope. |
+| [Scope](docs/scope.md) | Explains what barcode formats and scan sources are currently supported and what intentionally remains out of scope. |
 | [Build](docs/build.md) | Explains Gradle, release workflow, signing, R8, and ProGuard choices. |
 | [Actions](docs/actions.md) | Explains copy, share, open, URL normalization, and history-preview behavior for scanned results. |
-| [Scanning](docs/scanning.md) | Explains live scanning, preview focus/zoom behavior, and duplicate result filtering. |
+| [Scanning](docs/scanning.md) | Explains live camera scanning, selected-image scanning, preview focus/zoom behavior, and duplicate result filtering. |
 | [History](docs/history.md) | Explains local-only scan history, saved fields, limits, preview behavior, spacing, and clearing behavior. |
 | [Interface](docs/interface.md) | Explains scanner text sizes, corner radiuses, launcher icon, icon buttons, preview gestures, spacing, and visible screen text states. |
 | [Accessibility](docs/accessibility.md) | Explains the current accessibility baseline, intentionally deferred behavior, testing policy, and possible future improvements. |
-| [Permissions](docs/permissions.md) | Explains the camera permission, why it is needed, and how permission or camera errors appear in the app. |
+| [Permissions](docs/permissions.md) | Explains the camera permission, Android Photo Picker access, and how permission or camera errors appear in the app. |
 | [Torch](docs/torch.md) | Explains why scanner torch control stays inside CameraX instead of using standalone CameraManager torch control. |
 
 ## Changelog
+
+### 0.9.0
+- adds scanning QR codes and barcodes from a selected image
 
 ### 0.8.4
 - restores the currently visible scanned result after Android recreates the scanner screen
