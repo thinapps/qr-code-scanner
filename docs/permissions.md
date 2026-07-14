@@ -1,6 +1,6 @@
 # Permissions
 
-QR Code Scanner is intentionally permission-light. The app only asks for the camera permission because live QR and barcode scanning needs camera frames.
+QR Code Scanner is intentionally permission-light. The app asks only for camera permission, and only because live QR and barcode scanning needs camera frames. Selecting one existing image uses Android's system Photo Picker and does not require storage or broad photo-library permission.
 
 ## Requested permissions
 
@@ -26,6 +26,18 @@ The manifest also declares that the app requires camera hardware:
     android:required="true" />
 ```
 
+Camera permission is not used for selected-image scanning.
+
+## Android Photo Picker access
+
+The title-row photo-library icon launches Android's standard single-image Photo Picker with an image-only request.
+
+The app receives temporary access only to the selected picker URI. It reads that URI directly for local ML Kit analysis and does not copy or retain the selected image in app storage.
+
+The picker can remain available when camera permission is denied or the camera cannot start. Canceling the picker grants nothing and changes nothing in the app.
+
+No `READ_EXTERNAL_STORAGE`, `READ_MEDIA_IMAGES`, or broad photo-library permission is requested. The system picker also provides the compatible fallback path on Android versions where the newer picker interface is unavailable.
+
 ## Permission request flow
 
 When camera permission is missing, the app shows the permission panel and immediately opens Android's camera permission dialog.
@@ -34,15 +46,15 @@ The permission button always says `Allow Camera`. Its wording does not change ba
 
 - after a normal denial, tapping `Allow Camera` requests the Android permission dialog again while Android still allows another request
 - after repeated denial causes Android to stop presenting the dialog, tapping the same `Allow Camera` button opens the app's system settings page so camera permission can be enabled manually
-- after returning from app settings, scanning starts if camera permission was granted; otherwise the permission panel remains visible
+- after returning from app settings, live scanning starts if camera permission was granted; otherwise the permission panel remains visible
 
-This keeps the normal first-run request automatic while preserving one consistent fallback button instead of switching between `Allow Camera` and a separate settings label.
+This keeps the normal first-run request automatic while preserving one consistent fallback button instead of switching between `Allow Camera` and a separate settings label. The photo-library icon remains a separate permission-free scanning option.
 
 ## Permissions not requested
 
-The app does not request Internet, location, storage, contacts, accounts, notification, or advertising permissions.
+The app does not request Internet, location, storage, media-library, contacts, accounts, notification, or advertising permissions.
 
-Scanned values are handled locally. Scan history is stored locally on the device.
+Camera frames, selected images, and scanned values are processed locally. Scan history stores only the accepted value, timestamp, and internal openable-link flag in private app preferences. Selected image files are not stored by the app.
 
 ## Permission and camera messages
 
@@ -54,13 +66,14 @@ When camera permission is missing or denied:
 - the subtitle/status line says `Camera permission is needed before scanning.`
 - the permission panel says `Camera permission is required to scan QR codes and barcodes. Scanning happens locally on your device.`
 - the permission button says `Allow Camera`
+- the photo-library icon remains enabled
 
 When permission is granted and the camera starts normally:
 
 - the subtitle/status line says `Point your camera at a QR code or barcode.`
 - the result card says `No QR code or barcode scanned yet.` until a result is found
 
-When a scan result is found:
+When a camera or selected-image result is found:
 
 - the subtitle/status line says `Preview the scanned result below.`
 - the result card shows the scanned value
@@ -68,4 +81,4 @@ When a scan result is found:
 When the camera cannot start:
 
 - the subtitle/status line says `Error: camera could not start on this device.`
-- the app keeps the result/action area visible, but scanning cannot continue until the camera issue is resolved
+- the app keeps the result/action area and photo-library icon available even though live scanning cannot continue
