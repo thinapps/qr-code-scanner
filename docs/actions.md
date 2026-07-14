@@ -4,6 +4,12 @@ QR Code Scanner keeps result actions simple and local. The app does not send sca
 
 The app intentionally uses one generic result flow instead of building separate action flows for every QR or barcode content type.
 
+## No manual text input
+
+Results come only from the live camera or one image selected through Android's Photo Picker. The app will not add an editable result field, Paste button, clipboard import, or manually typed URL or text entry.
+
+Manual input would turn the scanner into a general text and URL utility, create another result source with editing and validation states, and make it unclear whether history contains scanned or user-entered values. The scanned value therefore remains read-only until the user explicitly copies, shares, or opens it.
+
 ## Copy
 
 `Copy` copies the scanned value exactly as it was read from the QR code or barcode.
