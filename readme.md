@@ -22,7 +22,7 @@ Scans QR codes and barcodes with history
 - updates CameraX from `1.4.1` to `1.5.3` for newer Android camera compatibility
 - handles CameraX provider initialization failures through the existing camera-error state
 - restores the correct ready, permission, or camera-error status after clearing a visible result
-- preserves the first non-blank scanned value exactly across the result card, actions, state restoration, and local history
+- preserves the first non-blank scanned value exactly across the result card, Copy, Share, state restoration, and local history
 - clarifies selected-image failures with the shorter `No readable code found.` message
 
 ### 0.9.0
