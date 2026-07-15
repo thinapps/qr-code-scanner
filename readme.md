@@ -18,7 +18,7 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
-### 0.9.3
+### 0.10.0
 - caps the bottom scanner panel at 72% of the available screen height and allows its content to scroll when needed
 - keeps long results, action buttons, and footer content reachable in landscape, split-screen, and large-font layouts
 - hides the scan guide when no usable camera area remains and restores it when space becomes available again
