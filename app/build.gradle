@@ -14,7 +14,7 @@ android {
 
         // bump before each release
         versionCode 41
-        versionName "0.9.3"
+        versionName "0.10.0"
     }
 
     signingConfigs {
