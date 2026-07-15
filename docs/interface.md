@@ -87,6 +87,8 @@ The current preferred QR glyph size is about `208x207px`, or about 40.6% of the 
 
 The scanner content panel is `wrap_content` and anchored to the bottom of the screen. The footer is the last child inside that panel, so the footer stays at the bottom of the panel above the bottom padding while the rest of the scan UI grows upward from there.
 
+The panel keeps its normal `20dp` content gutters. Runtime left and right system-bar or display-cutout insets are added to the corresponding physical edges, and the bottom system-bar inset is added below the footer. The panel background still spans the full screen width so safe-area handling does not create visible side gaps.
+
 The panel background stays dark and flat, but includes a top-only `1dp` edge at 15% white (`#26FFFFFF`). The edge values are centralized as `@dimen/scanner_panel_top_edge_height` and `@color/scanner_panel_top_edge`. This gives the bottom scanner panel a subtle boundary over dark or busy camera previews without adding a shadow, full border, rounded container, or thicker divider.
 
 ## Result card spacing
