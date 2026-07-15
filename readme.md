@@ -18,6 +18,11 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.9.3
+- caps the bottom scanner panel at 72% of the available screen height and allows its content to scroll when needed
+- keeps long results, action buttons, and footer content reachable in landscape, split-screen, and large-font layouts
+- hides the scan guide when no usable camera area remains and restores it when space becomes available again
+
 ### 0.9.2
 - reads selected images on the background camera executor instead of the main UI thread
 - serializes live camera and selected-image ML Kit requests through one processing gate
