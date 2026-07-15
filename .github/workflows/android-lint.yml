@@ -38,24 +38,6 @@ jobs:
             "build-tools;35.0.0" \
             "platforms;android-35"
 
-      - name: Clean any leftover wrapper jar
-        run: rm -f gradle/wrapper/gradle-wrapper.jar
-
-      - name: Download Gradle 8.9
-        run: |
-          set -euo pipefail
-          curl --fail --location --show-error --silent \
-            https://services.gradle.org/distributions/gradle-8.9-bin.zip \
-            -o gradle.zip
-          unzip -q gradle.zip
-          echo "$PWD/gradle-8.9/bin" >> "$GITHUB_PATH"
-
-      - name: Generate Gradle Wrapper
-        run: gradle wrapper --gradle-version 8.9
-
-      - name: Make Gradle executable
-        run: chmod +x gradlew
-
       - name: Create temporary lint keystore
         run: |
           set -euo pipefail
@@ -77,6 +59,24 @@ jobs:
             echo "RELEASE_KEY_ALIAS=lint"
             echo "RELEASE_KEY_PASSWORD=lintpass"
           } > "$HOME/.gradle/gradle.properties"
+
+      - name: Clean any leftover wrapper jar
+        run: rm -f gradle/wrapper/gradle-wrapper.jar
+
+      - name: Download Gradle 8.9
+        run: |
+          set -euo pipefail
+          curl --fail --location --show-error --silent \
+            https://services.gradle.org/distributions/gradle-8.9-bin.zip \
+            -o gradle.zip
+          unzip -q gradle.zip
+          echo "$PWD/gradle-8.9/bin" >> "$GITHUB_PATH"
+
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.9
+
+      - name: Make Gradle executable
+        run: chmod +x gradlew
 
       - name: Run release lint
         run: ./gradlew --no-daemon --stacktrace --console=plain lintRelease
