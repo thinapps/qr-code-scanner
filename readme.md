@@ -19,11 +19,10 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.10.0
-- replaces the unrestricted bottom scanner panel with a height-capped vertical scrolling panel while preserving its normal content-driven height when everything fits
-- caps the panel at 72% of the available screen height so oversized content cannot consume the entire scanner screen
-- keeps long scanned values, result actions, camera permission controls, and footer content reachable in landscape, split-screen, and large-font layouts
-- keeps the scan guide synchronized with the panel's actual top edge as the available camera area changes
-- hides the guide instead of leaving a stale or overlapped overlay when usable preview space disappears, then restores and re-centers it when space returns
+- replaces the unrestricted bottom scanner panel with a scrolling panel capped at 72% of the available screen height
+- keeps long results, actions, camera permission controls, and footer content reachable in landscape, split-screen, and large-font layouts
+- keeps the scan guide aligned with the panel as the available camera area changes
+- hides the guide when usable preview space disappears, then restores and re-centers it when space returns
 
 ### 0.9.2
 - reads selected images on the background camera executor instead of the main UI thread
