@@ -19,7 +19,7 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.10.1
-- keeps bottom scanner panel content clear of left and right system bars and display cutouts in edge-to-edge layouts
+- keeps scanner and history content clear of left and right system bars and display cutouts in edge-to-edge layouts
 
 ### 0.10.0
 - replaces the unrestricted bottom scanner panel with a scrolling panel capped at 72% of the available screen height
