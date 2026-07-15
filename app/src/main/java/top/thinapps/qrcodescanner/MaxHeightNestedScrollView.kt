@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
 
 class MaxHeightNestedScrollView @JvmOverloads constructor(
@@ -12,6 +13,23 @@ class MaxHeightNestedScrollView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : NestedScrollView(context, attrs, defStyleAttr) {
+
+    private val basePaddingLeft = paddingLeft
+    private val basePaddingRight = paddingRight
+
+    init {
+        ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                    WindowInsetsCompat.Type.displayCutout()
+            )
+            view.updatePadding(
+                left = basePaddingLeft + bars.left,
+                right = basePaddingRight + bars.right
+            )
+            insets
+        }
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val availableHeight = View.MeasureSpec.getSize(heightMeasureSpec)
