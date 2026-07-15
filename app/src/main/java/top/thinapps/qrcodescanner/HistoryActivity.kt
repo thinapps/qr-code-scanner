@@ -48,7 +48,9 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun applyWindowInsets() {
+        val baseLeft = binding.layoutHistoryContent.paddingLeft
         val baseTop = binding.layoutHistoryContent.paddingTop
+        val baseRight = binding.layoutHistoryContent.paddingRight
         val baseBottom = binding.layoutHistoryContent.paddingBottom
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
@@ -56,7 +58,9 @@ class HistoryActivity : AppCompatActivity() {
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
             )
             binding.layoutHistoryContent.updatePadding(
+                left = baseLeft + bars.left,
                 top = baseTop + bars.top,
+                right = baseRight + bars.right,
                 bottom = baseBottom + bars.bottom
             )
             insets
