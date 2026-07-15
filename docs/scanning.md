@@ -71,6 +71,12 @@ The app follows the device's normal Android screen-timeout behavior. It will not
 
 The live camera preview and continuous barcode analysis already use noticeable battery while the scanner is open. Allowing the normal screen timeout reduces the chance that the camera and analyzer keep running unnecessarily after the phone is set down or the app is forgotten.
 
+## Scroll-safe scanner panel
+
+The bottom scanner panel keeps its normal content-driven height on typical phone layouts, but it is capped at 72% of the available screen height. When long scanned values, landscape orientation, split-screen windows, or larger font settings make the content taller than that cap, the panel scrolls vertically so the title, result actions, and footer remain reachable.
+
+The scan guide uses the panel's actual top edge as the lower boundary of the visible camera area. If the remaining preview area is too small to draw a valid guide, the guide is hidden instead of remaining at an old size or appearing behind the panel. It becomes visible and is recalculated again when usable camera space returns.
+
 ## Screen text states
 
 The main scanner screen keeps the large title and a smaller subtitle/status line above the result card. A photo-library icon sits beside the title, immediately to the left of the history icon. The history icon opens the local scan history screen.
