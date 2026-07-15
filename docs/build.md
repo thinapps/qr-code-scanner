@@ -24,9 +24,9 @@ Release signing is configured through repository secrets used by the workflow.
 
 `.github/workflows/android-lint.yml` runs `lintRelease` only when started manually through GitHub Actions. It does not run on pushes, does not build or sign an AAB, and does not use the release keystore secrets.
 
-The workflow provides temporary placeholder signing properties only so Gradle can configure the existing release build type before lint starts. Those values are never used to produce a signed package.
+The workflow creates a short-lived valid JKS keystore only so Gradle can configure the existing release build type before lint starts. The keystore is stored in the GitHub runner's temporary directory, expires after one day, and is never used to produce a signed package.
 
-Lint findings appear in the `Run release lint` step log. The workflow also uploads `app/build/reports/lint-results-release.*` as the `android-lint-report` artifact whether lint passes or fails, so detailed reports remain available when the console output is incomplete.
+The lint job has a 30-minute timeout and uses plain Gradle console output so the Actions log stays readable. Lint findings appear in the `Run release lint` step log. The workflow also uploads `app/build/reports/lint-results-release.*` as the `android-lint-report` artifact whether lint passes or fails. Reports are retained for seven days so detailed output remains available when the console log is incomplete without creating long-term artifact clutter.
 
 ## R8 and ProGuard
 
