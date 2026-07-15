@@ -105,7 +105,7 @@ Camera and selected-image results use this exact same card. There is no `From im
 
 ## History screen spacing
 
-The history screen uses the same `20dp` left and right gutters as the scanner panel. Its base bottom padding is also `20dp`, with the bottom system-bar inset added on devices that need it.
+The history screen uses the same `20dp` content gutters as the scanner panel. Runtime left and right system-bar or display-cutout insets are added to the corresponding physical edges, while the top and bottom system-bar insets are added above and below the content. This keeps the back button, text, history cards, and Clear All History button inside the usable safe area.
 
 The history subtitle sits `8dp` below the title row. When history has saved items, the list starts `20dp` below the subtitle. When history is empty, the empty-state text sits `24dp` below the subtitle. History cards are separated by `8dp`, and the Clear All History button sits `20dp` below the list area.
 
