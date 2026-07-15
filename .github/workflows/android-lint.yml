@@ -10,6 +10,7 @@ jobs:
   lint:
     name: Lint Release
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -55,20 +56,30 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x gradlew
 
-      - name: Provide lint-only signing placeholders
+      - name: Create temporary lint keystore
         run: |
           set -euo pipefail
           mkdir -p "$HOME/.gradle"
+          keytool -genkeypair \
+            -keystore "$RUNNER_TEMP/lint-keystore.jks" \
+            -storetype JKS \
+            -storepass lintpass \
+            -keypass lintpass \
+            -alias lint \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 1 \
+            -dname "CN=Android Lint, OU=CI, O=ThinApps, C=US" \
+            -noprompt
           {
-            echo "RELEASE_STORE_FILE=$RUNNER_TEMP/lint-placeholder.jks"
-            echo "RELEASE_STORE_PASSWORD=lint"
+            echo "RELEASE_STORE_FILE=$RUNNER_TEMP/lint-keystore.jks"
+            echo "RELEASE_STORE_PASSWORD=lintpass"
             echo "RELEASE_KEY_ALIAS=lint"
-            echo "RELEASE_KEY_PASSWORD=lint"
+            echo "RELEASE_KEY_PASSWORD=lintpass"
           } > "$HOME/.gradle/gradle.properties"
-          touch "$RUNNER_TEMP/lint-placeholder.jks"
 
       - name: Run release lint
-        run: ./gradlew --no-daemon --stacktrace --info lintRelease
+        run: ./gradlew --no-daemon --stacktrace --console=plain lintRelease
 
       - name: Upload lint reports
         if: always()
@@ -77,3 +88,4 @@ jobs:
           name: android-lint-report
           path: app/build/reports/lint-results-release.*
           if-no-files-found: warn
+          retention-days: 7
