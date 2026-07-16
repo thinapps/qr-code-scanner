@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
     private val cameraExecutor = Executors.newSingleThreadExecutor()
     private val scannerLock = Any()
     private val scannerDelegate = lazy(scannerLock) {
+        check(!activityDestroyed) { "Scanner activity is destroyed" }
         val options = BarcodeScannerOptions.Builder()
             .setBarcodeFormats(
                 Barcode.FORMAT_QR_CODE,
