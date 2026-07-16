@@ -667,11 +667,7 @@ class MainActivity : AppCompatActivity() {
         setResultText(value)
         feedbackView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         if (recordHistory) {
-            ScanHistoryRepository.record(
-                this,
-                value,
-                openableWebLink = value.toWebUri() != null
-            )
+            ScanHistoryRepository.record(this, value)
         }
         syncActionButtons()
     }
