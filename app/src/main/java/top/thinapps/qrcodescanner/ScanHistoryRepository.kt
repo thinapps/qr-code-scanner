@@ -6,8 +6,7 @@ import org.json.JSONObject
 
 data class ScanHistoryItem(
     val value: String,
-    val scannedAtMs: Long,
-    val openableWebLink: Boolean
+    val scannedAtMs: Long
 )
 
 object ScanHistoryRepository {
@@ -15,7 +14,6 @@ object ScanHistoryRepository {
     private const val KEY_ITEMS = "items"
     private const val KEY_VALUE = "value"
     private const val KEY_SCANNED_AT_MS = "scannedAtMs"
-    private const val KEY_OPENABLE_WEB_LINK = "openableWebLink"
     private const val MAX_HISTORY_ITEMS = 50
 
     fun getItems(context: Context): List<ScanHistoryItem> {
@@ -36,22 +34,20 @@ object ScanHistoryRepository {
             seenValues += value
             resolvedItems += ScanHistoryItem(
                 value = value,
-                scannedAtMs = itemJson.optLong(KEY_SCANNED_AT_MS, 0L),
-                openableWebLink = itemJson.optBoolean(KEY_OPENABLE_WEB_LINK, false)
+                scannedAtMs = itemJson.optLong(KEY_SCANNED_AT_MS, 0L)
             )
         }
 
         return resolvedItems.take(MAX_HISTORY_ITEMS)
     }
 
-    fun record(context: Context, value: String, openableWebLink: Boolean) {
+    fun record(context: Context, value: String) {
         if (value.isBlank()) return
 
         val updatedItems = listOf(
             ScanHistoryItem(
                 value = value,
-                scannedAtMs = System.currentTimeMillis(),
-                openableWebLink = openableWebLink
+                scannedAtMs = System.currentTimeMillis()
             )
         ) + getItems(context).filter { item -> item.value != value }
 
@@ -73,7 +69,6 @@ object ScanHistoryRepository {
                 JSONObject()
                     .put(KEY_VALUE, item.value)
                     .put(KEY_SCANNED_AT_MS, item.scannedAtMs)
-                    .put(KEY_OPENABLE_WEB_LINK, item.openableWebLink)
             )
         }
 
