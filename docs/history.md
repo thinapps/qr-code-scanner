@@ -40,7 +40,7 @@ The app keeps the most recent 50 unique exact values. If the same exact value is
 
 The history icon in the scanner title row opens the history screen. The icon remains visible even when history is empty so the feature is discoverable.
 
-The history screen shows saved results in newest-first order. Each row shows the scanned value and a small timestamp metadata line.
+The history screen shows saved results in newest-first order. Each row shows the scanned value and a small timestamp metadata line. Timestamp formatting follows the device locale and the user's 12-hour or 24-hour clock preference.
 
 The history screen uses the same 20dp side gutters as the scanner panel. The subtitle sits 8dp below the title row, saved history rows start 20dp below the subtitle, rows are separated by 8dp, and the Clear All History button sits 20dp below the scrollable history list area. The screen keeps 20dp base bottom padding, plus the bottom system-bar inset when Android reports one.
 
