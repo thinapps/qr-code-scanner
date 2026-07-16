@@ -28,6 +28,8 @@ The workflow creates a short-lived valid JKS keystore only so Gradle can configu
 
 The lint job has a 30-minute timeout and uses plain Gradle console output so the Actions log stays readable. Lint findings appear in the `Run release lint` step log. The workflow also uploads `app/build/reports/lint-results-release.*` as the `android-lint-report` artifact whether lint passes or fails. Reports are retained for seven days so detailed output remains available when the console log is incomplete without creating long-term artifact clutter.
 
+This workflow is currently provisional. The action file has been created and statically reviewed, but it has not yet been thoroughly tested through real workflow runs or fully audited for its code and runtime functionality. Perform that deeper test and audit later before treating the workflow as a trusted part of the regular release process.
+
 ## R8 and ProGuard
 
 R8 and ProGuard rules are not currently needed because release minification and resource shrinking are disabled in `app/build.gradle`.
