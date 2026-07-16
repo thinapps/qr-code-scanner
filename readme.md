@@ -19,7 +19,8 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.10.2
-- removes unused openable-link metadata from local scan history while preserving saved values and timestamps
+- removes unused openable-link metadata so scan history stores only the scanned value and timestamp
+- keeps existing saved history compatible while recalculating whether Open is available whenever a result is displayed
 
 ### 0.10.1
 - keeps scanner and history content clear of left and right system bars and display cutouts in edge-to-edge layouts
