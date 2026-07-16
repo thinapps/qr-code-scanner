@@ -41,7 +41,8 @@ object ScanHistoryRepository {
         return resolvedItems.take(MAX_HISTORY_ITEMS)
     }
 
-    fun record(context: Context, value: String) {
+    @Suppress("UNUSED_PARAMETER")
+    fun record(context: Context, value: String, openableWebLink: Boolean) {
         if (value.isBlank()) return
 
         val updatedItems = listOf(
