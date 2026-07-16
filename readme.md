@@ -22,6 +22,7 @@ Scans QR codes and barcodes with history
 - removes unused openable-link metadata so scan history stores only the scanned value and timestamp
 - keeps existing saved history compatible while recalculating whether Open is available whenever a result is displayed
 - formats history timestamps using the device locale and selected 12-hour or 24-hour clock preference
+- avoids initializing the ML Kit scanner solely to close it when scanning was never used
 
 ### 0.10.1
 - keeps scanner and history content clear of left and right system bars and display cutouts in edge-to-edge layouts
