@@ -58,7 +58,7 @@ No Internet permission means the scanner itself does not upload camera frames, s
 
 The user can still explicitly tap `Open` to hand a supported link to another installed app, or tap `Share` to invoke Android's share sheet. Those actions are handled outside the scanner through normal Android intents and do not require the scanner to hold Internet permission.
 
-Camera frames, selected images, and scanned values are processed locally. Scan history stores only the accepted value, timestamp, and internal openable-link flag in private app preferences. Selected image files are not stored by the app.
+Camera frames, selected images, and scanned values are processed locally. Scan history stores only the accepted value and timestamp in private app preferences. Selected image files are not stored by the app.
 
 ## Permission and camera messages
 
