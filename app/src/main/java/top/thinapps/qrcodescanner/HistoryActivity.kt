@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.HapticFeedbackConstants
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,14 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
 
     private val dateFormatter by lazy {
-        SimpleDateFormat(HISTORY_TIME_FORMAT, Locale.getDefault())
+        val locale = Locale.getDefault()
+        val skeleton = if (DateFormat.is24HourFormat(this)) {
+            HISTORY_TIME_SKELETON_24_HOUR
+        } else {
+            HISTORY_TIME_SKELETON_12_HOUR
+        }
+        val pattern = DateFormat.getBestDateTimePattern(locale, skeleton)
+        SimpleDateFormat(pattern, locale)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,6 +139,7 @@ class HistoryActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SELECTED_VALUE = "top.thinapps.qrcodescanner.extra.SELECTED_VALUE"
-        private const val HISTORY_TIME_FORMAT = "MMM d, h:mm a"
+        private const val HISTORY_TIME_SKELETON_12_HOUR = "MMMdahm"
+        private const val HISTORY_TIME_SKELETON_24_HOUR = "MMMdHm"
     }
 }
