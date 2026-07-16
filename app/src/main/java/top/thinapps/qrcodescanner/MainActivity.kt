@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val cameraExecutor = Executors.newSingleThreadExecutor()
-    private val scannerDelegate = lazy {
+    private val scannerLock = Any()
+    private val scannerDelegate = lazy(scannerLock) {
         val options = BarcodeScannerOptions.Builder()
             .setBarcodeFormats(
                 Barcode.FORMAT_QR_CODE,
@@ -198,8 +199,10 @@ class MainActivity : AppCompatActivity() {
         pendingSelectedImageUri = null
         camera?.cameraInfo?.torchState?.removeObservers(this)
         camera?.cameraControl?.enableTorch(false)
-        if (scannerDelegate.isInitialized()) {
-            scanner.close()
+        synchronized(scannerLock) {
+            if (scannerDelegate.isInitialized()) {
+                scanner.close()
+            }
         }
         cameraExecutor.shutdown()
         super.onDestroy()
