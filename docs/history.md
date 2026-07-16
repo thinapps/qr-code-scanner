@@ -29,11 +29,8 @@ Each history item stores:
 
 - scanned value
 - scan timestamp
-- whether the value was openable as a web link when it was scanned
 
 The accepted scanned value is stored exactly as received. History rejects blank-only values but does not trim, edit, normalize, or otherwise rewrite a valid value.
-
-The openable-web-link flag is internal history metadata. It is not shown as a result type label on the history row.
 
 History does not store whether a result came from the camera or an image. It also does not store or copy the selected image, its URI, its filename, or a thumbnail.
 
