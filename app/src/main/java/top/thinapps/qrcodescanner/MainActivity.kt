@@ -558,6 +558,8 @@ class MainActivity : AppCompatActivity() {
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
+            if (activityDestroyed) return@addListener
+
             try {
                 val cameraProvider = cameraProviderFuture.get()
                 val preview = Preview.Builder()
