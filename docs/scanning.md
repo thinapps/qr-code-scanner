@@ -6,6 +6,8 @@ See [Scope](scope.md) for the current supported and unsupported barcode format l
 
 The live camera keeps its preview and image analyzer active after a QR code or barcode is found. The app does not pause the scanner or switch to a separate result screen.
 
+If CameraX provider initialization finishes after Android has already destroyed the scanner activity, the delayed callback is ignored before camera objects are created or bound.
+
 To avoid duplicate camera-result noise, live detections pass through a small result gate before the UI is updated.
 
 When ML Kit returns one or more results, the app accepts the first non-blank raw value. It does not trim or otherwise rewrite that accepted value before showing, copying, sharing, or saving it.
