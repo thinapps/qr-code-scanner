@@ -2,8 +2,6 @@
 
 Scans QR codes and barcodes with history
 
-## Documentation
-
 | Document | Description |
 | --- | --- |
 | [Scope](docs/scope.md) | Explains what barcode formats and scan sources are currently supported and what intentionally remains out of scope. |
