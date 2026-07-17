@@ -16,6 +16,11 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.10.4
+- adds a centered `Privacy Policy` text link below the local-only footer message
+- opens the privacy policy in a simple in-app modal without adding Internet access or another screen
+- documents local camera, selected-image, scan-history, Open, and Share behavior in the policy text
+
 ### 0.10.3
 - ignores delayed CameraX provider callbacks after the scanner activity is destroyed
 
