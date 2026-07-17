@@ -60,6 +60,8 @@ The user can still explicitly tap `Open` to hand a supported link to another ins
 
 Camera frames, selected images, and scanned values are processed locally. Scan history stores only the accepted value and timestamp in private app preferences. Selected image files are not stored by the app.
 
+The main scanner footer includes a `Privacy Policy` text link. It opens an in-app modal explaining this local processing, local history storage, and the user-initiated `Open` and `Share` actions. The modal does not load a webpage and does not require Internet permission.
+
 ## Permission and camera messages
 
 The app uses the small subtitle/status line under the main title for scanner state messages.
