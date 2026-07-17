@@ -18,6 +18,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.10.3
+- ignores delayed CameraX provider callbacks after the scanner activity is destroyed
+
 ### 0.10.2
 - removes unused openable-link metadata so scan history stores only the scanned value and timestamp
 - keeps existing saved history compatible while recalculating whether Open is available whenever a result is displayed
