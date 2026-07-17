@@ -1,6 +1,6 @@
 # Interface
 
-QR Code Scanner uses one main scanner screen with a live CameraX preview, a subtle scan guide overlay, a bottom content panel, a photo-library button, a local history button, and a small torch overlay button when the active camera supports flash.
+QR Code Scanner uses one main scanner screen with a live CameraX preview, a subtle scan guide overlay, a bottom content panel, a photo-library button, a local history button, a small privacy-policy footer link, and a torch overlay button when the active camera supports flash.
 
 Selected-image scanning stays inside this same screen. The app does not add an image preview, crop screen, processing dialog, spinner, second result layout, or separate gallery screen.
 
@@ -14,7 +14,7 @@ The current text scale is intentionally simple:
 - result text: `16sp` enforced monospace
 - history item value: `16sp`
 - history item metadata: `12sp`
-- footer: `12sp`
+- footer message and privacy-policy link: `12sp`
 
 The history screen reuses the same title and subtitle scale as the main scanner screen. The action buttons use the default Material button text sizing.
 
@@ -85,9 +85,9 @@ The current preferred QR glyph size is about `208x207px`, or about 40.6% of the 
 
 ## Bottom panel layout
 
-The scanner content panel is `wrap_content` and anchored to the bottom of the screen. The footer is the last child inside that panel, so the footer stays at the bottom of the panel above the bottom padding while the rest of the scan UI grows upward from there.
+The scanner content panel is `wrap_content` and anchored to the bottom of the screen. The local-only footer message is followed by a centered `Privacy Policy` text link as the final child inside that panel. Tapping the link opens the policy in a Material modal without adding a drawer, settings screen, browser dependency, or Internet permission.
 
-The panel keeps its normal `20dp` content gutters. Runtime left and right system-bar or display-cutout insets are added to the corresponding physical edges, and the bottom system-bar inset is added below the footer. The panel background still spans the full screen width so safe-area handling does not create visible side gaps.
+The panel keeps its normal `20dp` content gutters. Runtime left and right system-bar or display-cutout insets are added to the corresponding physical edges, and the bottom system-bar inset is added below the privacy-policy link. The panel background still spans the full screen width so safe-area handling does not create visible side gaps.
 
 The panel background stays dark and flat, but includes a top-only `1dp` edge at 15% white (`#26FFFFFF`). The edge values are centralized as `@dimen/scanner_panel_top_edge_height` and `@color/scanner_panel_top_edge`. This gives the bottom scanner panel a subtle boundary over dark or busy camera previews without adding a shadow, full border, rounded container, or thicker divider.
 
