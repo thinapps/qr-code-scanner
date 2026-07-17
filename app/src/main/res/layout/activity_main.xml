@@ -254,6 +254,20 @@
                 android:text="@string/home_footer_message"
                 android:textColor="@color/md_text_dim"
                 android:textSize="@dimen/footer_text_size" />
+
+            <top.thinapps.qrcodescanner.PrivacyPolicyTextView
+                android:id="@+id/txtPrivacyPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/privacy_link_top_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="@dimen/privacy_link_min_height"
+                android:text="@string/privacy_policy_link"
+                android:textColor="@color/md_accent"
+                android:textSize="@dimen/footer_text_size" />
         </LinearLayout>
     </top.thinapps.qrcodescanner.MaxHeightNestedScrollView>
 
