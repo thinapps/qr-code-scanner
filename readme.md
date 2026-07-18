@@ -16,6 +16,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.11.2
+- restores selected-image scanning through ML Kit's proven URI-based image loading path after the manual bitmap decoding added in `0.11.1` caused valid picked images to return no result on some devices
+
 ### 0.11.1
 - limits selected-image decoding to a safe maximum size before ML Kit analysis to reduce memory use and avoid crashes from unusually large images
 - preserves supported EXIF rotation and mirroring metadata when preparing selected images for scanning
@@ -48,7 +51,7 @@ Scans QR codes and barcodes with history
 - replaces the unrestricted bottom scanner panel with a scrolling panel capped at 72% of the available screen height
 - keeps long results, actions, camera permission controls, and footer content reachable in landscape, split-screen, and large-font layouts
 - keeps the scan guide aligned with the panel as the available camera area changes
-- hides the guide when usable preview space disappears, then restores and re-centers it when space returns
+- hides the guide when usable preview space disappears, then restores and re-centers it when usable camera space returns
 
 ### 0.9.2
 - reads selected images on the background camera executor instead of the main UI thread
