@@ -6,7 +6,7 @@ This app keeps the Android build setup intentionally small because it is a singl
 
 The project keeps the simple root `build.gradle` and `settings.gradle` layout because the repository has only one app module.
 
-The root `build.gradle` defines the Android and Kotlin build plugins plus the shared repositories. The app module owns the Android app settings, version, dependencies, signing config, and release build type. The project uses Android Gradle Plugin `8.10.1`, which supports compiling and targeting Android 16 (API 36), while the release workflow downloads Gradle `8.11.1`.
+The root `build.gradle` defines the Android and Kotlin build plugins plus the shared repositories. The app module owns the Android app settings, version, dependencies, signing config, and release build type. The project uses Android Gradle Plugin `8.10.1`, Kotlin `2.2.21`, and Gradle `8.11.1`, which are aligned for compiling and targeting Android 16 (API 36). The Kotlin Gradle plugin and Kotlin runtime BOM use the same `2.2.21` version.
 
 The scanner dependency baseline uses CameraX `1.5.3` consistently across `camera-core`, `camera-camera2`, `camera-lifecycle`, and `camera-view`, plus bundled on-device ML Kit barcode scanning `17.3.0`.
 
