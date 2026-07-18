@@ -12,7 +12,9 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Typeface
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -445,6 +447,8 @@ class MainActivity : AppCompatActivity() {
             throw IllegalArgumentException("Selected image has invalid dimensions")
         }
 
+        val orientation = readSelectedImageOrientation(uri)
+
         var sampleSize = 1
         while (
             bounds.outWidth / sampleSize > MAX_SELECTED_IMAGE_DIMENSION ||
@@ -457,9 +461,61 @@ class MainActivity : AppCompatActivity() {
             inSampleSize = sampleSize
             inPreferredConfig = Bitmap.Config.ARGB_8888
         }
-        return contentResolver.openInputStream(uri)?.use { input ->
+        val bitmap = contentResolver.openInputStream(uri)?.use { input ->
             BitmapFactory.decodeStream(input, null, options)
         } ?: throw IllegalArgumentException("Unable to decode selected image")
+
+        return applySelectedImageOrientation(bitmap, orientation)
+    }
+
+    private fun readSelectedImageOrientation(uri: Uri): Int {
+        return try {
+            contentResolver.openInputStream(uri)?.use { input ->
+                ExifInterface(input).getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL
+                )
+            } ?: ExifInterface.ORIENTATION_NORMAL
+        } catch (error: Exception) {
+            ExifInterface.ORIENTATION_NORMAL
+        }
+    }
+
+    private fun applySelectedImageOrientation(bitmap: Bitmap, orientation: Int): Bitmap {
+        val matrix = Matrix()
+        when (orientation) {
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.setScale(-1f, 1f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.setRotate(180f)
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> {
+                matrix.setRotate(180f)
+                matrix.postScale(-1f, 1f)
+            }
+            ExifInterface.ORIENTATION_TRANSPOSE -> {
+                matrix.setRotate(90f)
+                matrix.postScale(-1f, 1f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.setRotate(90f)
+            ExifInterface.ORIENTATION_TRANSVERSE -> {
+                matrix.setRotate(-90f)
+                matrix.postScale(-1f, 1f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.setRotate(-90f)
+            else -> return bitmap
+        }
+
+        val orientedBitmap = Bitmap.createBitmap(
+            bitmap,
+            0,
+            0,
+            bitmap.width,
+            bitmap.height,
+            matrix,
+            true
+        )
+        if (orientedBitmap !== bitmap) {
+            bitmap.recycle()
+        }
+        return orientedBitmap
     }
 
     private fun acceptSelectedImageResult(value: String) {
