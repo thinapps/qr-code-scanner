@@ -18,6 +18,7 @@ Scans QR codes and barcodes with history
 
 ### 0.11.1
 - limits selected-image decoding to a safe maximum size before ML Kit analysis to reduce memory use and avoid crashes from unusually large images
+- preserves supported EXIF rotation and mirroring metadata when preparing selected images for scanning
 - changes the installed app name to `QR Scanner` and the home title to `QR Code Scanner`
 - updates the footer wording to describe all core functionality as local and the source code as available for inspection on GitHub
 
