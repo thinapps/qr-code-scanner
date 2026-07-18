@@ -32,7 +32,7 @@ Camera permission is not used for selected-image scanning.
 
 The title-row photo-library icon launches Android's standard single-image Photo Picker with an image-only request.
 
-The app receives temporary access only to the selected picker URI. It reads and decodes that URI locally, downsamples unusually large images so neither decoded side exceeds `2048` pixels, applies supported EXIF orientation metadata, and does not copy or retain the selected image in app storage.
+The app receives temporary access only to the selected picker URI. ML Kit reads and processes that URI locally through its standard file-path image handling, and the app does not copy or retain the selected image in app storage.
 
 The picker can remain available when camera permission is denied or the camera cannot start. Canceling the picker grants nothing and changes nothing in the app.
 
