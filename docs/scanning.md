@@ -29,9 +29,8 @@ The photo-library icon in the main title row opens Android's standard single-ima
 After one image is selected:
 
 - the app reads the picker URI on a background executor and does not copy the image into app storage
-- the app reads the image dimensions first and downsamples the decode so neither side exceeds `2048` pixels before ML Kit analysis
-- the app applies supported EXIF rotation and mirroring metadata so normal phone photos keep their intended orientation
-- ML Kit processes the bounded bitmap locally with the same enabled QR and barcode formats as the live camera
+- ML Kit loads and processes the selected image directly from that URI using its standard file-path image handling
+- the same enabled QR and barcode formats are used as the live camera
 - only the first non-blank raw value is accepted, without trimming it
 - the selected-image result bypasses the live camera's repeated-detection requirement and appears immediately
 - the result uses the normal result card, actions, haptic feedback, and local history behavior
@@ -41,9 +40,9 @@ The photo-library button is disabled only while the selected image is being read
 
 Live camera and selected-image analysis share one processing gate so only one ML Kit scan request runs at a time. If a live camera frame is already being analyzed when an image is selected, the selected image waits for that frame to finish. Live camera frames are then ignored while the selected image is read and processed, but the CameraX preview remains bound and visible. Camera analysis resumes automatically afterward without restarting the camera.
 
-If Android destroys the scanner activity while a selected image is being read or analyzed, the old activity ignores the result and does not show a toast or update its views. The temporary decoded bitmap is released when processing finishes or the activity is no longer usable. This prevents delayed callbacks from targeting a screen that has already been replaced or closed.
+If Android destroys the scanner activity while a selected image is being read or analyzed, the old activity ignores the result and does not show a toast or update its views. This prevents delayed callbacks from targeting a screen that has already been replaced or closed.
 
-Canceling the picker does nothing. If the selected image contains no supported non-blank raw value, the app shows `No readable code found.` If Android cannot open or decode the image, the decoded bitmap cannot be allocated safely, or ML Kit cannot analyze it, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
+Canceling the picker does nothing. If the selected image contains no supported non-blank raw value, the app shows `No readable code found.` If Android or ML Kit cannot read the image, the app shows `Could not read that image.` Both messages are short toasts and do not replace the current result card or scanner status.
 
 Selected-image scanning remains available when camera permission is denied because it does not need the camera. It also does not require storage or broad photo-library permission.
 
@@ -51,7 +50,7 @@ PDFs, office documents, and arbitrary non-image files are intentionally unsuppor
 
 ## No custom fallback passes
 
-Each selected image receives one bounded decode, with EXIF orientation applied when available, and is then passed to ML Kit once. If no supported non-blank raw value is found, the app shows `No readable code found.` and stops instead of creating alternate versions of the image and running more decoding passes.
+Each selected image is passed to ML Kit normally through its URI-based image loading path. If no supported non-blank raw value is found, the app shows `No readable code found.` and stops instead of creating alternate versions of the image and running more decoding passes.
 
 Extra fallback passes would add bitmap work, slower failed scans, more code paths, and much more testing for rare edge cases. One narrow fallback should be reconsidered only if repeated real-world reports prove that ML Kit consistently misses an important case.
 
@@ -155,6 +154,5 @@ The current live camera gate uses these values in `MainActivity.kt`:
 - `REQUIRED_SCAN_HITS = 2`
 - `RESULT_COOLDOWN_MS = 1000L`
 - `SAME_RESULT_IGNORE_MS = 6000L`
-- `MAX_SELECTED_IMAGE_DIMENSION = 2048`
 
 These values are intentionally conservative. They should make live scanning feel calmer without making normal single-code scanning feel slow.
