@@ -20,6 +20,18 @@ The workflow lets `android-actions/setup-android` install only `platform-tools`,
 
 Release signing is configured through repository secrets used by the workflow.
 
+## 16 KB page-size compatibility
+
+The project uses Android Gradle Plugin `8.10.1`, which is newer than the `8.5.1` baseline required for correct 16 KB ZIP alignment of uncompressed native libraries in app bundles. The bundled ML Kit barcode scanner dependency is `17.3.0`, whose release added Android 16 KB page-size support.
+
+Source configuration is not treated as final proof for a release artifact. Before production promotion, verify the exact signed AAB from GitHub Actions in Google Play's Bundle Explorer or run:
+
+```bash
+bundletool dump config --bundle=qr-code-scanner-0.11.1-release.aab | grep alignment
+```
+
+The expected result is `PAGE_ALIGNMENT_16K`. A production candidate should also complete Google Play internal testing and the pre-launch report without a 16 KB compatibility warning.
+
 ## R8 and ProGuard
 
 R8 and ProGuard rules are not currently needed because release minification and resource shrinking are disabled in `app/build.gradle`.
