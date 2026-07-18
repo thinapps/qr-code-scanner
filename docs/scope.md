@@ -27,7 +27,7 @@ Both supported scan sources use this same format list:
 - continuous live scanning from the fixed rear camera
 - one image selected through Android's standard single-image Photo Picker
 
-Selected-image scanning accepts the first non-blank raw value only and preserves it without trimming or rewriting it. It does not add cropping, editing, image preview, multi-select, batch processing, or a separate result flow.
+Selected-image scanning first performs one bounded decode so neither bitmap side exceeds `2048` pixels, applies supported EXIF orientation metadata, then accepts the first non-blank raw value only and preserves it without trimming or rewriting it. It does not add cropping, editing, image preview, multi-select, batch processing, or a separate result flow.
 
 ## Supported with practical caveats
 
@@ -74,7 +74,7 @@ The app does not label whether a saved result came from the camera or an image. 
 
 The Open action uses minimal local parsing checks. It accepts only HTTP and HTTPS web links, rejects embedded whitespace, backslashes, control characters, Unicode bidirectional-control characters, URL user-info, missing hosts, and unsupported explicit schemes, and applies stricter hostname-label checks when adding HTTPS to a result without a scheme. These checks do not detect phishing, consult an online reputation service, or verify that the destination itself is trustworthy.
 
-Scanning happens locally on the device. Camera permission is requested only for live scanning. Selected-image scanning uses the system picker, requires no storage or broad photo permission, reads the returned URI directly, and does not copy or retain the selected image in app storage.
+Scanning happens locally on the device. Camera permission is requested only for live scanning. Selected-image scanning uses the system picker, requires no storage or broad photo permission, performs one bounded local decode with supported EXIF orientation applied, and does not copy or retain the selected image in app storage.
 
 ## Back burner
 
@@ -94,7 +94,7 @@ Batch scanning, inventory modes, scan queues, CSV export, and similar commercial
 
 Selected-image scanning stays deliberately narrow. The app will not add multi-image selection, batch image scanning, crop or rotate tools, an image editor, retained image previews, saved image copies, or a custom gallery screen. The standard Photo Picker provides the one approved image entry point.
 
-Selected-image fallback preprocessing is also intentionally out of scope. The app will not retry mirrored copies, inverted-color copies, contrast or brightness adjustments, sharpening, thresholding, rescaling passes, or other transformed versions after normal decoding fails. Multiple bitmap transformations and decoder passes would add memory use, delay, branches, and testing for rare edge cases. The app uses ML Kit normally and can reconsider one specific fallback only if repeated real-world reports prove it is needed.
+Selected-image fallback preprocessing is also intentionally out of scope. The initial bounded decode and EXIF orientation correction are the complete normal preparation path. The app will not retry alternate mirrored copies, inverted-color copies, contrast or brightness adjustments, sharpening, thresholding, extra rescaling passes, or other transformed versions after scanning fails. Multiple fallback transformations and decoder passes would add memory use, delay, branches, and testing for rare edge cases. One specific fallback should be reconsidered only if repeated real-world reports prove it is needed.
 
 PDFs, office documents, and arbitrary non-image files are intentionally unsupported. Supporting them would require a broader file picker, PDF or document rendering, page selection, file-type handling, and additional failure states that do not fit the app's simple camera-or-image model.
 
