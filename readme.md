@@ -17,9 +17,9 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 0.11.0
-- targets Android 16 (API 36) while keeping the minimum API level at 24
-- updates Android Gradle Plugin to `8.10.1` and Gradle to `8.11.1`
-- updates the release workflow to install the Android 36 platform
+- targets Android 16 (API 36) ahead of Google Play's August 31, 2026 requirement for new apps and app updates, while keeping the minimum API level at 24
+- updates Android Gradle Plugin to `8.10.1`, Gradle to `8.11.1`, and Kotlin to `2.2.21` for a compatible Android 16 build toolchain
+- updates the release workflow to install the Android 36 platform and generate Gradle `8.11.1`
 
 ### 0.10.4
 - adds a centered `Privacy Policy` text link below the local-only footer message
