@@ -16,6 +16,11 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.11.1
+- limits selected-image decoding to a safe maximum size before ML Kit analysis to reduce memory use and avoid crashes from unusually large images
+- changes the installed app name to `QR Scanner` and the home title to `QR Code Scanner`
+- updates the footer wording to describe all core functionality as local and the source code as available for inspection on GitHub
+
 ### 0.11.0
 - targets Android 16 (API 36) ahead of Google Play's August 31, 2026 requirement for new apps and app updates, while keeping the minimum API level at 24
 - updates Android Gradle Plugin to `8.10.1`, Gradle to `8.11.1`, and Kotlin to `2.2.21` for a compatible Android 16 build toolchain
