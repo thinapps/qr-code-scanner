@@ -6,17 +6,17 @@ This app keeps the Android build setup intentionally small because it is a singl
 
 The project keeps the simple root `build.gradle` and `settings.gradle` layout because the repository has only one app module.
 
-The root `build.gradle` defines the Android and Kotlin build plugins plus the shared repositories. The app module owns the Android app settings, version, dependencies, signing config, and release build type. The project uses Android Gradle Plugin `8.7.3`, which stays aligned with Material Components `1.13.0` while the release workflow downloads Gradle `8.9`.
+The root `build.gradle` defines the Android and Kotlin build plugins plus the shared repositories. The app module owns the Android app settings, version, dependencies, signing config, and release build type. The project uses Android Gradle Plugin `8.10.1`, which supports compiling and targeting Android 16 (API 36), while the release workflow downloads Gradle `8.11.1`.
 
 The scanner dependency baseline uses CameraX `1.5.3` consistently across `camera-core`, `camera-camera2`, `camera-lifecycle`, and `camera-view`, plus bundled on-device ML Kit barcode scanning `17.3.0`.
 
-The repository does not commit Gradle wrapper files. The GitHub Actions release workflow downloads Gradle 8.9 and generates the wrapper during each run, matching the current ThinApps utility app pattern.
+The repository does not commit Gradle wrapper files. The GitHub Actions release workflow downloads Gradle 8.11.1 and generates the wrapper during each run, matching the current ThinApps utility app pattern.
 
 ## Release bundle
 
 `.github/workflows/android-release.yml` builds a signed release AAB through a manual `workflow_dispatch` run.
 
-The workflow lets `android-actions/setup-android` install only `platform-tools`, then installs the Android 35 platform and build tools explicitly. It avoids the legacy SDK `tools` package because that can pull emulator packages that are not needed for a release bundle build.
+The workflow lets `android-actions/setup-android` install only `platform-tools`, then installs the Android 36 platform and build tools `35.0.0` explicitly. Android Gradle Plugin 8.10 uses build tools 35.0.0 as its supported default while compiling against API 36. The workflow avoids the legacy SDK `tools` package because that can pull emulator packages that are not needed for a release bundle build.
 
 Release signing is configured through repository secrets used by the workflow.
 
