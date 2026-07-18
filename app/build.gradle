@@ -3,18 +3,18 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace "top.thinapps.qrcodescanner"
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "top.thinapps.qrcodescanner"
 
         // supported and target api levels
         minSdk 24
-        targetSdk 35
+        targetSdk 36
 
         // bump before each release
-        versionCode 45
-        versionName "0.10.4"
+        versionCode 46
+        versionName "0.11.0"
     }
 
     signingConfigs {
