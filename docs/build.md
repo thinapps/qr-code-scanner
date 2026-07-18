@@ -27,7 +27,7 @@ The project uses Android Gradle Plugin `8.10.1`, which is newer than the `8.5.1`
 Source configuration is not treated as final proof for a release artifact. Before production promotion, verify the exact signed AAB from GitHub Actions in Google Play's Bundle Explorer or run:
 
 ```bash
-bundletool dump config --bundle=qr-code-scanner-0.11.1-release.aab | grep alignment
+bundletool dump config --bundle=<release-bundle>.aab | grep alignment
 ```
 
 The expected result is `PAGE_ALIGNMENT_16K`. A production candidate should also complete Google Play internal testing and the pre-launch report without a 16 KB compatibility warning.
