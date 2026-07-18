@@ -8,7 +8,7 @@ The app intentionally has a history screen, but the history screen should stay l
 - no account
 - no sync
 - no internet access
-- no analytics
+- no ThinApps analytics or scan-history tracking
 - no database
 - no search
 - no export
