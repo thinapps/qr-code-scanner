@@ -9,12 +9,8 @@ import android.content.ClipboardManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.Matrix
 import android.graphics.Typeface
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -368,19 +364,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val bitmap = try {
-            decodeSelectedImage(uri)
+        val image = try {
+            InputImage.fromFilePath(applicationContext, uri)
         } catch (error: Exception) {
             Log.w(TAG, "Unable to read selected image", error)
-            ContextCompat.getMainExecutor(this).execute {
-                if (!activityDestroyed) {
-                    Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
-                }
-                finishSelectedImageProcessing()
-            }
-            return
-        } catch (error: OutOfMemoryError) {
-            Log.w(TAG, "Selected image is too large to decode safely", error)
             ContextCompat.getMainExecutor(this).execute {
                 if (!activityDestroyed) {
                     Toast.makeText(this, R.string.scan_image_read_failed, Toast.LENGTH_SHORT).show()
@@ -391,17 +378,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (activityDestroyed) {
-            bitmap.recycle()
             releaseSelectedImageProcessing()
             return
         }
 
-        val image = InputImage.fromBitmap(bitmap, 0)
         val mainExecutor = ContextCompat.getMainExecutor(this)
         val scanTask = try {
             scanner.process(image)
         } catch (error: Exception) {
-            bitmap.recycle()
             Log.w(TAG, "Unable to start selected image analysis", error)
             mainExecutor.execute {
                 if (!activityDestroyed) {
@@ -430,92 +414,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             .addOnCompleteListener(mainExecutor) {
-                bitmap.recycle()
                 finishSelectedImageProcessing()
             }
-    }
-
-    private fun decodeSelectedImage(uri: Uri): Bitmap {
-        val bounds = BitmapFactory.Options().apply {
-            inJustDecodeBounds = true
-        }
-        contentResolver.openInputStream(uri)?.use { input ->
-            BitmapFactory.decodeStream(input, null, bounds)
-        } ?: throw IllegalArgumentException("Unable to open selected image")
-
-        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
-            throw IllegalArgumentException("Selected image has invalid dimensions")
-        }
-
-        val orientation = readSelectedImageOrientation(uri)
-
-        var sampleSize = 1
-        while (
-            bounds.outWidth / sampleSize > MAX_SELECTED_IMAGE_DIMENSION ||
-            bounds.outHeight / sampleSize > MAX_SELECTED_IMAGE_DIMENSION
-        ) {
-            sampleSize *= 2
-        }
-
-        val options = BitmapFactory.Options().apply {
-            inSampleSize = sampleSize
-            inPreferredConfig = Bitmap.Config.ARGB_8888
-        }
-        val bitmap = contentResolver.openInputStream(uri)?.use { input ->
-            BitmapFactory.decodeStream(input, null, options)
-        } ?: throw IllegalArgumentException("Unable to decode selected image")
-
-        return applySelectedImageOrientation(bitmap, orientation)
-    }
-
-    private fun readSelectedImageOrientation(uri: Uri): Int {
-        return try {
-            contentResolver.openInputStream(uri)?.use { input ->
-                ExifInterface(input).getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL
-                )
-            } ?: ExifInterface.ORIENTATION_NORMAL
-        } catch (error: Exception) {
-            ExifInterface.ORIENTATION_NORMAL
-        }
-    }
-
-    private fun applySelectedImageOrientation(bitmap: Bitmap, orientation: Int): Bitmap {
-        val matrix = Matrix()
-        when (orientation) {
-            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.setScale(-1f, 1f)
-            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.setRotate(180f)
-            ExifInterface.ORIENTATION_FLIP_VERTICAL -> {
-                matrix.setRotate(180f)
-                matrix.postScale(-1f, 1f)
-            }
-            ExifInterface.ORIENTATION_TRANSPOSE -> {
-                matrix.setRotate(90f)
-                matrix.postScale(-1f, 1f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.setRotate(90f)
-            ExifInterface.ORIENTATION_TRANSVERSE -> {
-                matrix.setRotate(-90f)
-                matrix.postScale(-1f, 1f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.setRotate(-90f)
-            else -> return bitmap
-        }
-
-        val orientedBitmap = Bitmap.createBitmap(
-            bitmap,
-            0,
-            0,
-            bitmap.width,
-            bitmap.height,
-            matrix,
-            true
-        )
-        if (orientedBitmap !== bitmap) {
-            bitmap.recycle()
-        }
-        return orientedBitmap
     }
 
     private fun acceptSelectedImageResult(value: String) {
@@ -1048,7 +948,6 @@ class MainActivity : AppCompatActivity() {
         const val SAME_RESULT_IGNORE_MS = 6000L
         const val SCAN_GUIDE_WIDTH_RATIO = 0.80f
         const val FOCUS_AUTO_CANCEL_SECONDS = 3L
-        const val MAX_SELECTED_IMAGE_DIMENSION = 2048
         const val MAX_HOST_LENGTH = 253
         const val MAX_HOST_LABEL_LENGTH = 63
         const val MIN_TLD_LENGTH = 2
