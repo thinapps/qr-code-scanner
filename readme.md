@@ -16,6 +16,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.11.3
+- removes the fixed `48dp` minimum height from the `Privacy Policy` link and uses natural text height with an `8dp` gap above and the existing `20dp` panel padding below
+
 ### 0.11.2
 - restores selected-image scanning through ML Kit's proven URI-based image loading path after the manual bitmap decoding added in `0.11.1` caused valid picked images to return no result on some devices
 
