@@ -265,7 +265,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="@string/privacy_policy_link"
-                android:textColor="@color/md_accent"
+                android:textColor="@color/md_text_dim"
                 android:textSize="@dimen/footer_text_size" />
         </LinearLayout>
     </top.thinapps.qrcodescanner.MaxHeightNestedScrollView>
