@@ -16,6 +16,9 @@ Scans QR codes and barcodes with history
 
 ## Changelog
 
+### 0.11.4
+- expands the in-app privacy policy with the 50-entry local history limit, bundled ML Kit technical data disclosure, clipboard and external-app handling, and direct contact at `support@thinapps.top`
+
 ### 0.11.3
 - removes the fixed `48dp` minimum height from the `Privacy Policy` link and uses natural text height with an `8dp` gap above and the existing `20dp` panel padding below
 - changes the `Privacy Policy` link from accent cyan to dim gray and underlines it for a conventional compact footer-link appearance
