@@ -1,12 +1,12 @@
 # Permissions
 
-QR Code Scanner is intentionally permission-light. The app asks only for camera permission, and only because live QR and barcode scanning needs camera frames. Selecting one existing image uses Android's system Photo Picker and does not require storage or broad photo-library permission.
+QR Code Scanner is intentionally permission-light. The app's source manifest directly requests only camera permission, and only because live QR and barcode scanning needs camera frames. Selecting one existing image uses Android's system Photo Picker and does not require storage or broad photo-library permission.
 
 ## Requested permissions
 
 ### Camera
 
-The app requests:
+The source manifest requests:
 
 ```xml
 <uses-permission android:name="android.permission.CAMERA" />
@@ -18,7 +18,7 @@ This permission is needed for:
 - reading camera frames for on-device QR and barcode analysis
 - controlling the scanner torch through the active CameraX camera
 
-The manifest also declares that the app requires camera hardware:
+The source manifest also declares that the app requires camera hardware:
 
 ```xml
 <uses-feature
@@ -36,7 +36,7 @@ The app receives temporary access only to the selected picker URI. ML Kit reads 
 
 The picker can remain available when camera permission is denied or the camera cannot start. Canceling the picker grants nothing and changes nothing in the app.
 
-No `READ_EXTERNAL_STORAGE`, `READ_MEDIA_IMAGES`, or broad photo-library permission is requested. The system picker also provides the compatible fallback path on Android versions where the newer picker interface is unavailable.
+The source manifest does not request `READ_EXTERNAL_STORAGE`, `READ_MEDIA_IMAGES`, or broad photo-library permission. The system picker also provides the compatible fallback path on Android versions where the newer picker interface is unavailable.
 
 ## Permission request flow
 
@@ -50,17 +50,21 @@ The permission button always says `Allow Camera`. Its wording does not change ba
 
 This keeps the normal first-run request automatic while preserving one consistent fallback button instead of switching between `Allow Camera` and a separate settings label. The photo-library icon remains a separate permission-free scanning option.
 
-## Permissions not requested
+## Source manifest and network behavior
 
-The app does not request Internet, location, storage, media-library, contacts, accounts, notification, or advertising permissions.
+The app's source manifest directly requests only Camera permission. It does not directly declare Internet, location, storage, media-library, contacts, accounts, notification, or advertising permissions.
 
-No Internet permission means the scanner itself does not upload camera frames, selected images, scanned values, or history; call remote decoding, OCR, AI, search, reputation, or lookup services; fetch webpages; or perform background web research. All scanning and link-shape validation run on the device.
+Android builds merge the app manifest with manifests contributed by dependencies. The final merged manifest and release bundle are therefore the authoritative record of permissions included in a specific build.
 
-The user can still explicitly tap `Open` to hand a supported link to another installed app, or tap `Share` to invoke Android's share sheet. Those actions are handled outside the scanner through normal Android intents and do not require the scanner to hold Internet permission.
+QR code and barcode recognition use the bundled ML Kit model and work without an internet connection. QR Code Scanner does not implement remote decoding, OCR, AI, search, reputation, or lookup services; fetch webpages; upload camera frames, selected images, scanned values, or history to ThinApps; or operate ThinApps analytics, advertising, accounts, cloud storage, or background network features. All QR code and barcode recognition and link-shape validation run on the device.
+
+The bundled ML Kit SDK may collect limited technical diagnostic and usage data as described in the in-app privacy policy. That SDK behavior is separate from barcode recognition itself, which uses the bundled model and works offline.
+
+The user can still explicitly tap `Open` to hand a supported link to another installed app, or tap `Share` to invoke Android's share sheet. Those actions are handled outside the scanner through normal Android intents.
 
 Camera frames, selected images, and scanned values are processed locally. Scan history stores only the accepted value and timestamp in private app preferences. Selected image files are not stored by the app.
 
-The main scanner footer includes a `Privacy Policy` text link. It opens an in-app modal explaining this local processing, local history storage, and the user-initiated `Open` and `Share` actions. The modal does not load a webpage and does not require Internet permission.
+The main scanner footer includes a `Privacy Policy` text link. It opens an in-app modal explaining local processing, local history storage, ML Kit technical data, and the user-initiated `Copy`, `Open`, and `Share` actions. The modal does not load a webpage.
 
 ## Permission and camera messages
 
