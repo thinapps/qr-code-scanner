@@ -38,8 +38,7 @@
     <dimen name="footer_top_margin">16dp</dimen>
     <dimen name="footer_text_size">12sp</dimen>
     <dimen name="footer_line_spacing_extra">2dp</dimen>
-    <dimen name="privacy_link_top_margin">4dp</dimen>
-    <dimen name="privacy_link_min_height">48dp</dimen>
+    <dimen name="privacy_link_top_margin">8dp</dimen>
     <dimen name="torch_button_size">48dp</dimen>
     <dimen name="torch_button_padding">12dp</dimen>
     <dimen name="torch_button_margin">24dp</dimen>
