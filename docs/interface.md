@@ -9,14 +9,17 @@ Selected-image scanning stays inside this same screen. The app does not add an i
 The current text scale is intentionally simple:
 
 - title: `28sp`
-- subtitle/status: `14sp`
+- subtitle/status and permission explanation: `14sp`
 - result label: `12sp`, all-caps, bold
 - result text: `16sp` enforced monospace
 - history item value: `16sp`
 - history item metadata: `12sp`
+- action and permission buttons: `14sp`
+- privacy-policy dialog title: `20sp`
+- privacy-policy dialog body and `Close` button: `14sp`
 - footer message and privacy-policy link: `12sp`
 
-The history screen reuses the same title and subtitle scale as the main scanner screen. The action buttons use the default Material button text sizing.
+The history screen reuses the same title, subtitle, and button sizes as the main scanner screen. Every text surface owned by the app's layouts or privacy-policy dialog has an explicit size. Android-controlled surfaces such as toasts, tooltips, launcher labels, system permission dialogs, and the share sheet continue using system typography.
 
 ## Corner radiuses
 
