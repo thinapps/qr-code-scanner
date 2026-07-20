@@ -39,3 +39,9 @@ R8 and ProGuard rules are not currently needed because release minification and 
 The app is small, has no reflection-heavy third-party SDKs beyond the current scanner framework, and does not need custom keep rules right now. Keeping an empty `proguard-rules.pro` file only adds confusion, so the file is intentionally absent.
 
 If release minification is enabled later, add a new `app/proguard-rules.pro` file only when there are real keep rules to maintain.
+
+## Potential focused tests
+
+Automated unit tests are not required for the current production release, and the repository should avoid ceremonial test coverage that adds maintenance without protecting meaningful behavior.
+
+A future reliability pass may extract the existing URL-validation and history-storage logic into small pure Kotlin helpers and add focused tests for accepted and rejected web links, history deduplication and move-to-top behavior, the 50-entry limit, and malformed saved history. These tests would verify behavior the app already provides and would not expand the product scope.
