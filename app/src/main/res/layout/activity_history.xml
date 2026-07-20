@@ -84,6 +84,7 @@
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="@dimen/card_top_margin"
         android:text="@string/action_clear_history"
+        android:textSize="@dimen/button_text_size"
         app:cornerRadius="@dimen/button_corner_radius" />
 
 </LinearLayout>

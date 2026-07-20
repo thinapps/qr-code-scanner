@@ -8,11 +8,30 @@
         <item name="colorAccent">@color/md_accent</item>
         <item name="colorSurface">@color/md_card</item>
         <item name="colorOnSurface">@color/md_text</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.QrCodeScanner.MaterialAlertDialog</item>
 
         <item name="android:forceDarkAllowed">false</item>
         <item name="android:statusBarColor">@color/md_bg</item>
         <item name="android:navigationBarColor">@color/md_bg</item>
         <item name="android:windowBackground">@color/md_bg</item>
         <item name="android:textColor">@color/md_text</item>
+    </style>
+
+    <style name="ThemeOverlay.QrCodeScanner.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.QrCodeScanner.Dialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.QrCodeScanner.Dialog.Body</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.QrCodeScanner.Button.Dialog</item>
+    </style>
+
+    <style name="TextAppearance.QrCodeScanner.Dialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textSize">@dimen/dialog_title_text_size</item>
+    </style>
+
+    <style name="TextAppearance.QrCodeScanner.Dialog.Body" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textSize">@dimen/dialog_body_text_size</item>
+    </style>
+
+    <style name="Widget.QrCodeScanner.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textSize">@dimen/button_text_size</item>
     </style>
 </resources>

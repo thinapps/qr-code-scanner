@@ -130,7 +130,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/camera_permission_message"
-                    android:textColor="@color/md_text_dim" />
+                    android:textColor="@color/md_text_dim"
+                    android:textSize="@dimen/body_text_size" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnPermission"
@@ -138,6 +139,7 @@
                     android:layout_height="@dimen/button_height"
                     android:layout_marginTop="@dimen/button_top_margin"
                     android:text="@string/camera_permission_button"
+                    android:textSize="@dimen/button_text_size"
                     app:cornerRadius="@dimen/button_corner_radius" />
             </LinearLayout>
 
@@ -221,6 +223,7 @@
                             android:layout_height="@dimen/button_height"
                             android:layout_weight="1"
                             android:text="@string/action_copy"
+                            android:textSize="@dimen/button_text_size"
                             app:cornerRadius="@dimen/button_corner_radius" />
 
                         <com.google.android.material.button.MaterialButton
@@ -230,6 +233,7 @@
                             android:layout_marginStart="@dimen/action_button_gap"
                             android:layout_weight="1"
                             android:text="@string/action_open"
+                            android:textSize="@dimen/button_text_size"
                             app:cornerRadius="@dimen/button_corner_radius" />
 
                         <com.google.android.material.button.MaterialButton
@@ -239,6 +243,7 @@
                             android:layout_marginStart="@dimen/action_button_gap"
                             android:layout_weight="1"
                             android:text="@string/action_share"
+                            android:textSize="@dimen/button_text_size"
                             app:cornerRadius="@dimen/button_corner_radius" />
                     </LinearLayout>
                 </LinearLayout>
