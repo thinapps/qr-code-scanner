@@ -17,7 +17,7 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 1.0.0
-- First production release for Google Play
+- first production release for Google Play
 
 ### 0.11.4
 - expands the in-app privacy policy with the 50-entry local history limit, bundled ML Kit technical data disclosure, and clipboard and external-app handling
