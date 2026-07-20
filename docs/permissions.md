@@ -26,6 +26,8 @@ The source manifest also declares that the app requires camera hardware:
     android:required="true" />
 ```
 
+Because camera hardware is marked as required, Google Play does not offer the app to devices that report no camera. This is intentional for the current product even though selected-image scanning itself does not use camera permission and can remain available when camera permission is denied or a camera cannot start. Supporting installation on camera-less devices in the future would require changing the feature declaration to `android:required="false"` and continuing to handle camera unavailability as a normal app state.
+
 Camera permission is not used for selected-image scanning.
 
 ## Android Photo Picker access
