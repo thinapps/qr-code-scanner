@@ -18,6 +18,7 @@ Scans QR codes and barcodes with history
 
 ### 0.11.4
 - expands the in-app privacy policy with the 50-entry local history limit, bundled ML Kit technical data disclosure, and clipboard and external-app handling
+- sets explicit text sizes for the permission message, action buttons, and privacy-policy dialog instead of relying on Material defaults
 
 ### 0.11.3
 - removes the fixed `48dp` minimum height from the `Privacy Policy` link and uses natural text height with an `8dp` gap above and the existing `20dp` panel padding below
