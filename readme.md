@@ -17,8 +17,7 @@ Scans QR codes and barcodes with history
 ## Changelog
 
 ### 1.0.0
-- marks the first production release after final code, privacy, performance, and documentation review
-- keeps the established local camera and selected-image scanning, 50-entry history, and explicit Copy, Open, and Share actions
+- First production release for Google Play
 
 ### 0.11.4
 - expands the in-app privacy policy with the 50-entry local history limit, bundled ML Kit technical data disclosure, and clipboard and external-app handling
