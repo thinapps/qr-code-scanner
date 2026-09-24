@@ -27,7 +27,7 @@
 
 ### 0.10.4
 - adds a centered `Privacy Policy` text link below the local-only footer message
-- opens the privacy policy in a simple in-app modal without adding Internet access or another screen
+- opens the privacy policy in a simple in-app modal without opening a browser or adding another screen
 - documents local camera, selected-image, scan-history, Open, and Share behavior in the policy text
 
 ### 0.10.3
