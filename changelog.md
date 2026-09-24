@@ -1,7 +1,11 @@
 # Changelog
 
+### 1.0.1
+- updates Material Components from `1.13.0` to `1.14.0` to address deprecated Android 15+ system-bar color API usage in Material dialog internals and keep edge-to-edge behavior current
+- advances the Google Play release candidate to version code `52` after `1.0.0` / version code `51` internal validation
+
 ### 1.0.0
-- first production release for Google Play
+- initial Google Play production candidate used for internal validation and superseded before production by `1.0.1`
 
 ### 0.11.4
 - expands the in-app privacy policy with the 50-entry local history limit, bundled ML Kit technical data disclosure, and clipboard and external-app handling
