@@ -7,7 +7,7 @@ The app intentionally has a history screen, but the history screen should stay l
 - stored locally on the device with private app preferences
 - no account
 - no sync
-- no internet access
+- no ThinApps network storage
 - no ThinApps analytics or scan-history tracking
 - no database
 - no search
