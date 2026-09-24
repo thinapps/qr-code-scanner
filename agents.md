@@ -29,9 +29,9 @@ App-specific documentation is the final source of truth when QR Code Scanner int
 Preserve QR Code Scanner as a focused, local-only QR code and barcode scanner.
 
 - Keep live camera scanning and Android Photo Picker image scanning aligned with the supported formats and behavior documented under `docs/`.
-- Preserve the privacy-first baseline: no accounts, ads, analytics, tracking, Internet permission, cloud processing, or remote scan history unless the user explicitly approves and the related documentation and disclosures are updated.
+- Preserve the privacy-first baseline: no accounts, ads, ThinApps-operated analytics or tracking, cloud processing, remote scan history, direct app-owned network features, or direct Internet permission unless the user explicitly approves and the related documentation and disclosures are updated. Core scanning must continue to work without an internet connection, and dependency-contributed telemetry such as ML Kit must remain accurately disclosed.
 - Keep scan history local, limited, and consistent with the documented deduplication, timestamp, preview, and clearing behavior.
-- Preserve safe URL normalization and validation before enabling Open, and keep Copy, Share, and external-app handling accurately documented.
+- Preserve structural URL normalization and validation before enabling Open, and keep Copy, Share, and external-app handling accurately documented.
 - Keep torch control inside the CameraX camera flow unless an approved change updates the implementation and documentation together.
 - Prefer small, reliable changes over speculative features, broad refactors, or additional dependencies.
 
