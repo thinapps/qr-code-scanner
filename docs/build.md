@@ -22,7 +22,7 @@ Release signing is configured through repository secrets used by the workflow.
 
 ## 16 KB page-size compatibility
 
-The project uses Android Gradle Plugin `8.10.1`, which is newer than the `8.5.1` baseline required for correct 16 KB ZIP alignment of uncompressed native libraries in app bundles. The bundled ML Kit barcode scanner dependency is `17.3.0`, whose release added Android 16 KB page-size support.
+The project uses Android Gradle Plugin `8.10.1`, which is newer than the `8.5.1` baseline required for correct 16 KB ZIP alignment of uncompressed native libraries in app bundles. The bundled ML Kit barcode scanner dependency is `17.3.0` and includes native code, so 16 KB compatibility must be verified from the actual release artifact rather than inferred from the dependency version alone.
 
 Source configuration is not treated as final proof for a release artifact. Before production promotion, verify the exact signed AAB from GitHub Actions in Google Play's Bundle Explorer or run:
 
