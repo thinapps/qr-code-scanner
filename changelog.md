@@ -206,7 +206,7 @@
 ### 0.3.2
 - supports domain-style scanned values without a typed scheme
 - normalizes domain-style scanned values before opening
-- blocks unsafe scanned links before enabling Open
+- blocks unsupported or malformed scanned links before enabling Open
 
 ### 0.3.1
 - centered the local-only footer message below the scanner result card
