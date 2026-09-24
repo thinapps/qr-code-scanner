@@ -2,7 +2,7 @@
 
 QR Code Scanner is an open-source Android utility for scanning QR codes and common barcodes through the live camera or Android Photo Picker. It supports local result actions, safe web-link opening, pinch-to-zoom, tap-to-focus, torch control, and a private on-device scan history.
 
-The app works locally without Internet permission, accounts, ads, analytics, tracking, or cloud processing. Scan history stays on the device and keeps only the 50 most recent unique values.
+The app's core functionality works locally without an internet connection, accounts, ads, ThinApps-operated analytics or tracking, or cloud processing. Scan history stays on the device and keeps only the 50 most recent unique values.
 
 ## Documentation
 
