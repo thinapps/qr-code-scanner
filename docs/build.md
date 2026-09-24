@@ -10,6 +10,8 @@ The root `build.gradle` defines the Android and Kotlin build plugins plus the sh
 
 The scanner dependency baseline uses CameraX `1.5.3` consistently across `camera-core`, `camera-camera2`, `camera-lifecycle`, and `camera-view`, plus bundled on-device ML Kit barcode scanning `17.3.0`.
 
+The UI dependency baseline uses Material Components `1.14.0`. That release limits its legacy system-bar color setters to Android versions before API 35, keeping Material dialogs aligned with Android 15 and newer edge-to-edge behavior without using those deprecated window color APIs on affected versions.
+
 The repository does not commit Gradle wrapper files. The GitHub Actions release workflow downloads Gradle 8.11.1 and generates the wrapper during each run, matching the current ThinApps utility app pattern.
 
 ## Release bundle
