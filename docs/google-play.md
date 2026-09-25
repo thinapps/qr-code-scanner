@@ -52,7 +52,7 @@ Scan Result Actions
 * Share: Send a result through Android’s standard share sheet.
 * Clear Result: Hide the current result without deleting saved history.
 
-For safer link handling, QR Code Scanner validates scanned web addresses before enabling Open. Unsupported schemes, malformed addresses, embedded user information, control characters, backslashes, and non-standard ports are blocked.
+For link handling, QR Code Scanner validates scanned web addresses before enabling Open. Unsupported schemes, malformed addresses, embedded user information, control characters, and backslashes are blocked.
 
 Local Scan History
 
@@ -67,7 +67,7 @@ Privacy-Focused Design
 
 QR Code Scanner performs QR code and barcode recognition on your device using the bundled ML Kit model. Camera frames and selected images are not uploaded by the app, and selected images are not copied into app storage.
 
-The app has no user accounts, advertising, analytics, tracking, cloud history, subscriptions, or login requirements. Core scanning works without an internet connection. External apps or websites receive a result only when you choose Copy, Open, or Share.
+The app has no user accounts, advertising, ThinApps-operated analytics or tracking, cloud history, subscriptions, or login requirements. Core scanning works without an internet connection. External apps or websites receive a result only when you choose Copy, Open, or Share.
 
 Key Features
 
@@ -78,7 +78,7 @@ Key Features
 * Built-in torch control for darker environments
 * Private history for up to 50 unique results
 * Copy, Open, Share, and Clear actions
-* Safer validation before opening web links
+* Link validation before opening web addresses
 * No ads, login, or account registration
 * No internet connection required for scanning
 * Lightweight interface without unnecessary clutter
